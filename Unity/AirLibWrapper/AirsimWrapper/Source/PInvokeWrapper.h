@@ -32,6 +32,7 @@ extern bool(*GetCameraDistortionParams)(const char* cameraName, const char* vehi
 extern bool(*SetSegmentationObjectId)(const char* meshName, int objectId, bool isNameRegex);
 extern int(*GetSegmentationObjectId)(const char* meshName);
 extern bool(*PrintLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity);
+extern bool(*PrintTest) (const char* message);
 extern UnityTransform(*GetTransformFromUnity)(const char* vehicleName);
 extern bool(*Reset)(const char* vehicleName);
 extern AirSimVector(*GetVelocity)(const char* vehicleName);
@@ -58,6 +59,7 @@ extern "C" EXPORT void InitVehicleManager(
 	bool(*setSegmentationObjectId)(const char* meshName, int objectId, bool isNameRegex),
 	int(*getSegmentationObjectId)(const char* meshName),
 	bool(*printLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity),
+	bool(*printTest) (const char* message),
 	UnityTransform(*getTransformFromUnity)(const char* vehicleName),
 	bool(*reset)(const char* vehicleName),
 	AirSimVector(*getVelocity)(const char* vehicleName),

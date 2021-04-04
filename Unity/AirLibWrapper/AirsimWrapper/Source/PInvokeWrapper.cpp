@@ -18,6 +18,7 @@ bool(*GetCameraDistortionParams)(const char* cameraName, const char* vehicleName
 bool(*SetSegmentationObjectId)(const char* meshName, int objectId, bool isNameRegex);
 int(*GetSegmentationObjectId)(const char* meshName);
 bool(*PrintLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity);
+bool(*PrintTest) (const char* message);
 UnityTransform(*GetTransformFromUnity)(const char* vehicleName);
 bool(*Reset)(const char* vehicleName);
 AirSimVector(*GetVelocity)(const char* vehicleName);
@@ -42,6 +43,7 @@ void InitVehicleManager(
 	bool(*setSegmentationObjectId)(const char* meshName, int objectId, bool isNameRegex),
 	int(*getSegmentationObjectId)(const char* meshName),
 	bool(*printLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity),
+	bool(*printTest) (const char* message),
 	UnityTransform(*getTransformFromUnity)(const char* vehicleName),
 	bool(*reset)(const char* vehicleName),
 	AirSimVector(*getVelocity)(const char* vehicleName),
@@ -66,6 +68,7 @@ void InitVehicleManager(
 	SetSegmentationObjectId = setSegmentationObjectId;
 	GetSegmentationObjectId = getSegmentationObjectId;
 	PrintLogMessage = printLogMessage;
+	PrintTest = printTest;
 	GetTransformFromUnity = getTransformFromUnity;
 	Reset = reset;
 	GetVelocity = getVelocity;

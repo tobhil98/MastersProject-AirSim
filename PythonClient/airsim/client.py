@@ -459,7 +459,11 @@ class VehicleClient:
             mesh_name (str): Name of the mesh to get the ID of
         """
         return self.client.call('simGetSegmentationObjectID', mesh_name)
-
+	
+    def simPrintTest(self, message):
+        print("Attempt!")
+        self.client.call('simPrintTest', message)
+	
     def simPrintLogMessage(self, message, message_param = "", severity = 0):
         """
         Prints the specified message in the simulator's window.
@@ -1356,7 +1360,10 @@ class CarClient(VehicleClient, object):
             CarState:
         """
         state_raw = self.client.call('getCarState', vehicle_name)
-        return CarState.from_msgpack(state_raw)
+
+        temp = CarState.from_msgpack(state_raw)
+        #print(temp)
+        return temp
 
     def getCarControls(self, vehicle_name=''):
         """

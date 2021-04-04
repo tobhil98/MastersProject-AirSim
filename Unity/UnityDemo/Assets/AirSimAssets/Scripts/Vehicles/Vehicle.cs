@@ -308,10 +308,11 @@ namespace AirSimUnity {
             } else if (severity == 1) {
                 Debug.LogWarning(message + " " + messageParams + " Vehicle=" + vehicleName);
             } else {
-                Debug.Log(message + " " + messageParams + " Vehicle=" + vehicleName);
+                //Debug.Log(message + " " + messageParams + " Vehicle=" + vehicleName);
             }
             return true;
         }
+
 
         public static bool SetSegmentationObjectId(string objectName, int objectId, bool isNameRegex) {
             int finalId = ((objectId + 2) << 16) | ((objectId + 1) << 8) | objectId;

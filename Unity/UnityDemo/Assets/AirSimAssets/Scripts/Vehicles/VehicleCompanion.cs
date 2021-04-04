@@ -49,7 +49,10 @@ namespace AirSimUnity {
         }
 
         public bool StartVehicleServer(string hostIP) {
-            return PInvokeWrapper.StartServer(vehicleName, AirSimSettings.GetSettings().SimMode, basePortId);
+
+            bool t = PInvokeWrapper.StartServer(vehicleName, AirSimSettings.GetSettings().SimMode, basePortId);
+
+            return t;
         }
 
         public void StopVehicleServer() {
@@ -100,6 +103,7 @@ namespace AirSimUnity {
                 Marshal.GetFunctionPointerForDelegate(new Func<string, int, bool, bool>(SetSegmentationObjectId)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, int>(GetSegmentationObjectId)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, string, string, int, bool>(PrintLogMessage)),
+                Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(PrintTest)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, UnityTransform>(GetTransformFromUnity)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(Reset)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimVector>(GetVelocity)),
@@ -210,6 +214,12 @@ namespace AirSimUnity {
         private static bool PrintLogMessage(string message, string messageParams, string vehicleName, int severity) {
             var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
             return vehicle.VehicleInterface.PrintLogMessage(message, messageParams, vehicleName, severity);
+        }
+
+        private static bool PrintTest(string message)
+        {
+            Debug.LogError("Custom message:" + message);
+            return true;
         }
 
         private static bool SetSegmentationObjectId(string objectName, int objectId, bool isNameRegex) {

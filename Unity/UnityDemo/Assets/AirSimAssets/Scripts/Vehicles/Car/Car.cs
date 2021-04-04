@@ -24,11 +24,13 @@ namespace AirSimUnity
         {
             base.Start();
             carController = GetComponent<AirSimCarController>();
+            //Debug.LogWarning("A warning assigned to this transform!");
 
         }
 
-        private new void FixedUpdate()
+        public new void FixedUpdate()
         {
+           // Debug.LogWarning("A warning assigned to this transform!");
             if (isServerStarted)
             {
                 if (resetVehicle)
@@ -54,7 +56,6 @@ namespace AirSimUnity
                 else
                 {
                     base.FixedUpdate();
-
                     if (isApiEnabled)
                     {
                         throttle = carControls.throttle;
@@ -64,6 +65,7 @@ namespace AirSimUnity
                     }
                     else
                     {
+
                         steering = Input.GetAxis("Horizontal");
                         throttle = Input.GetAxis("Vertical");
                         handBrake = Input.GetAxis("Jump");
