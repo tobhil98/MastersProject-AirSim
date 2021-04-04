@@ -52,6 +52,8 @@ public:
     virtual void printLogMessage(const std::string& message,
         const std::string& message_param = "", unsigned char severity = 0) = 0;
 
+    virtual void printTest(const std::string& message) = 0;
+
     //----------- Plotting APIs ----------/
     virtual void simFlushPersistentMarkers() = 0;
     virtual void simPlotPoints(const vector<Vector3r>& points, const vector<float>& color_rgba, float size, float duration, bool is_persistent) = 0; 
