@@ -2,21 +2,29 @@
 #include "../PInvokeWrapper.h"
 #include "../Vehicles/Car/SimModeCar.h"
 #include "../Vehicles/Multirotor/SimModeWorldMultiRotor.h"
+#include "../Logger.h"
 
 SimHUD::SimHUD(std::string sim_mode_name, int port_number) :
 	sim_mode_name_(sim_mode_name), port_number_(port_number)
 {
 	server_started_Successfully_ = false;
+	LOGGER->WriteLog("SimHUD constructor.");
+
 }
 
 void SimHUD::BeginPlay()
 {
 	try {
-		PrintLogMessage("Wrapper: Begin SimHUD", "Test" , "", 2);
+		LOGGER->WriteLog("SimHUD begin play...");
+
 		initializeSettings();
+		LOGGER->WriteLog("Create Sim Init Settings");
 		createSimMode();
+		LOGGER->WriteLog("Create Sim Mode");
 		if (simmode_)
 			simmode_->startApiServer();
+		LOGGER->WriteLog("SimHUD Server started");
+
 
 		server_started_Successfully_ = true;
 	}
@@ -71,9 +79,9 @@ void SimHUD::setSubwindowVisible(int window_index, bool is_visible)
 void SimHUD::initializeSettings()
 {
 	std::string settingsText;
-	if (getSettingsText(settingsText))
-		AirSimSettings::initializeSettings(settingsText);
-	else
+	//if (getSettingsText(settingsText))
+	//	AirSimSettings::initializeSettings(settingsText);
+	//else
 		AirSimSettings::createDefaultSettingsFile();
 
 	AirSimSettings::singleton().load(std::bind(&SimHUD::getSimModeFromUser, this));
