@@ -15,19 +15,21 @@ for idx in range(3000):
     print("Speed %d, Gear %d" % (car_state.speed, car_state.gear))
 
     # go forward
-    car_controls.throttle = 0.5
+    print("Forward")
+    car_controls.throttle = 1
     car_controls.steering = 0
     client.setCarControls(car_controls)
     time.sleep(1)   # let car drive a bit
 
+    print("Forward and right")
     # Go forward + steer right
-    car_controls.throttle = 0.5
+    car_controls.throttle = 1
     car_controls.steering = 1
     client.setCarControls(car_controls)
     time.sleep(1)   # let car drive a bit
 
     # go reverse
-    car_controls.throttle = -0.5
+    car_controls.throttle = -1
     car_controls.is_manual_gear = True;
     car_controls.manual_gear = -1
     car_controls.steering = 0

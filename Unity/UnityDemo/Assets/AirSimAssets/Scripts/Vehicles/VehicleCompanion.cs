@@ -39,6 +39,8 @@ namespace AirSimUnity {
         public static VehicleCompanion GetVehicleCompanion(IVehicleInterface vehicleInterface) {
             var companion = new VehicleCompanion(vehicleInterface);
 
+            Debug.LogWarning("Number of cars:" + Vehicles.Count.ToString());
+
             if (AirSimSettings.GetSettings().SimMode == "Car")
                 companion.vehicleName = "PhysXCar";
             else if (AirSimSettings.GetSettings().SimMode == "Multirotor")
