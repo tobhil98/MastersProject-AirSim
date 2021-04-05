@@ -1,17 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AirSimUnity.CarStructs;
 
-public class AddCar : MonoBehaviour
+
+namespace AirSimUnity
 {
-    // Start is called before the first frame update
-
-    public Transform car;
-
-    public void Pressed()
+    public class AddCar : MonoBehaviour
     {
-        Debug.LogWarning("Adding new car");
-        Instantiate(car, new Vector3(-250, 2, 50), Quaternion.identity);
+        // Start is called before the first frame update
+
+        public Transform car;
+
+
+        private static int count = 1;
+        public void Pressed()
+        {
+            Debug.LogWarning("Adding new car");
+            var obj = Instantiate(car, new Vector3(-250, 2, 50), Quaternion.identity);
+            obj.GetComponent<Car>().vehicleName = "Car" + (count++).ToString();
+        }
+
     }
 
 }

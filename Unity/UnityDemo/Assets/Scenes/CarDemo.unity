@@ -9412,6 +9412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e924d4c00c2c05d42830dd3a94dd86a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicleName: PhysXCar
 --- !u!114 &1472270036
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,10 +34,10 @@ extern int(*GetSegmentationObjectId)(const char* meshName);
 extern bool(*PrintLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity);
 extern bool(*PrintTest) (const char* message);
 extern UnityTransform(*GetTransformFromUnity)(const char* vehicleName);
-extern bool(*Reset)(const char* vehicleName);
+extern bool(*Reset)();
 extern AirSimVector(*GetVelocity)(const char* vehicleName);
 extern RayCastHitResult(*GetRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName);
-extern bool(*Pause)(const char* vehicleName, float timeScale);
+extern bool(*Pause)(float timeScale);
 
 // PInvoke call to initialize the function pointers. This function is called from Unity.
 
@@ -61,8 +61,8 @@ extern "C" EXPORT void InitVehicleManager(
 	bool(*printLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity),
 	bool(*printTest) (const char* message),
 	UnityTransform(*getTransformFromUnity)(const char* vehicleName),
-	bool(*reset)(const char* vehicleName),
+	bool(*reset)(),
 	AirSimVector(*getVelocity)(const char* vehicleName),
 	RayCastHitResult(*getRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName),
-	bool(*pause)(const char* vehicleName, float timeScale)
+	bool(*pause)(float timeScale)
 );

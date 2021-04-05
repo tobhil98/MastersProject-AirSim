@@ -3,8 +3,8 @@
 #include "../Vehicles/Car/SimModeCar.h"
 #include "../Vehicles/Multirotor/SimModeWorldMultiRotor.h"
 
-SimHUD::SimHUD(std::string vehicle_name, std::string sim_mode_name, int port_number) :
-	vehicle_name_(vehicle_name), sim_mode_name_(sim_mode_name), port_number_(port_number)
+SimHUD::SimHUD(std::string sim_mode_name, int port_number) :
+	sim_mode_name_(sim_mode_name), port_number_(port_number)
 {
 	server_started_Successfully_ = false;
 }
@@ -12,7 +12,7 @@ SimHUD::SimHUD(std::string vehicle_name, std::string sim_mode_name, int port_num
 void SimHUD::BeginPlay()
 {
 	try {
-		PrintLogMessage("Wrapper: Begin SimHUD", "Test" , vehicle_name_.c_str(), 2);
+		PrintLogMessage("Wrapper: Begin SimHUD", "Test" , "", 2);
 		initializeSettings();
 		createSimMode();
 		if (simmode_)
@@ -22,7 +22,7 @@ void SimHUD::BeginPlay()
 	}
 	catch (std::exception& ex)
 	{
-		PrintLogMessage("Error at startup: ", ex.what(), vehicle_name_.c_str(), ErrorLogSeverity::Error);
+		PrintLogMessage("Error at startup: ", ex.what(), "", ErrorLogSeverity::Error);
 	}
 }
 
@@ -79,10 +79,10 @@ void SimHUD::initializeSettings()
 	AirSimSettings::singleton().load(std::bind(&SimHUD::getSimModeFromUser, this));
 
 	for (const auto& warning : AirSimSettings::singleton().warning_messages) {
-		PrintLogMessage(warning.c_str(), "LogDebugLevel::Failure", vehicle_name_.c_str(), ErrorLogSeverity::Error);
+		PrintLogMessage(warning.c_str(), "LogDebugLevel::Failure", "", ErrorLogSeverity::Error);
 	}
 	for (const auto& error : AirSimSettings::singleton().error_messages) {
-		PrintLogMessage(error.c_str(), "settings.json", vehicle_name_.c_str(), ErrorLogSeverity::Error);
+		PrintLogMessage(error.c_str(), "settings.json", "", ErrorLogSeverity::Error);
 	}
 }
 
@@ -111,9 +111,9 @@ void SimHUD::createSimMode()
 	std::string simmode_name = AirSimSettings::singleton().simmode_name;
 
 	if (simmode_name == "Multirotor")
-		simmode_ = new SimModeWorldMultiRotor(vehicle_name_, port_number_);
+		simmode_ = new SimModeWorldMultiRotor(port_number_);
 	else if (simmode_name == "Car")
-		simmode_ = new SimModeCar(vehicle_name_, port_number_);
+		simmode_ = new SimModeCar(port_number_);
 
 	simmode_->BeginPlay();
 }
@@ -140,12 +140,12 @@ bool SimHUD::readSettingsTextFromFile(std::string settingsFilepath, std::string&
 		std::stringstream buffer;
 		buffer << file.rdbuf();
 		settingsText = buffer.str();
-		PrintLogMessage("Loaded settings from ", settingsFilepath.c_str(), vehicle_name_.c_str(), ErrorLogSeverity::Information);
+		PrintLogMessage("Loaded settings from ", settingsFilepath.c_str(), "", ErrorLogSeverity::Information);
 		return true;
 	}
 	else
 	{
-		PrintLogMessage("Cannot read settings file ", settingsFilepath.c_str(), vehicle_name_.c_str(), ErrorLogSeverity::Error);
+		PrintLogMessage("Cannot read settings file ", settingsFilepath.c_str(), "", ErrorLogSeverity::Error);
 	}
 	return false;
 }
