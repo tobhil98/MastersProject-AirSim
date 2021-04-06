@@ -26,6 +26,7 @@ extern "C" EXPORT bool StartServer(char* sim_mode_name, int port_number)
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		waitCounter--;
 	}
+	LOGGER->WriteLog("Server started " + key->server_started_Successfully_);
 	return key->server_started_Successfully_;
 }
 
@@ -48,7 +49,6 @@ extern "C" EXPORT void CallTick(float deltaSeconds)
 extern "C" EXPORT void InvokeCollisionDetection(char* vehicle_name, AirSimUnity::AirSimCollisionInfo collision_info)
 {
 	auto simMode = key->GetSimMode();
-	LOGGER->WriteLog("This is a test");
 	if (simMode)
 	{
 		auto vehicleApi = simMode->getVehicleSimApi(vehicle_name);

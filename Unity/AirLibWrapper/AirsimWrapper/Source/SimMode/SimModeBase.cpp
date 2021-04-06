@@ -4,6 +4,7 @@
 #include "common/EarthCelestial.hpp"
 #include "../PInvokeWrapper.h"
 #include "../WorldSimApi.h"
+#include "../Logger.h"
 
 SimModeBase::SimModeBase(int port_number) :
 	port_number_(port_number)
@@ -12,14 +13,19 @@ SimModeBase::SimModeBase(int port_number) :
 
 void SimModeBase::BeginPlay()
 {
+	LOGGER->WriteLog("SimModeBase begin play...");
 	debug_reporter_.initialize(false);
 	debug_reporter_.reset();
+	LOGGER->WriteLog("SimModeBase begin play debug_reporter done");
 	global_ned_transform_.reset(new NedTransform(GetVehicleStartTransform()));
+	LOGGER->WriteLog("SimModeBase Reset transform");
 	world_sim_api_.reset(new WorldSimApi(this));
 	api_provider_.reset(new msr::airlib::ApiProvider(world_sim_api_.get()));
 	setupClockSpeed();
 	record_tick_count = 0;
+	LOGGER->WriteLog("SimModeBase Before Camera");
 	setupVehiclesAndCamera();
+	LOGGER->WriteLog("SimModeBase Done");
 }
 
 void SimModeBase::Tick(float DeltaSeconds)
@@ -209,22 +215,29 @@ void SimModeBase::setupVehiclesAndCamera()
 {
 	//determine camera director camera default pose and spawn it
 	const auto& camera_director_setting = getSettings().camera_director;
+	LOGGER->WriteLog("Loop start");
 	for (auto const& vehicle_setting_pair : getSettings().vehicles) {
 		const auto& vehicle_setting = *vehicle_setting_pair.second;
 		const std::string& vehicle_name = vehicle_setting.vehicle_name;
+		LOGGER->WriteLog("Loop start 1: " + vehicle_name);
 
 		UnityPawn* vehicle_pawn = GetVehiclePawn(vehicle_name);
+		LOGGER->WriteLog("Loop start1.5");
 		const auto& home_geopoint = msr::airlib::EarthUtils::nedToGeodetic(GetVehiclePosition(vehicle_name), getSettings().origin_geopoint);
+		LOGGER->WriteLog("Loop start2");
 
 		PawnSimApi::Params pawn_sim_api_params(vehicle_pawn, &getGlobalNedTransform(), home_geopoint, vehicle_name);
 		auto vehicle_sim_api = createVehicleSimApi(pawn_sim_api_params);
 		auto vehicle_sim_api_p = vehicle_sim_api.get();
 		auto vehicle_Api = getVehicleApi(pawn_sim_api_params, vehicle_sim_api_p);
+		LOGGER->WriteLog("Loop start3");
 
 		getApiProvider()->insert_or_assign(vehicle_name, vehicle_Api, vehicle_sim_api_p);
+		LOGGER->WriteLog("Loop start4");
 
 		if ((!getApiProvider()->hasDefaultVehicle()) && vehicle_name != "")
 			getApiProvider()->makeDefaultVehicle(vehicle_name);
+		LOGGER->WriteLog("Loop start5");
 
 		vehicle_sim_apis_.push_back(std::move(vehicle_sim_api));
 	}

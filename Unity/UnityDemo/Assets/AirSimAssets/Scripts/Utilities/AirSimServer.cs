@@ -16,9 +16,10 @@ namespace AirSimUnity
         // Start is called before the first frame update
         void Start()
         {
+            Debug.LogError("Script called");
             string simMode = AirSimSettings.GetSettings().SimMode;
             int basePortId = AirSimSettings.GetSettings().GetPortIDForVehicle(simMode == DRONE_MODE);
-            Debug.LogError("Check here");
+            Debug.LogError("Check here: " + simMode + ", " + basePortId);
             bool isServerStarted = PInvokeWrapper.StartServer(simMode, basePortId);
             Debug.LogError("Check again: " + isServerStarted);
             return;
