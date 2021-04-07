@@ -36,13 +36,21 @@ def get_image(cameraName = "0"):
     image1d = np.fromstring(image.image_data_uint8, dtype=np.uint8)
     image_rgb = image1d.reshape(image.height, image.width, 3)[::-1,::]
     #gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
+    
     return image_rgb
 
 def showImages(img1, img2):
     image = np.concatenate((img1,img2), axis=1)
+
+    # stereo = cv2.StereoSGBM_create(numDisparities=128, blockSize=5)
+    # stereo.setMode(3)
+    # disparity = stereo.compute(img1, img2)
+
     cv2.imshow('image', image)
+   # cv2.imshow('disp', disparity)
     cv2.waitKey(100)
     #plt.show()
+
     print("Got image: ", image.shape, image.shape, image.shape)
 
 while (True):
@@ -56,7 +64,7 @@ while (True):
         car_controls.throttle = 0.0
     
 
-    img1 = get_image("0")
+    img1 = get_image("Front Left")
     img2 = get_image("1")
    # img3 = get_image("Front Left")
    # blank_image = np.zeros((144, 256, 3))
