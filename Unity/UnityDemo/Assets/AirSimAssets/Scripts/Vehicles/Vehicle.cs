@@ -308,7 +308,7 @@ namespace AirSimUnity {
             } else if (severity == 1) {
                 Debug.LogWarning(message + " " + messageParams + " Vehicle=" + vehicleName);
             } else {
-                //Debug.Log(message + " " + messageParams + " Vehicle=" + vehicleName);
+                //Debug.Log(message + " " + messageParams + " Vehicle=" + vehicleType);
             }
             return true;
         }
