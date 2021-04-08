@@ -19,8 +19,6 @@ namespace AirSimUnity {
         private static List<VehicleCompanion> Vehicles = new List<VehicleCompanion>();
 
         private static bool serverStarted = false;
-        private static int counter = 0;
-
         private static int basePortId;
 
         //An interface to interact with Unity vehicle component.
@@ -41,14 +39,14 @@ namespace AirSimUnity {
             basePortId = AirSimSettings.GetSettings().GetPortIDForVehicle(isDrone);
         }
 
-        public static VehicleCompanion GetVehicleCompanion(IVehicleInterface vehicleInterface) {
+        public static VehicleCompanion GetVehicleCompanion(IVehicleInterface vehicleInterface, string vehicleName) {
             var companion = new VehicleCompanion(vehicleInterface);
 
 
             if (AirSimSettings.GetSettings().SimMode == "Car")
             {
                 companion.vehicleType = "PhysXCar";
-                companion.vehicleName = "car" + ++counter;
+                companion.vehicleName = vehicleName;
             }
 
             else if (AirSimSettings.GetSettings().SimMode == "Multirotor")
@@ -62,13 +60,11 @@ namespace AirSimUnity {
         }
 
         public bool StartVehicleServer(string hostIP) {
-            Debug.Log("Start server for " + vehicleName);
             if (serverStarted == false){
                 serverStarted = PInvokeWrapper.StartServer(vehicleType, AirSimSettings.GetSettings().SimMode, basePortId);
                 Debug.LogWarning("Server started: " + serverStarted);
                 return serverStarted;
             }
-            Debug.LogWarning("Server already started");
             return true;
         }
 
@@ -134,7 +130,8 @@ namespace AirSimUnity {
                 Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(Reset)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimVector>(GetVelocity)),
                 Marshal.GetFunctionPointerForDelegate(new Func<AirSimVector, AirSimVector, string, RayCastHitResult>(GetRayCastHit)),
-                Marshal.GetFunctionPointerForDelegate(new Func<string, float, bool>(Pause))
+                Marshal.GetFunctionPointerForDelegate(new Func<string, float, bool>(Pause)),
+                Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(AddVehicle))
             );
         }
 
@@ -247,6 +244,14 @@ namespace AirSimUnity {
             Debug.LogError("Custom message:" + message);
             return true;
         }
+
+        private static bool AddVehicle(string vehicle_name, string vehicle_type) // Take in init pose and path?
+        {
+            Debug.LogError("Attempting to add car: " + vehicle_name + " - " + vehicle_type);
+            AddCar.GetInstance().SpawnVehicle(vehicle_name, new Vector3(-250, 2, 50), Quaternion.identity);
+            return true;
+        }
+
 
         private static bool SetSegmentationObjectId(string objectName, int objectId, bool isNameRegex) {
             return Vehicle.SetSegmentationObjectId(objectName, objectId, isNameRegex);

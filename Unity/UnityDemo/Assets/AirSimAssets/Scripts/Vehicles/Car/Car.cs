@@ -22,6 +22,7 @@ namespace AirSimUnity
 
         private new void Start()
         {
+            Debug.Log("Car start");
             base.Start();
             carController = GetComponent<AirSimCarController>();
             //Debug.LogWarning("A warning assigned to this transform!");

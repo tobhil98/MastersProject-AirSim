@@ -38,6 +38,7 @@ extern bool(*Reset)(const char* vehicleName);
 extern AirSimVector(*GetVelocity)(const char* vehicleName);
 extern RayCastHitResult(*GetRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName);
 extern bool(*Pause)(const char* vehicleName, float timeScale);
+extern bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
 
 // PInvoke call to initialize the function pointers. This function is called from Unity.
 
@@ -64,5 +65,6 @@ extern "C" EXPORT void InitVehicleManager(
 	bool(*reset)(const char* vehicleName),
 	AirSimVector(*getVelocity)(const char* vehicleName),
 	RayCastHitResult(*getRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName),
-	bool(*pause)(const char* vehicleName, float timeScale)
+	bool(*pause)(const char* vehicleName, float timeScale),
+	bool(*addVehicle)(const char* vehicleName, const char* vehicleType)
 );

@@ -23,7 +23,7 @@ namespace AirSimUnity {
         protected bool resetVehicle;
         protected float time_scale = 1.0f;
         protected bool timeScale_changed = false;
-        protected bool isApiEnabled = false;
+        protected bool isApiEnabled = true;
         protected bool isServerStarted = false;
         bool print_log_messages_ = true;
 
@@ -46,6 +46,8 @@ namespace AirSimUnity {
         RaycastHit hitInfo;
         bool hitResult;
 
+        public string vehicle_name;
+
         //Ensure to call this method as the first statement, from derived class `Start()` method.
         protected void Start() {
             isDrone = this is Drone ? true : false;
@@ -55,7 +57,7 @@ namespace AirSimUnity {
 
             InitializeVehicle();
 
-            airsimInterface = VehicleCompanion.GetVehicleCompanion(this);
+            airsimInterface = VehicleCompanion.GetVehicleCompanion(this, vehicle_name);
             isServerStarted = airsimInterface.StartVehicleServer(AirSimSettings.GetSettings().LocalHostIP);
 
             if (isServerStarted == false)
