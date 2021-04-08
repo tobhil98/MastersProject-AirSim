@@ -37,8 +37,9 @@ public:
     }
 
     // VehicleApiBase Implementation
-    virtual void enableApiControl(bool is_enabled) override
+    virtual void enableApiControl(bool is_enabled, const std::string& vehicle_name) override
     {
+        unused(vehicle_name);
         if (api_control_enabled_ != is_enabled) {
             last_controls_ = CarControls();
             api_control_enabled_ = is_enabled;

@@ -55,7 +55,7 @@ class VehicleClient:
             is_enabled (bool): True to enable, False to disable API control
             vehicle_name (str, optional): Name of the vehicle to send this command to
         """
-        self.client.call('enableApiControl', is_enabled, vehicle_name)
+        self.client.call('enableApiControl', is_enabled, vehicle_name, "test")
 
     def isApiControlEnabled(self, vehicle_name = ''):
         """

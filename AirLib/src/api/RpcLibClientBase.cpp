@@ -83,7 +83,7 @@ RpcLibClientBase::ConnectionState RpcLibClientBase::getConnectionState()
 }
 void RpcLibClientBase::enableApiControl(bool is_enabled, const std::string& vehicle_name)
 {
-    pimpl_->client.call("enableApiControl", is_enabled, vehicle_name);
+    pimpl_->client.call("enableApiControl", is_enabled, vehicle_name, "");
 }
 bool RpcLibClientBase::isApiControlEnabled(const std::string& vehicle_name) const
 {

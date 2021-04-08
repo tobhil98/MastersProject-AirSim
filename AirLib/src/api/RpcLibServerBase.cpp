@@ -122,8 +122,8 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         getWorldSimApi()->setWeatherParameter(param, val);
     });
 
-    pimpl_->server.bind("enableApiControl", [&](bool is_enabled, const std::string& vehicle_name) -> void {
-        getVehicleApi(vehicle_name)->enableApiControl(is_enabled);
+    pimpl_->server.bind("enableApiControl", [&](bool is_enabled, const std::string& vehicle_type, const std::string& vehicle_name) -> void {
+        getVehicleApi(vehicle_type)->enableApiControl(is_enabled, vehicle_name);
     });
 
     pimpl_->server.bind("isApiControlEnabled", [&](const std::string& vehicle_name) -> bool { 

@@ -32,7 +32,7 @@ sleep(1)
 
 
 def get_image(cameraName = "0"):
-    image = client.simGetImages([airsim.ImageRequest(cameraName, airsim.ImageType.Scene, False, False)])[0]
+    image = client.simGetImages([airsim.ImageRequest(cameraName, airsim.ImageType.Scene, False, False)],"PhysXCar")[0]
     image1d = np.fromstring(image.image_data_uint8, dtype=np.uint8)
     image_rgb = image1d.reshape(image.height, image.width, 3)[::-1,::]
     #gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
@@ -54,7 +54,7 @@ def showImages(img1, img2):
     print("Got image: ", image.shape, image.shape, image.shape)
 
 while (True):
-    car_state = client.getCarState()
+    car_state = client.getCarState("PhysXCar")
    
     print('car speed: {0}'.format(car_state.speed))
     
@@ -80,4 +80,4 @@ while (True):
     
     print('Sending steering = {0}, throttle = {1}'.format(car_controls.steering, car_controls.throttle))
     
-    client.setCarControls(car_controls)
+    client.setCarControls(car_controls, "PhysXCar")

@@ -61,8 +61,9 @@ public: //VehicleApiBase implementation
     {
         return firmware_->offboardApi().hasApiControl();
     }
-    virtual void enableApiControl(bool is_enabled) override
+    virtual void enableApiControl(bool is_enabled, const std::string& vehicle_name) override
     {
+        unused(vehicle_name);
         if (is_enabled) {
             //comm_link should print message so no extra handling for errors
             std::string message;
