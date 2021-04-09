@@ -54,7 +54,7 @@ namespace AirSimUnity {
 
 
             Vehicles.Add(companion);
-            Debug.LogWarning("Number of cars: " + Vehicles.Count.ToString());
+            Debug.LogWarning("Number of cars: " + Vehicles.Count.ToString() + ". Added - " + companion.vehicleName);
 
             return companion;
         }
@@ -194,7 +194,9 @@ namespace AirSimUnity {
         }
 
         private static bool SetEnableApi(bool enableApi, string vehicleName) {
-            var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
+            Debug.LogWarning("Searching for vehicle: " + vehicleName + " - set API to " + enableApi);
+            var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
+            Debug.LogWarning("Car " + vehicle.vehicleName + " found");
             return vehicle.VehicleInterface.SetEnableApi(enableApi);
         }
 

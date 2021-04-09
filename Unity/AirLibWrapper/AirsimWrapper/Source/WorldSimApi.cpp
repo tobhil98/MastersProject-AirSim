@@ -2,6 +2,7 @@
 #include "WorldSimApi.h"
 #include "PInvokeWrapper.h"
 #include "UnityUtilities.hpp"
+#include "Logger.h"
 
 WorldSimApi::WorldSimApi(SimModeBase* simmode, std::string vehicle_name)
 	: simmode_(simmode), vehicle_name_(vehicle_name)
@@ -211,5 +212,10 @@ bool WorldSimApi::addVehicle(const std::string& vehicle_name, const std::string&
     return true;
 }
 
+bool WorldSimApi::setEnableApi(bool is_enabled, const std::string& vehicle_name)
+{
+    LOGGER->WriteLog("Attempting to setEnableApi");
+    return SetEnableApi(is_enabled, vehicle_name.c_str());
+}
 
 #pragma endregion

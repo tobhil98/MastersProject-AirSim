@@ -123,7 +123,9 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
     });
 
     pimpl_->server.bind("enableApiControl", [&](bool is_enabled, const std::string& vehicle_type, const std::string& vehicle_name) -> void {
-        getVehicleApi(vehicle_type)->enableApiControl(is_enabled, vehicle_name);
+        (void)vehicle_type;
+        getWorldSimApi()->setEnableApi(is_enabled, vehicle_name);
+        //getVehicleApi(vehicle_type)->enableApiControl(is_enabled, vehicle_name);
     });
 
     pimpl_->server.bind("isApiControlEnabled", [&](const std::string& vehicle_name) -> bool { 
@@ -157,6 +159,8 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         const RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
         return getWorldSimApi()->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
     });
+
+
 
     pimpl_->server.bind("simSetVehiclePose", [&](const RpcLibAdaptorsBase::Pose &pose, bool ignore_collision, const std::string& vehicle_name) -> void {
         getVehicleSimApi(vehicle_name)->setPose(pose.to(), ignore_collision);
