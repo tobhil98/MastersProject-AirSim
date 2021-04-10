@@ -218,4 +218,10 @@ bool WorldSimApi::setEnableApi(bool is_enabled, const std::string& vehicle_name)
     return SetEnableApi(is_enabled, vehicle_name.c_str());
 }
 
+bool WorldSimApi::setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name)
+{
+    LOGGER->WriteLog("setCarControls called :D");
+    return true;
+}
+
 #pragma endregion

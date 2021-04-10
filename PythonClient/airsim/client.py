@@ -55,7 +55,7 @@ class VehicleClient:
             is_enabled (bool): True to enable, False to disable API control
             vehicle_name (str, optional): Name of the vehicle to send this command to
         """
-        self.client.call('enableApiControl', is_enabled, vehicle_name, "test")
+        self.client.call('enableApiControl', is_enabled, "", vehicle_name)
 
     def isApiControlEnabled(self, vehicle_name = ''):
         """
@@ -1341,7 +1341,7 @@ class CarClient(VehicleClient, object):
     def __init__(self, ip = "", port = 41451, timeout_value = 3600):
         super(CarClient, self).__init__(ip, port, timeout_value)
 
-    def setCarControls(self, controls, vehicle_name = ''):
+    def setCarControls(self, controls, vehicle_type, vehicle_name = ''):
         """
         Control the car using throttle, steering, brake, etc.
 
@@ -1349,7 +1349,7 @@ class CarClient(VehicleClient, object):
             controls (CarControls): Struct containing control values
             vehicle_name (str, optional): Name of vehicle to be controlled
         """
-        self.client.call('setCarControls', controls, vehicle_name)
+        self.client.call('setCarControls', controls, vehicle_type, vehicle_name)
 
     def getCarState(self, vehicle_name = ''):
         """

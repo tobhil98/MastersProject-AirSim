@@ -3,6 +3,7 @@
 #include "api/WorldSimApiBase.hpp"
 #include "./SimMode/SimModeBase.h"
 #include "AirSimStructs.hpp"
+#include "VehicleUtils.h"
 
 class WorldSimApi : public msr::airlib::WorldSimApiBase
 {
@@ -70,6 +71,7 @@ public:
 
     // Other APIs
     virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) override;
+    virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) override;
 
 
 private:

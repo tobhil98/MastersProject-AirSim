@@ -170,6 +170,7 @@
     <ClInclude Include="include\vehicles\multirotor\MultiRotorParamsFactory.hpp" />
     <ClInclude Include="include\vehicles\multirotor\RotorActuator.hpp" />
     <ClInclude Include="include\vehicles\multirotor\RotorParams.hpp" />
+    <ClInclude Include="include\VehicleUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\api\RpcLibClientBase.cpp" />

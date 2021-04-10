@@ -23,7 +23,7 @@ namespace AirSimUnity {
         protected bool resetVehicle;
         protected float time_scale = 1.0f;
         protected bool timeScale_changed = false;
-        protected bool isApiEnabled = true;
+        protected bool isApiEnabled = false;
         protected bool isServerStarted = false;
         bool print_log_messages_ = true;
 

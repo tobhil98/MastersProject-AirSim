@@ -6,7 +6,7 @@
 
 #include "common/CommonStructs.hpp"
 #include "common/AirSimSettings.hpp"
-
+#include "VehicleUtils.h"
 
 namespace msr { namespace airlib {
 
@@ -85,6 +85,7 @@ public:
         
     // Other APIs
     virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) = 0;
+    virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) = 0;
 };
 
 

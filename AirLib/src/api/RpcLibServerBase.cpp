@@ -34,6 +34,8 @@ STRICT_MODE_OFF
 
 STRICT_MODE_ON
 
+#include "VehicleUtils.h"
+
 
 namespace msr { namespace airlib {
 
@@ -159,6 +161,14 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         const RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
         return getWorldSimApi()->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
     });
+
+    pimpl_->server.bind("setCarControls", [&](const CarControls& controls, const std::string& vehicle_type, const std::string& vehicle_name) -> bool {
+        unused(vehicle_type);
+        return getWorldSimApi()->setCarControls(controls, vehicle_name);
+    });
+
+
+
 
 
 

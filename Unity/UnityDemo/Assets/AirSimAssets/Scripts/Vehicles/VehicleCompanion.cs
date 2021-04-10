@@ -201,7 +201,10 @@ namespace AirSimUnity {
         }
 
         private static bool SetCarApiControls(CarControls controls, string vehicleName) {
+            // TODOME
+            
             var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
+            //var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
             return vehicle.VehicleInterface.SetCarControls(controls);
         }
 
@@ -237,8 +240,13 @@ namespace AirSimUnity {
         }
 
         private static bool PrintLogMessage(string message, string messageParams, string vehicleName, int severity) {
-            var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
-            return vehicle.VehicleInterface.PrintLogMessage(message, messageParams, vehicleName, severity);
+            if(severity > 0)
+            {
+                Debug.LogWarning("PrintLogMessage " + severity + ": " + message + " - " + messageParams);
+            }
+            return true;
+            //var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
+            //return vehicle.VehicleInterface.PrintLogMessage(message, messageParams, vehicleName, severity);
         }
 
         private static bool PrintTest(string message)
