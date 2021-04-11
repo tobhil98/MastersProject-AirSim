@@ -8,7 +8,7 @@ AirSimRCData(*GetRCData)(const char* vehicleName);
 AirSimImageResponse(*GetSimImages)(AirSimImageRequest request, const char* vehicleName);
 bool(*SetRotorSpeed)(int rotorIndex, RotorInfo rotorInfo, const char* vehicleName);
 bool(*SetEnableApi)(bool enableApi, const char* vehicleName);
-bool(*SetCarApiControls)(msr::airlib::CarApiBase::CarControls controls, const char* vehicleName);
+bool(*SetCarApiControls)(msr::airlib::CarControls controls, const char* vehicleName);
 AirSimCarState(*GetCarState)(const char* vehicleName);
 AirSimCameraInfo(*GetCameraInfo)(const char* cameraName, const char* vehicleName);
 bool(*SetCameraPose)(const char* cameraName, AirSimPose pose, const char* vehicleName);
@@ -34,7 +34,7 @@ void InitVehicleManager(
 	AirSimImageResponse(*getSimImages)(AirSimImageRequest request, const char* vehicleName),
 	bool(*setRotorSpeed)(int rotorIndex, RotorInfo rotorInfo, const char* vehicleName),
 	bool(*setEnableApi)(bool enableApi, const char* vehicleName),
-	bool(*setCarApiControls)(msr::airlib::CarApiBase::CarControls controls, const char* vehicleName),
+	bool(*setCarApiControls)(msr::airlib::CarControls controls, const char* vehicleName),
 	AirSimCarState(*getCarState)(const char* vehicleName),
 	AirSimCameraInfo(*getCameraInfo)(const char* cameraName, const char* vehicleName),
 	bool(*setCameraPose)(const char* cameraName, AirSimPose pose, const char* vehicleName),

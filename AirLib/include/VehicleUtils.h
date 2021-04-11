@@ -2,6 +2,8 @@
 
 #include "rpc/msgpack.hpp"
 
+// I:\Simulators\AirSim\Unity\AirLibWrapper\AirsimWrapper\Source\AirSimStructs.hpp
+
 
 namespace msr { namespace airlib {
 
@@ -58,6 +60,13 @@ namespace msr { namespace airlib {
         }
 
 
+    };
+
+
+    struct CarEntity {
+        std::string name;
+        CarControls controls;
+        //State?
     };
 
 }} // Namespace

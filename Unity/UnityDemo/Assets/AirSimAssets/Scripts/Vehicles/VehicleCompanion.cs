@@ -203,8 +203,9 @@ namespace AirSimUnity {
         private static bool SetCarApiControls(CarControls controls, string vehicleName) {
             // TODOME
             
-            var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
-            //var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
+            //var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
+            var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
+            Debug.LogWarning("SetCarApiControls: " + vehicleName);
             return vehicle.VehicleInterface.SetCarControls(controls);
         }
 

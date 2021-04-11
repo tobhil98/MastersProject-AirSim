@@ -208,6 +208,8 @@ bool WorldSimApi::addVehicle(const std::string& vehicle_name, const std::string&
 {
     unused(pose);
     unused(pawn_path);
+
+    // Add element to map
     AddVehicle(vehicle_name.c_str(), vehicle_type.c_str());
     return true;
 }
@@ -221,7 +223,16 @@ bool WorldSimApi::setEnableApi(bool is_enabled, const std::string& vehicle_name)
 bool WorldSimApi::setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name)
 {
     LOGGER->WriteLog("setCarControls called :D");
-    return true;
+    return SetCarApiControls(c, vehicle_name.c_str());
+}
+
+
+void WorldSimApi::fixedUpdate()
+{
+
+    // Get car states
+
+    ;       // Not in use
 }
 
 #pragma endregion

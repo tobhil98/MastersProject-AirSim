@@ -24,6 +24,7 @@ void SimModeBase::BeginPlay()
 
 void SimModeBase::Tick(float DeltaSeconds)
 {
+	world_sim_api_->fixedUpdate();
 	getVehicleSimApi(vehicle_name_)->pawnTick(DeltaSeconds);
 	showClockStats();
 	updateDebugReport(debug_reporter_);

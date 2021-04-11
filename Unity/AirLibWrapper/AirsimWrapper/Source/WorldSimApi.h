@@ -70,6 +70,7 @@ public:
     virtual bool addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path = "") override;
 
     // Other APIs
+    virtual void fixedUpdate() override;
     virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) override;
     virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) override;
 
@@ -77,4 +78,5 @@ public:
 private:
 	SimModeBase * simmode_;
 	std::string vehicle_name_;
+    std::unordered_map<std::string, msr::airlib::CarEntity> CarMap;
 };

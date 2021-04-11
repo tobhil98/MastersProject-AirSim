@@ -252,7 +252,7 @@ namespace AirSimUnity {
         }
 
         public bool SetEnableApi(bool enableApi) {
-            Debug.Log("Updated vehicle api");
+            Debug.Log("Updated vehicle api - " + enableApi);
             isApiEnabled = enableApi;
             return true;
         }

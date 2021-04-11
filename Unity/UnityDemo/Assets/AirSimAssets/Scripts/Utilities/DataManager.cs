@@ -49,6 +49,7 @@ namespace AirSimUnity {
         }
 
         public static void SetCarControls(CarControls src, ref CarControls dst) {
+            Debug.Log("Controls" + src.throttle + ", " + src.brake);
             dst.brake = src.brake;
             dst.gear_immediate = src.gear_immediate;
             dst.handbrake = src.handbrake;

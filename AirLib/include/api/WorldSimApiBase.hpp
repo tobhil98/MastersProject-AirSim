@@ -84,6 +84,7 @@ public:
 
         
     // Other APIs
+    virtual void fixedUpdate() = 0;
     virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) = 0;
     virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) = 0;
 };
