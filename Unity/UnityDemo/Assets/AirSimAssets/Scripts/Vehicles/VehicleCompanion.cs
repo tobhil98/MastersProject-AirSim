@@ -194,19 +194,17 @@ namespace AirSimUnity {
         }
 
         private static bool SetEnableApi(bool enableApi, string vehicleName) {
-            Debug.LogWarning("Searching for vehicle: " + vehicleName + " - set API to " + enableApi);
             var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
-            Debug.LogWarning("Car " + vehicle.vehicleName + " found");
-            return vehicle.VehicleInterface.SetEnableApi(enableApi);
+            if(vehicle != null)
+                return vehicle.VehicleInterface.SetEnableApi(enableApi);
+            return false;
         }
 
         private static bool SetCarApiControls(CarControls controls, string vehicleName) {
-            // TODOME
-            
-            //var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
             var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
-            Debug.LogWarning("SetCarApiControls: " + vehicleName);
-            return vehicle.VehicleInterface.SetCarControls(controls);
+            if(vehicle != null)
+                return vehicle.VehicleInterface.SetCarControls(controls);
+            return false;
         }
 
         private static CarState GetCarState(string vehicleName) {

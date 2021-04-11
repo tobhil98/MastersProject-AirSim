@@ -48,7 +48,7 @@ extern "C" EXPORT void CallTick(float deltaSeconds)
 extern "C" EXPORT void InvokeCollisionDetection(AirSimUnity::AirSimCollisionInfo collision_info)
 {
 	auto simMode = key->GetSimMode();
-	LOGGER->WriteLog("This is a test");
+	//LOGGER->WriteLog("This is a test");
 	if (simMode)
 	{
 		auto vehicleApi = simMode->getVehicleSimApi(simMode->vehicle_name_);

@@ -13,6 +13,7 @@ void SimHUD::BeginPlay()
 {
 	try {
 		PrintLogMessage("Wrapper: Begin SimHUD", "Test" , vehicle_name_.c_str(), 2);
+		
 		initializeSettings();
 		createSimMode();
 		if (simmode_)

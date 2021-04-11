@@ -9,7 +9,6 @@ client = airsim.CarClient()
 client.confirmConnection()
 
 pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))
-#client.simAddVehicle("Test0", "PhysXCar", pose)
 client.simAddVehicle("Test1", "PhysXCar", pose)
 
 time.sleep(3)
@@ -18,7 +17,7 @@ print("API attempt")
 client.enableApiControl(True, "Test1")
 car_controls = airsim.CarControls()
 
-client.reset()
+#client.reset()
 
 client.simPrintLogMessage("Hello", "645", 2)
 client.simPrintTest("This is the important test")
@@ -28,6 +27,15 @@ car_controls.throttle = 0.5
 car_controls.steering = 0
 client.setCarControls(car_controls, "PhysXCar", "Test1")
 print("Done")
+time.sleep(2)
+client.simAddVehicle("Test0", "PhysXCar", pose)
+time.sleep(1)
+client.enableApiControl(True, "Test0")
+car_controls.throttle = 1
+car_controls.steering = 0.2
+client.setCarControls(car_controls, "PhysXCar", "Test0")
+
+'''
 while True:
     # get state of the car
     car_state = client.getCarState()
@@ -44,5 +52,5 @@ while True:
         break
 
     time.sleep(0.1)
-
+'''
 #client.enableApiControl(False)
