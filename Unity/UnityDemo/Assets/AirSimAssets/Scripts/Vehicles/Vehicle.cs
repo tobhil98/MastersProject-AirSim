@@ -239,7 +239,6 @@ namespace AirSimUnity {
 
         public ImageResponse GetSimulationImages(ImageRequest request) {
             imageResponse.reset();
-
             if (!captureCameras.Find(element => element.GetCameraName() == request.camera_name))
             {
                 return imageResponse;
@@ -355,7 +354,9 @@ namespace AirSimUnity {
         //Register all the capture cameras in the scene for recording and data capture.
         //Make sure every camera is a child of a gameobject with tag "CaptureCameras"
         private void SetUpCameras() {
-            GameObject camerasParent = GameObject.FindGameObjectWithTag("CaptureCameras");
+            GameObject camerasParent = transform.Find("CaptureCameras").gameObject;
+            //GameObject camerasParent = GameObject.FindGameObjectWithTag("CaptureCameras"); 
+            
             if (!camerasParent) {
                 Debug.LogWarning("No Cameras found in the scene to capture data");
                 return;
@@ -364,6 +365,7 @@ namespace AirSimUnity {
             for (int i = 0; i < camerasParent.transform.childCount; i++) {
                 DataCaptureScript camCapture = camerasParent.transform.GetChild(i).GetComponent<DataCaptureScript>();
                 captureCameras.Add(camCapture);
+                Debug.LogWarning("Added Camera - " + camCapture.cameraName);
                 camCapture.SetUpCamera(camCapture.GetCameraName(), isDrone);
             }
         }

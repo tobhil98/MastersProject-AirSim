@@ -86,7 +86,7 @@ std::vector<PawnSimApi::ImageCaptureBase::ImageResponse> PawnSimApi::getImages(
 {
 	std::vector<ImageCaptureBase::ImageResponse> responses;
 	const ImageCaptureBase* camera = getImageCapture();
-	camera->getImages(requests, responses);
+	camera->getImages(requests, responses, "dummy");
 	return responses;
 }
 

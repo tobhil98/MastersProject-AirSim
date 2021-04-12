@@ -3,6 +3,8 @@ import airsim
 
 import pprint
 import time
+import cv2
+import numpy as np
 
 # connect to the AirSim simulator 
 client = airsim.CarClient()
@@ -27,6 +29,13 @@ car_controls.throttle = 0.5
 car_controls.steering = 0
 client.setCarControls(car_controls, "PhysXCar", "Test1")
 print("Done")
+
+def get_image(cameraName, vehicle_name):
+    image = client.simGetImages([airsim.ImageRequest(cameraName, airsim.ImageType.Scene, False, False)],vehicle_name)[0]
+    image1d = np.fromstring(image.image_data_uint8, dtype=np.uint8)
+    image_rgb = image1d.reshape(image.height, image.width, 3)[::-1,::]
+    return image_rgb
+
 time.sleep(2)
 client.simAddVehicle("Test0", "PhysXCar", pose)
 time.sleep(1)
@@ -34,6 +43,17 @@ client.enableApiControl(True, "Test0")
 car_controls.throttle = 1
 car_controls.steering = 0.2
 client.setCarControls(car_controls, "PhysXCar", "Test0")
+
+while True:
+    img1 = get_image("FC", "Test0")
+    img2 = get_image("FC", "Test1")
+    
+    image = np.concatenate((img1, img2), axis=1)
+    
+    cv2.imshow('image', image)
+    cv2.waitKey(20)
+
+
 
 '''
 while True:

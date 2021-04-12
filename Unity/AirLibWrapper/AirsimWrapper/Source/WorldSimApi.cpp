@@ -226,6 +226,18 @@ bool WorldSimApi::setCarControls(const msr::airlib::CarControls& c, const std::s
     return SetCarApiControls(c, vehicle_name.c_str());
 }
 
+// I:\Simulators\AirSim\Unity\AirLibWrapper\AirsimWrapper\Source\UnityImageCapture.h
+
+
+std::vector<msr::airlib::ImageCaptureBase::ImageResponse> WorldSimApi::getImages(
+    const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name)
+{
+    std::vector<msr::airlib::ImageCaptureBase::ImageResponse> responses;
+    const msr::airlib::ImageCaptureBase* camera = new UnityImageCapture("Vehicle");     // TODOME fix this as no need to allocate memory every time
+    camera->getImages(requests, responses, vehicle_name);
+    return responses;
+}
+
 
 void WorldSimApi::fixedUpdate()
 {

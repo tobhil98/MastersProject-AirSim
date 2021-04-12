@@ -404,6 +404,21 @@ namespace AirSimUnity {
         public int height;
         public ImageType image_type;
 
+        public ImageResponse(string cameraName)
+        {
+            image_uint_len = 0;
+            image_data_uint = null;
+            image_float_len = 0;
+            image_data_float = null;
+            camera_position = new AirSimVector(0,0,0);
+            camera_orientation = new AirSimQuaternion(0,0,0,0);
+            pixels_as_float = false;
+            compress = false;
+            width = 0;
+            height = 0;
+            image_type = 0;
+    }
+
         public ImageResponse(List<byte> imageDataInt, List<float> imageDataFloat, string cameraName,
             AirSimVector camera_position, AirSimQuaternion camera_orientation,
             bool pixels_as_float, bool compress, int width, int height, ImageType image_type) {

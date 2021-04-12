@@ -17,7 +17,7 @@ namespace AirSimUnity
 		typedef msr::airlib::ImageCaptureBase::ImageType ImageType;
 		UnityImageCapture(std::string vehicle_name);
 		virtual ~UnityImageCapture();
-		virtual void getImages(const std::vector<ImageRequest>& requests, std::vector<ImageResponse>& responses) const;
+		virtual void getImages(const std::vector<ImageRequest>& requests, std::vector<ImageResponse>& responses, const std::string& vehicle_name) const;
 
 	private:
 		std::string vehicle_name_;

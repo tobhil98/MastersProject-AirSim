@@ -159,8 +159,10 @@ namespace AirSimUnity {
         }
 
         private static ImageResponse GetSimImages(ImageRequest request, string vehicleName) {
-            var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
-            return vehicle.VehicleInterface.GetSimulationImages(request);
+            var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
+            if (vehicle != null)
+                return vehicle.VehicleInterface.GetSimulationImages(request);
+            return new ImageResponse(vehicleName);
         }
 
         private static UnityTransform GetTransformFromUnity(string vehicleName)

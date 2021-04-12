@@ -73,6 +73,8 @@ public:
     virtual void fixedUpdate() override;
     virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) override;
     virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) override;
+    virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(
+        const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name) override;
 
 
 private:
