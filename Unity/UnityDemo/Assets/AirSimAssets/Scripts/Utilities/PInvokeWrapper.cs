@@ -37,5 +37,8 @@ namespace AirSimUnity {
 
         [DllImport(DLL_NAME)]
         public static extern void InvokeCollisionDetection(CollisionInfo collisionInfo);
+        
+        [DllImport(DLL_NAME)]
+        public static extern void StoreImage(string vehicle_name, string camera_name, ImageResponse image);
     }
 }

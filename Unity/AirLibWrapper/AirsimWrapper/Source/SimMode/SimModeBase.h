@@ -70,6 +70,11 @@ public:
 		return static_cast<PawnSimApi*>(api_provider_->getVehicleSimApi(vehicle_name));
 	}
 
+	msr::airlib::WorldSimApiBase* getWorldSimApiBase() const
+	{
+		return world_sim_api_.get();
+	}
+
 private:
 	TTimePoint tod_sim_clock_start_;
 	TTimePoint tod_last_update_;

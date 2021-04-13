@@ -59,3 +59,18 @@ extern "C" EXPORT void InvokeCollisionDetection(AirSimUnity::AirSimCollisionInfo
 		}
 	}
 }
+
+extern "C" EXPORT void StoreImage(char* vehicle_name, char* camera, AirSimUnity::AirSimImageResponse img)
+{
+	auto simMode = key->GetSimMode();
+
+	if (simMode) {
+		auto worldPtr = simMode->getWorldSimApiBase();
+		if (worldPtr){
+			msr::airlib::ImageCaptureBase::ImageResponse reponse;
+			UnityUtilities::Convert_to_AirsimResponse(img, reponse, camera);
+			worldPtr->storeImage(vehicle_name, camera, reponse);
+		}
+	}
+
+}

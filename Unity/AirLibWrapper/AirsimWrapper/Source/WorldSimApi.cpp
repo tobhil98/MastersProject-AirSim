@@ -6,7 +6,9 @@
 
 WorldSimApi::WorldSimApi(SimModeBase* simmode, std::string vehicle_name)
 	: simmode_(simmode), vehicle_name_(vehicle_name)
-{}
+{
+    cameraPtr = new UnityImageCapture("Vehicle");
+}
 
 WorldSimApi::~WorldSimApi()
 {}
@@ -232,12 +234,28 @@ bool WorldSimApi::setCarControls(const msr::airlib::CarControls& c, const std::s
 std::vector<msr::airlib::ImageCaptureBase::ImageResponse> WorldSimApi::getImages(
     const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name)
 {
+    //LOGGER->WriteLog("Capture image for " + vehicle_name);
+    //std::vector<msr::airlib::ImageCaptureBase::ImageResponse> responses;
+    //cameraPtr->getImages(requests, responses, vehicle_name);
+    //LOGGER->WriteLog("Image captured for " + vehicle_name);
+    std::string camera = requests[0].camera_name;
     std::vector<msr::airlib::ImageCaptureBase::ImageResponse> responses;
-    const msr::airlib::ImageCaptureBase* camera = new UnityImageCapture("Vehicle");     // TODOME fix this as no need to allocate memory every time
-    camera->getImages(requests, responses, vehicle_name);
+    try {
+        responses.push_back(CarMap[vehicle_name].ResponseMap[camera]);
+    }
+    catch (...)
+    {
+        LOGGER->WriteLog("Invalid lookup for " + vehicle_name);
+    }
     return responses;
 }
 
+void WorldSimApi::storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img)
+{
+    LOGGER->WriteLog("storeImage " + vehicle_name + " " + camera_name);
+    if(vehicle_name != "" && camera_name != "")
+        CarMap[vehicle_name].ResponseMap[camera_name] = img;
+}
 
 void WorldSimApi::fixedUpdate()
 {

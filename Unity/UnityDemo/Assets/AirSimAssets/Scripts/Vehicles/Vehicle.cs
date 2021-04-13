@@ -47,6 +47,8 @@ namespace AirSimUnity {
         bool hitResult;
 
         public string vehicle_name;
+        private int count = 0;
+
 
         //Ensure to call this method as the first statement, from derived class `Start()` method.
         protected void Start() {
@@ -71,6 +73,7 @@ namespace AirSimUnity {
             }
 
             AirSimGlobal.Instance.Weather.AttachToVehicle(this);
+            count = UnityEngine.Random.Range(0, 5);
         }
 
         //Ensure to call this method as the first statement, from derived class `FixedUpdate()` method.
@@ -82,6 +85,7 @@ namespace AirSimUnity {
             }
         }
 
+        
         //Ensure to call this method as the last statement, from derived class `LateUpdate()` method.
         protected void LateUpdate() {
             if (isServerStarted)
@@ -105,7 +109,7 @@ namespace AirSimUnity {
                     captureResetEvent.Set(); //Release the GetSimulationImages thread with the image response.
                     isCapturingImages = false;
                 }
-
+                
                 if (calculateRayCast)
                 {
                     hitResult = Physics.Linecast(startVec, endVec, out hitInfo);
@@ -117,7 +121,26 @@ namespace AirSimUnity {
                     print_log_messages_ = !print_log_messages_;
                 }
 
-                airsimInterface.InvokeTickInAirSim(Time.deltaTime);
+                if (count > 0)
+                {
+                    count = 0;
+                    foreach (var p in captureCameras)
+                    {
+                        string camera = p.GetCameraName();
+                        var imageRequest = new ImageRequest(camera, ImageType.Scene, false, false);
+
+                        imageResponse = p.GetImageBasedOnRequest(imageRequest);
+
+                        PInvokeWrapper.StoreImage(vehicle_name, camera, imageResponse);
+                    }
+                }
+                count++;
+                // Update images
+
+
+
+
+                airsimInterface.InvokeTickInAirSim(Time.deltaTime);     //TODOME check this
             }
         }
 
