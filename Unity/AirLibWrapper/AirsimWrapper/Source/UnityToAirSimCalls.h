@@ -3,7 +3,9 @@
 #include <thread>
 #include "UnityUtilities.hpp"
 #include "SimHUD/SimHUD.h"
+#include "SimHUD/ServerHUD.hpp"
 #include "Logger.h"
+
 
 #ifdef _WIN32
 	#define EXPORT __declspec(dllexport)
@@ -12,12 +14,40 @@
 #endif
 
 static SimHUD* key = nullptr;
+static ServerHUD* serverKey = nullptr;
 
+void StartMainServerThread(int port_number);
 void StartServerThread(std::string vehicle_name, std::string sim_mode_name, int port_number);
+
+extern "C" EXPORT bool StartMainServer(int port_number)
+{
+	LOGGER->WriteLog("Starting main server");
+	std::thread server_thread(StartMainServerThread, port_number);
+	server_thread.detach();
+	int waitCounter = 25; // waiting for maximum 5 seconds to start a server.
+	while ((serverKey == nullptr || !serverKey->server_started_Successfully_) && waitCounter > 0)
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		waitCounter--;
+	}
+	return serverKey->server_started_Successfully_;
+}
+
+extern "C" EXPORT void StopMainServer()
+{
+	serverKey->EndPlay();
+	if (serverKey != nullptr)
+	{
+		delete key;
+		serverKey = nullptr;
+	}
+	LOGGER->WriteLog("Server stopped");
+}
+
 
 extern "C" EXPORT bool StartServer(char* vehicle_name, char* sim_mode_name, int port_number)
 {
-	LOGGER->WriteLog("Starting server for : " + std::string(sim_mode_name));
+	LOGGER->WriteLog("Starting vehicle server for : " + std::string(sim_mode_name));
 	std::thread server_thread(StartServerThread, vehicle_name, sim_mode_name, port_number);
 	server_thread.detach();
 	int waitCounter = 25; // waiting for maximum 5 seconds to start a server.
