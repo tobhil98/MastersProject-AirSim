@@ -461,7 +461,6 @@ class VehicleClient:
         return self.client.call('simGetSegmentationObjectID', mesh_name)
 	
     def simPrintTest(self, message):
-        print("Attempt!")
         self.client.call('simPrintTest', message)
 	
     def simPrintLogMessage(self, message, message_param = "", severity = 0):

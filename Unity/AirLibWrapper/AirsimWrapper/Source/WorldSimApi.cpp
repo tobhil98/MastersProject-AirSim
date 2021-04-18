@@ -61,12 +61,12 @@ void WorldSimApi::printLogMessage(const std::string& message, const std::string&
 	PrintLogMessage(s.c_str(), message_param.c_str(), vehicle_name_.c_str(), severity);
 }
 
-void WorldSimApi::printTest(const std::string& message)
-{
-    // TODO change this
-    const std::string s = "This is my WorldSimAPI: " + message;
-    PrintTest(s.c_str());
-}
+//void WorldSimApi::printTest(const std::string& message)
+//{
+//    // TODO change this
+//    const std::string s = "This is my WorldSimAPI: " + message;
+//    PrintTest(s.c_str());
+//}
 
 std::unique_ptr<std::vector<std::string>> WorldSimApi::swapTextures(const std::string& tag, int tex_id, int component_id, int material_id)
 {
@@ -206,15 +206,15 @@ void WorldSimApi::setWind(const Vector3r& wind) const
     simmode_->setWind(wind);
 };
 
-bool WorldSimApi::addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const WorldSimApi::Pose& pose, const std::string& pawn_path)
-{
-    unused(pose);
-    unused(pawn_path);
-
-    // Add element to map
-    AddVehicle(vehicle_name.c_str(), vehicle_type.c_str());
-    return true;
-}
+//bool WorldSimApi::addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const WorldSimApi::Pose& pose, const std::string& pawn_path)
+//{
+//    unused(pose);
+//    unused(pawn_path);
+//
+//    // Add element to map
+//    AddVehicle(vehicle_name.c_str(), vehicle_type.c_str());
+//    return true;
+//}
 
 bool WorldSimApi::setEnableApi(bool is_enabled, const std::string& vehicle_name)
 {

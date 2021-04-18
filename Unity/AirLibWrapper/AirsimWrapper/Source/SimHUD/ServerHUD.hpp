@@ -2,6 +2,7 @@
 #include "common/AirSimSettings.hpp"
 #include "api/ApiServerBase.hpp"
 #include "api/SimulatorServer.hpp"
+#include "api/ServerSimApiBase.hpp"
 
 class ServerHUD {
 public:
@@ -20,5 +21,6 @@ public:
 private:
 	int port_number_;
 	std::unique_ptr<msr::airlib::ApiServerBase> api_server_;
+	std::unique_ptr<msr::airlib::ServerSimApiBase> server_sim_api_;
 
 };

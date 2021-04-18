@@ -19,8 +19,19 @@ namespace AirSimUnity {
 
     [Serializable]
     public class AirSimSettings {
-        private const int DEFAULT_DRONE_PORT = 41451;
-        private const int DEFAULT_CAR_PORT = 41451;
+        public enum AgentType
+        {
+            Server,
+            Car,
+            Drone,
+            Pedestrian,
+            Error
+        };
+        
+        public const int DEFAULT_DRONE_PORT = 41451;
+        public const int DEFAULT_CAR_PORT = 41451;
+        public const int DEFAULT_PEDESTRIAN_PORT = 41452;
+        public const int DEFAULT_SERVER_PORT = 41450;
 
         private static string AIRSIM_DATA_FOLDER = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/AirSim/";
 
@@ -318,6 +329,23 @@ namespace AirSimUnity {
             capSettings.Gimble.Roll = 0;
             capSettings.Gimble.Yaw = 0;
             return capSettings;
+        }
+
+        public int GetPort(AgentType Type)
+        {
+            switch (Type)
+            {
+                case AgentType.Pedestrian:
+                    return DEFAULT_PEDESTRIAN_PORT;
+                case AgentType.Car:
+                    return DEFAULT_CAR_PORT;
+                case AgentType.Drone:
+                    return DEFAULT_DRONE_PORT;
+                case AgentType.Server:
+                    return DEFAULT_SERVER_PORT;
+                default:
+                    return -1;
+            }
         }
     }
 }

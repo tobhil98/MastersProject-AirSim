@@ -9,5 +9,5 @@ void StartServerThread(std::string vehicle_name, std::string sim_mode_name, int 
 void StartMainServerThread(int port_number)
 {
 	serverKey = new ServerHUD(port_number);
-	key->BeginPlay();
+	serverKey->BeginPlay();
 }

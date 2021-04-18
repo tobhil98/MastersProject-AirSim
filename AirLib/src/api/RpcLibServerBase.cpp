@@ -158,10 +158,10 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         return RpcLibAdaptorsBase::MeshPositionVertexBuffersResponse::from(response);
     });
 
-    pimpl_->server.bind("simAddVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type, 
-        const RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
-        return getWorldSimApi()->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
-    });
+    //pimpl_->server.bind("simAddVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type, 
+    //    const RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
+    //    return getWorldSimApi()->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
+    //});
 
     pimpl_->server.bind("setCarControls", [&](const CarControls& controls, const std::string& vehicle_type, const std::string& vehicle_name) -> bool {
         unused(vehicle_type);
@@ -214,10 +214,6 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         getWorldSimApi()->printLogMessage(m, message_param, severity);
     });
 
-    pimpl_->server.bind("simPrintTest", [&](const std::string& message) -> void {
-        std::string m = "Hello: " + message;
-        getWorldSimApi()->printTest(m);
-    });
 
     pimpl_->server.bind("getHomeGeoPoint", [&](const std::string& vehicle_name) -> RpcLibAdaptorsBase::GeoPoint {
         const auto& geo_point = getVehicleApi(vehicle_name)->getHomeGeoPoint();

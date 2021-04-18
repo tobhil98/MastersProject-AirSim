@@ -20,6 +20,7 @@
 #endif
 
 #define RpcLibPort 41451
+#define ServerPort 41450
 
 namespace msr { namespace airlib {
 

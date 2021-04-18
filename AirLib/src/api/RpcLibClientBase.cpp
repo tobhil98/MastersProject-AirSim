@@ -243,10 +243,10 @@ vector<MeshPositionVertexBuffersResponse> RpcLibClientBase::simGetMeshPositionVe
     return RpcLibAdaptorsBase::MeshPositionVertexBuffersResponse::to(response_adaptor);
 }
 
-bool RpcLibClientBase::simAddVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path)
-{
-    return pimpl_->client.call("simAddVehicle", vehicle_name, vehicle_type, RpcLibAdaptorsBase::Pose(pose), pawn_path).as<bool>();
-}
+//bool RpcLibClientBase::simAddVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path)
+//{
+//    return pimpl_->client.call("simAddVehicle", vehicle_name, vehicle_type, RpcLibAdaptorsBase::Pose(pose), pawn_path).as<bool>();
+//}
 
 void RpcLibClientBase::simPrintLogMessage(const std::string& message, std::string message_param, unsigned char  severity)
 {

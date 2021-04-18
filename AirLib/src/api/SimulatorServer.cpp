@@ -2,6 +2,7 @@
 #include "api/SimulatorServer.hpp"
 #include "rpc/server.h"
 #include "common/Common.hpp"
+#include "api/RpcLibAdaptorsBase.hpp"
 
 
 namespace msr {namespace airlib {
@@ -63,13 +64,29 @@ void* SimulatorServer::getServer() const
     return &pimpl_->server;
 }
 
-SimulatorServer::SimulatorServer(const string& ip_address = "localhost", uint16_t port = RpcLibPort) {
+SimulatorServer::SimulatorServer(ServerSimApiBase* serverptr, const string& ip_address = "localhost", uint16_t port = ServerPort) : ptr(serverptr){
     if (ip_address == "")
         pimpl_.reset(new impl(port));
     else
         pimpl_.reset(new impl(ip_address, port));
 
     pimpl_->server.bind("ping", [&]() -> bool { return true; });
+
+    pimpl_->server.bind("simPrintTest", [&](const std::string& message) -> void {
+        ptr->printTest(message);
+    });
+
+    // add Vehicle
+    pimpl_->server.bind("simAddVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type,
+        const msr::airlib_rpclib::RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
+            return ptr->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
+        });
+    // Spawn Pedestrian
+
+    // Remove Vehicle
+
+    // Remove Pedestrian
+
 }
 
 

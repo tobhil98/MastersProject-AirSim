@@ -47,12 +47,10 @@
       <Filter>Vehicles\Multirotor</Filter>
     </ClCompile>
     <ClCompile Include="Source\UnityToAirSimCalls.cpp" />
-    <ClCompile Include="Source\SimHUD\SimHUD.h">
-      <Filter>SimHUD</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SimHUD\ServerHUD.cpp">
       <Filter>SimHUD</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ServerSimApi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SimMode\SimModeBase.h">
@@ -104,6 +102,8 @@
     <ClInclude Include="Source\SimHUD\ServerHUD.hpp">
       <Filter>SimHUD</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SimHUD\SimHUD.h" />
+    <ClInclude Include="Source\ServerSimApi.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SimHUD">

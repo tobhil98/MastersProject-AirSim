@@ -25,6 +25,7 @@
   <ItemGroup>
     <ClInclude Include="include\api\ApiProvider.hpp" />
     <ClInclude Include="include\api\ApiServerBase.hpp" />
+    <ClInclude Include="include\api\ServerSimApiBase.hpp" />
     <ClInclude Include="include\api\SimulatorServer.hpp" />
     <ClInclude Include="include\api\RpcLibAdaptorsBase.hpp" />
     <ClInclude Include="include\api\RpcLibClientBase.hpp" />
