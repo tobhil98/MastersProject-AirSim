@@ -31,11 +31,10 @@ namespace AirSimUnity{
            if(VehicleQueue.Count > 0)
             {
                 InitVehicle s = VehicleQueue.Dequeue();
-                var obj = Instantiate(car, s.pos, s.rotation);
+                var obj = Instantiate(AssetHandler.getInstance().getVehicle(), s.pos, s.rotation);
                 obj.GetComponent<Vehicle>().vehicle_name = s.vehicle_name;
             }
         }
-        public Transform car;
          
         async public void Pressed()
         {
