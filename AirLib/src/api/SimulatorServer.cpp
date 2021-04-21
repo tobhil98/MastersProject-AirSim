@@ -81,10 +81,13 @@ SimulatorServer::SimulatorServer(ServerSimApiBase* serverptr, const string& ip_a
         const msr::airlib_rpclib::RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
             return ptr->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
         });
+
     // Spawn Pedestrian
 
     // Remove Vehicle
-
+    pimpl_->server.bind("simRemoveVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type) -> bool {
+        return ptr->removeVehicle(vehicle_name, vehicle_type);
+    });
     // Remove Pedestrian
 
 }

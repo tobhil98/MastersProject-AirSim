@@ -35,6 +35,8 @@ print("Ready to try")
 car_controls.throttle = 0.5
 car_controls.steering = 0
 client.setCarControls(car_controls, "PhysXCar", "Test1")
+client.setCarControls(car_controls, "PhysXCar", "Test8")
+client.setCarControls(car_controls, "PhysXCar", "Test2")
 print("Done")
 
 
@@ -77,7 +79,6 @@ while True:
     lst = [("FC", "Test"+str(i)) for i in range(NUMBER)]
     imgDict = utils.actually_get(client, lst)
 
-    # imgDict = get_all_images(lst)
     img1 = imgDict[("FC", "Test8")]
     img2 = imgDict[("FC", "Test2")]
     

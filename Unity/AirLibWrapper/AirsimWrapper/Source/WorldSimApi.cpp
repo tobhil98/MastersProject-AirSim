@@ -252,7 +252,7 @@ std::vector<msr::airlib::ImageCaptureBase::ImageResponse> WorldSimApi::getImages
 
 void WorldSimApi::storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img)
 {
-    LOGGER->WriteLog("storeImage " + vehicle_name + " " + camera_name);
+    //LOGGER->WriteLog("storeImage " + vehicle_name + " " + camera_name);
     if(vehicle_name != "" && camera_name != "")
         CarMap[vehicle_name].ResponseMap[camera_name] = img;
 }

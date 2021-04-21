@@ -64,7 +64,7 @@ public:
     int simGetSegmentationObjectID(const std::string& mesh_name) const;
     void simPrintLogMessage(const std::string& message, std::string message_param = "", unsigned char severity = 0);
     
-    void simPrintTest(const std::string& message);
+    //void simPrintTest(const std::string& message);
 
 
     void simFlushPersistentMarkers();

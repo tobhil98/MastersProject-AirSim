@@ -386,3 +386,8 @@ build_docs/
 
 # api docs
 PythonClient/docs/_build
+
+
+# Unity Assets
+Unity/UnityDemo/Assets/UMA*
+Unity/UnityDemo/UMA*

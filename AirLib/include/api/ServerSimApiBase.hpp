@@ -13,6 +13,7 @@ namespace msr {	namespace airlib {
 		virtual ~ServerSimApiBase() = default;
 		virtual void printTest(const std::string& message) = 0;
 		virtual bool addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const msr::airlib::Pose& pose, const std::string& pawn_path) = 0;
+		virtual bool removeVehicle(const std::string& vehicle_name, const std::string& vehicle_type) = 0;
 	};
 	
 }} // Namespace

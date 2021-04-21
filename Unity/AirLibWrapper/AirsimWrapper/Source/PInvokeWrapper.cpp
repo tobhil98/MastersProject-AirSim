@@ -18,13 +18,15 @@ bool(*GetCameraDistortionParams)(const char* cameraName, const char* vehicleName
 bool(*SetSegmentationObjectId)(const char* meshName, int objectId, bool isNameRegex);
 int(*GetSegmentationObjectId)(const char* meshName);
 bool(*PrintLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity);
-bool(*PrintTest) (const char* message);
 UnityTransform(*GetTransformFromUnity)(const char* vehicleName);
 bool(*Reset)(const char* vehicleName);
 AirSimVector(*GetVelocity)(const char* vehicleName);
 RayCastHitResult(*GetRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName);
 bool(*Pause)(const char* vehicleName, float timeScale);
-bool (*AddVehicle)(const char* vehicleName, const char* vehicleType);
+
+bool(*PrintTest) (const char* message);
+bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
+bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
 
 void InitVehicleManager(
 	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* vehicleName),
@@ -44,13 +46,11 @@ void InitVehicleManager(
 	bool(*setSegmentationObjectId)(const char* meshName, int objectId, bool isNameRegex),
 	int(*getSegmentationObjectId)(const char* meshName),
 	bool(*printLogMessage) (const char* message, const char* messageParam, const char* vehicleName, int severity),
-	bool(*printTest) (const char* message),
 	UnityTransform(*getTransformFromUnity)(const char* vehicleName),
 	bool(*reset)(const char* vehicleName),
 	AirSimVector(*getVelocity)(const char* vehicleName),
 	RayCastHitResult(*getRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName),
-	bool(*pause)(const char* vehicleName, float timeScale),
-	bool(*addVehicle)(const char* vehicleName, const char* vehicleType)
+	bool(*pause)(const char* vehicleName, float timeScale)
 )
 {
 	SetPose = setPose;
@@ -70,11 +70,20 @@ void InitVehicleManager(
 	SetSegmentationObjectId = setSegmentationObjectId;
 	GetSegmentationObjectId = getSegmentationObjectId;
 	PrintLogMessage = printLogMessage;
-	PrintTest = printTest;
 	GetTransformFromUnity = getTransformFromUnity;
 	Reset = reset;
 	GetVelocity = getVelocity;
 	GetRayCastHit = getRayCastHit;
 	Pause = pause;
+}
+
+
+void InitServerManager(
+	bool(*printTest) (const char* message),
+	bool(*addVehicle)(const char* vehicleName, const char* vehicleType),
+	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType)
+) {
+	PrintTest = printTest;
 	AddVehicle = addVehicle;
+	RemoveVehicle = removeVehicle;
 }

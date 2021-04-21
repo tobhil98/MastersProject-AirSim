@@ -16,7 +16,7 @@ namespace AirSimUnity {
     internal class VehicleCompanion : IAirSimInterface {
 
         //All the vehicles that are created in this game.
-        private static List<VehicleCompanion> Vehicles = new List<VehicleCompanion>();
+        public static List<VehicleCompanion> Vehicles = new List<VehicleCompanion>();
 
         private static bool serverStarted = false;
         private static int basePortId;
@@ -31,6 +31,13 @@ namespace AirSimUnity {
 
         static VehicleCompanion() {
             InitDelegators();
+        }
+
+        public static void DestroyVehicle(string name)
+        {
+            var vehicle = Vehicles.Find(element => element.vehicleName == name);
+            vehicle.VehicleInterface.DestroySelf();
+            Vehicles.Remove(vehicle);
         }
 
         private VehicleCompanion(IVehicleInterface vehicleInterface) {
@@ -125,13 +132,11 @@ namespace AirSimUnity {
                 Marshal.GetFunctionPointerForDelegate(new Func<string, int, bool, bool>(SetSegmentationObjectId)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, int>(GetSegmentationObjectId)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, string, string, int, bool>(PrintLogMessage)),
-                Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(PrintTest)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, UnityTransform>(GetTransformFromUnity)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(Reset)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimVector>(GetVelocity)),
                 Marshal.GetFunctionPointerForDelegate(new Func<AirSimVector, AirSimVector, string, RayCastHitResult>(GetRayCastHit)),
-                Marshal.GetFunctionPointerForDelegate(new Func<string, float, bool>(Pause)),
-                Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(AddVehicle))
+                Marshal.GetFunctionPointerForDelegate(new Func<string, float, bool>(Pause))
             );
         }
 
@@ -249,20 +254,6 @@ namespace AirSimUnity {
             //var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
             //return vehicle.VehicleInterface.PrintLogMessage(message, messageParams, vehicleName, severity);
         }
-
-        private static bool PrintTest(string message)
-        {
-            Debug.LogError("Custom message:" + message);
-            return true;
-        }
-
-        private static bool AddVehicle(string vehicle_name, string vehicle_type) // Take in init pose and path?
-        {
-            Debug.LogError("Attempting to add car: " + vehicle_name + " - " + vehicle_type);
-            AddCar.GetInstance().SpawnVehicle(vehicle_name, new Vector3(-250, 2, 50), Quaternion.identity);
-            return true;
-        }
-
 
         private static bool SetSegmentationObjectId(string objectName, int objectId, bool isNameRegex) {
             return Vehicle.SetSegmentationObjectId(objectName, objectId, isNameRegex);

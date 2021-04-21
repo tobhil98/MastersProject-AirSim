@@ -253,10 +253,10 @@ void RpcLibClientBase::simPrintLogMessage(const std::string& message, std::strin
     pimpl_->client.call("simPrintLogMessage", message, message_param, severity);
 }
 
-void RpcLibClientBase::simPrintTest(const std::string& message)
-{
-    pimpl_->client.call("simPrintTest", message);
-}
+//void RpcLibClientBase::simPrintTest(const std::string& message)
+//{
+//    pimpl_->client.call("simPrintTest", message);
+//}
 
 
 void RpcLibClientBase::simFlushPersistentMarkers()

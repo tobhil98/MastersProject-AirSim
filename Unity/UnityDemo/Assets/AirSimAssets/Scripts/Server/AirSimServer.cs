@@ -12,17 +12,23 @@ namespace AirSimUnity
         public string IP;
         public int Port = -1;
         // Start is called before the first frame update
+        private ServerCompanion comp;
+
+    /*    AirSimServer()
+        {
+        }*/
+
         void Start()
         {
+            comp = new ServerCompanion();
             var settings = AirSimSettings.GetSettings();
+                        
             if (IP == "")
-            {
-                    IP = settings.LocalHostIP;
-            }
+                IP = settings.LocalHostIP;
+            
+            
             if (Port == -1)
-            {
-                    Port = settings.GetPort(AirSimSettings.AgentType.Server);
-            }
+                Port = settings.GetPort(AirSimSettings.AgentType.Server);
 
                 // Start server
             bool status = PInvokeWrapper.StartMainServer(Port);

@@ -73,7 +73,7 @@ namespace AirSimUnity {
             }
 
             AirSimGlobal.Instance.Weather.AttachToVehicle(this);
-            count = UnityEngine.Random.Range(0, 5);
+            count = UnityEngine.Random.Range(0, 10);
         }
 
         //Ensure to call this method as the first statement, from derived class `FixedUpdate()` method.
@@ -121,7 +121,7 @@ namespace AirSimUnity {
                     print_log_messages_ = !print_log_messages_;
                 }
 
-                if (count > 0)
+                if (count > 10)
                 {
                     count = 0;
                     foreach (var p in captureCameras)
@@ -388,7 +388,6 @@ namespace AirSimUnity {
             for (int i = 0; i < camerasParent.transform.childCount; i++) {
                 DataCaptureScript camCapture = camerasParent.transform.GetChild(i).GetComponent<DataCaptureScript>();
                 captureCameras.Add(camCapture);
-                Debug.LogWarning("Added Camera - " + camCapture.cameraName);
                 camCapture.SetUpCamera(camCapture.GetCameraName(), isDrone);
             }
         }
@@ -403,6 +402,11 @@ namespace AirSimUnity {
                     viewCam.SetShaderEffect(ImageType.Segmentation);
                 }
             }
+        }
+
+        public virtual void DestroySelf()
+        {
+            throw new NotImplementedException("This is supposed to be implemented in Sub classes");
         }
     }
 }
