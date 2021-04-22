@@ -464,6 +464,7 @@ MonoBehaviour:
   vehicle: {fileID: 4071658815805002, guid: 20a8ea8f047df2a47baacf48fc9d6598, type: 3}
   randomPedestrian: {fileID: 2885161576785209578, guid: 11b6342601a487e45a8ca8ed561a9b7a,
     type: 3}
+  pedestrianMovement: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
 --- !u!4 &16157773
 Transform:
   m_ObjectHideFlags: 0
