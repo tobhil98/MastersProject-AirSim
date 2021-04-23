@@ -80,16 +80,22 @@ SimulatorServer::SimulatorServer(ServerSimApiBase* serverptr, const string& ip_a
     pimpl_->server.bind("simAddVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type,
         const msr::airlib_rpclib::RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
             return ptr->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
-        });
+    });
 
     // Spawn Pedestrian
+    pimpl_->server.bind("simAddPedestrian", [&](const std::string& pedestrian_name, const msr::airlib_rpclib::RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
+            return ptr->addPedestrian(pedestrian_name, pose.to(), pawn_path);
+    });
 
     // Remove Vehicle
     pimpl_->server.bind("simRemoveVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type) -> bool {
         return ptr->removeVehicle(vehicle_name, vehicle_type);
     });
-    // Remove Pedestrian
 
+    // Remove Pedestrian
+    pimpl_->server.bind("simRemovePedestrian", [&](const std::string& vehicle_name) -> bool {
+        return ptr->removePedestrian(vehicle_name);
+    });
 }
 
 

@@ -891,6 +891,37 @@ class VehicleClient:
         """
         return self.client.call('simRemoveVehicle', vehicle_name, vehicle_type)
 
+    def simAddPedestrian(self, vehicle_name, pose, pawn_path = ""):
+        """
+        Create vehicle at runtime
+
+        Args:
+            vehicle_name (str): Name of the vehicle being created
+            vehicle_type (str): Type of vehicle, e.g. "simpleflight"
+            pose (Pose): Initial pose of the vehicle
+            pawn_path (str): Vehicle blueprint path, default empty wbich uses the default blueprint for the vehicle type
+
+        Returns:
+            bool: Whether vehicle was created
+        """
+        return self.client.call('simAddPedestrian', vehicle_name, pose, pawn_path)
+
+    # Add new vehicle via RPC
+    def simRemovePedestrian(self, vehicle_name):
+        """
+        Create vehicle at runtime
+
+        Args:
+            vehicle_name (str): Name of the vehicle being created
+            vehicle_type (str): Type of vehicle, e.g. "simpleflight"
+            pose (Pose): Initial pose of the vehicle
+            pawn_path (str): Vehicle blueprint path, default empty wbich uses the default blueprint for the vehicle type
+
+        Returns:
+            bool: Whether vehicle was created
+        """
+        return self.client.call('simRemovePedestrian', vehicle_name)
+
 # -----------------------------------  Multirotor APIs ---------------------------------------------
 class MultirotorClient(VehicleClient, object):
     def __init__(self, ip = "", port = 41451, timeout_value = 3600):
