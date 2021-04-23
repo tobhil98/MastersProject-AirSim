@@ -41,7 +41,9 @@ extern bool(*Pause)(const char* vehicleName, float timeScale);
 
 extern bool(*PrintTest) (const char* message);
 extern bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
+extern bool(*AddPedestrian)(const char* pedestrianName);
 extern bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
+extern bool(*RemovePedestrian)(const char* pedestrianName);
 
 
 // PInvoke call to initialize the function pointers. This function is called from Unity.
@@ -75,5 +77,11 @@ extern "C" EXPORT void InitVehicleManager(
 extern "C" EXPORT void InitServerManager(
 	bool(*printTest) (const char* message),
 	bool(*addVehicle)(const char* vehicleName, const char* vehicleType),
-	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType)
+	bool(*addPedestrian)(const char* pedestrianName),
+	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType),
+	bool(*removePedestrian)(const char* pedestrianName)
+);
+
+extern "C" EXPORT void InitPedestrianManager(
+
 );

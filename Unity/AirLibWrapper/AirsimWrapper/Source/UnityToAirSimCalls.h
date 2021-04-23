@@ -4,6 +4,7 @@
 #include "UnityUtilities.hpp"
 #include "SimHUD/SimHUD.h"
 #include "SimHUD/ServerHUD.hpp"
+#include "Pedestrian/PedestrianHUD.hpp"
 #include "Logger.h"
 
 
@@ -15,9 +16,11 @@
 
 static SimHUD* key = nullptr;
 static ServerHUD* serverKey = nullptr;
+static PedestrianHUD* pedestrianKey = nullptr;
 
 void StartMainServerThread(int port_number);
 void StartServerThread(std::string vehicle_name, std::string sim_mode_name, int port_number);
+void StartPedestrianServerThread(int port);
 
 extern "C" EXPORT bool StartMainServer(int port_number)
 {
@@ -38,7 +41,7 @@ extern "C" EXPORT void StopMainServer()
 	serverKey->EndPlay();
 	if (serverKey != nullptr)
 	{
-		delete key;
+		delete serverKey;
 		serverKey = nullptr;
 	}
 	LOGGER->WriteLog("Server stopped");
@@ -103,4 +106,30 @@ extern "C" EXPORT void StoreImage(char* vehicle_name, char* camera, AirSimUnity:
 		}
 	}
 
+}
+
+
+extern "C" EXPORT bool StartPedestrianServer(int port_number)
+{
+	LOGGER->WriteLog("Starting pedestrianserver server on port: " + port_number);
+	std::thread server_thread(StartPedestrianServerThread, port_number);
+	server_thread.detach();
+	int waitCounter = 25; // waiting for maximum 5 seconds to start a server.
+	while ((pedestrianKey == nullptr || !pedestrianKey->server_started_Successfully_) && waitCounter > 0)
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		waitCounter--;
+	}
+	return pedestrianKey->server_started_Successfully_;
+}
+
+extern "C" EXPORT void StopPedestrianServer()
+{
+	pedestrianKey->EndPlay();
+	if (pedestrianKey != nullptr)
+	{
+		delete pedestrianKey;
+		pedestrianKey = nullptr;
+	}
+	LOGGER->WriteLog("Server stopped");
 }

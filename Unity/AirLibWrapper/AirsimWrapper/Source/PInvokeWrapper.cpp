@@ -26,7 +26,9 @@ bool(*Pause)(const char* vehicleName, float timeScale);
 
 bool(*PrintTest) (const char* message);
 bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
+bool(*AddPedestrian)(const char* pedestrianName);
 bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
+bool(*RemovePedestrian)(const char* pedestrianName);
 
 void InitVehicleManager(
 	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* vehicleName),
@@ -81,9 +83,20 @@ void InitVehicleManager(
 void InitServerManager(
 	bool(*printTest) (const char* message),
 	bool(*addVehicle)(const char* vehicleName, const char* vehicleType),
-	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType)
+	bool(*addPedestrian)(const char* pedestrianName),
+	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType),
+	bool(*removePedestrian)(const char* pedestrianName)
 ) {
 	PrintTest = printTest;
 	AddVehicle = addVehicle;
+	AddPedestrian = addPedestrian;
 	RemoveVehicle = removeVehicle;
+	RemovePedestrian = removePedestrian;
+}
+
+
+void InitPedestrianManager(
+
+) {
+
 }

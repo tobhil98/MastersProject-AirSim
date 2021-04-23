@@ -19,7 +19,7 @@ namespace AirSimUnity
 
         private struct InitPedestrain
         {
-            public string vehicle_name;
+            public string name;
             public Vector3 pos;
             public Quaternion rotation;
         }
@@ -32,7 +32,7 @@ namespace AirSimUnity
             {
                 InitPedestrain s = PedestrainQueue.Dequeue();
                 var obj = Instantiate(AssetHandler.getInstance().getPedestrian(), s.pos, s.rotation);
-                //obj.GetComponent<Vehicle>().vehicle_name = s.vehicle_name;
+                //obj.GetComponent<Pedestrian>().vehicle_name = s.vehicle_name;
             }
         }
 
@@ -40,16 +40,16 @@ namespace AirSimUnity
         {
             Debug.LogWarning("Adding new pedestrian");
             var s = new InitPedestrain();
-            s.vehicle_name = "Tim" + ++counter;
+            s.name = "Tim" + ++counter;
             s.pos = new Vector3(-225, 2, 50);
             s.rotation = Quaternion.identity;
             PedestrainQueue.Enqueue(s);
         }
 
-        async public void SpawnVehicle(string name, Vector3 pos, Quaternion rotation)
+        async public void SpawnPedestrian(string name, Vector3 pos, Quaternion rotation)
         {
             var s = new InitPedestrain();
-            s.vehicle_name = name;
+            s.name = name;
             s.pos = pos;
             s.rotation = rotation;
             PedestrainQueue.Enqueue(s);

@@ -11,3 +11,9 @@ void StartMainServerThread(int port_number)
 	serverKey = new ServerHUD(port_number);
 	serverKey->BeginPlay();
 }
+
+void StartPedestrianServerThread(int port_number)
+{
+	pedestrianKey = new PedestrianHUD(port_number);
+	pedestrianKey->BeginPlay();
+}

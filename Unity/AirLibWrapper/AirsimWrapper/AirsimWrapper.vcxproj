@@ -194,6 +194,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Pedestrian\PedestrianHUD.hpp" />
+    <ClInclude Include="Source\Pedestrian\PedestrianSimApi.hpp" />
     <ClInclude Include="Source\ServerSimApi.h" />
     <ClInclude Include="Source\SimHUD\ServerHUD.hpp" />
     <ClInclude Include="Source\AirSimStructs.hpp" />
@@ -221,6 +223,8 @@
     <ClInclude Include="Source\WorldSimApi.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Pedestrian\PedestrianHUD.cpp" />
+    <ClCompile Include="Source\Pedestrian\PedestrianSimApi.cpp" />
     <ClCompile Include="Source\ServerSimApi.cpp" />
     <ClCompile Include="Source\SimHUD\ServerHUD.cpp" />
     <ClCompile Include="Source\Logger.cpp" />

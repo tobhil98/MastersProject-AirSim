@@ -17,8 +17,7 @@ namespace AirSimUnity {
             IntPtr SetSegmentationObjectId, IntPtr GetSegmentationObjectId, IntPtr PrintLogMessage, IntPtr GetTransformFromUnity, 
             IntPtr Reset, IntPtr GetVelocity, IntPtr GetRayCastHit, IntPtr Pause);
 
-        [DllImport(DLL_NAME)]
-        public static extern void InitServerManager(IntPtr PrintTest, IntPtr AddVehicle, IntPtr RemoveVehicle);
+        
 
         [DllImport(DLL_NAME)]
         public static extern KinemticState GetKinematicState(string vehicleName);
@@ -43,10 +42,24 @@ namespace AirSimUnity {
         
         [DllImport(DLL_NAME)]
         public static extern void StoreImage(string vehicle_name, string camera_name, ImageResponse image);
-        
+
+
+        // SERVER //
+        [DllImport(DLL_NAME)]
+        public static extern void InitServerManager(IntPtr PrintTest, IntPtr AddVehicle, IntPtr AddPedestrianFunc, IntPtr RemoveVehicle, IntPtr RemovePedestrian);
+
         [DllImport(DLL_NAME)]
         public static extern bool StartMainServer(int portNumber);
         [DllImport(DLL_NAME)]
         public static extern void StopMainServer();
+
+        // PEDESTRIANS // 
+        [DllImport(DLL_NAME)]
+        public static extern void InitPedestrianManager();
+
+        [DllImport(DLL_NAME)]
+        public static extern bool StartPedestrianServer(int portNumber);
+        [DllImport(DLL_NAME)]
+        public static extern void StopPedestrianServer();
     }
 }

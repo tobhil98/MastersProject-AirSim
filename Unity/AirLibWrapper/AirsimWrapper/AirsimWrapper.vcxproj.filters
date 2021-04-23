@@ -51,6 +51,12 @@
       <Filter>SimHUD</Filter>
     </ClCompile>
     <ClCompile Include="Source\ServerSimApi.cpp" />
+    <ClCompile Include="Source\Pedestrian\PedestrianSimApi.cpp">
+      <Filter>Pedestrian</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Pedestrian\PedestrianHUD.cpp">
+      <Filter>Pedestrian</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SimMode\SimModeBase.h">
@@ -104,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="Source\SimHUD\SimHUD.h" />
     <ClInclude Include="Source\ServerSimApi.h" />
+    <ClInclude Include="Source\Pedestrian\PedestrianSimApi.hpp">
+      <Filter>Pedestrian</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Pedestrian\PedestrianHUD.hpp">
+      <Filter>Pedestrian</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SimHUD">
@@ -123,6 +135,9 @@
     </Filter>
     <Filter Include="UnitySensors">
       <UniqueIdentifier>{d16ecc78-9de7-4c13-8d8d-cbcb29994648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pedestrian">
+      <UniqueIdentifier>{00de0eed-614e-4853-9bc3-42ead83a6475}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

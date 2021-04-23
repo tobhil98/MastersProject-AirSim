@@ -19,7 +19,9 @@ namespace AirSimUnity
             PInvokeWrapper.InitServerManager(
                Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(PrintTest)),
                Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(AddVehicle)),
-               Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(RemoveVehicle))
+               Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(AddPedestrianFunc)),
+               Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(RemoveVehicle)),
+               Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(RemovePedestrian))
                // Add functions that can be called from server to Unity
             );
         }
@@ -39,13 +41,26 @@ namespace AirSimUnity
         }
 
         // Add pedestrian
-
+        private static bool AddPedestrianFunc(string vehicle_name) // Take in init pose and path?
+        {
+            Debug.LogError("Attempting to add pedestrian: " + vehicle_name);
+            AddPedestrain.GetInstance().SpawnPedestrian(vehicle_name, new Vector3(-247, 2, 50), Quaternion.identity);
+            return true;
+        }
 
         // Remove vehicle
         private static bool RemoveVehicle(string vehicle_name, string vehicle_type) // Take in init pose and path?
         {
             Debug.LogError("Attempting to remove car: " + vehicle_name + " - " + vehicle_type);
             VehicleCompanion.DestroyVehicle(vehicle_name);
+            return true;
+        }
+
+        // Remove pedestrian
+        private static bool RemovePedestrian(string vehicle_name) // Take in init pose and path?
+        {
+            //VehicleCompanion.DestroyVehicle(vehicle_name);
+            Debug.LogWarning("Attempt to delete pedestrian");
             return true;
         }
 
