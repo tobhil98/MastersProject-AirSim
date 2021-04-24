@@ -12,7 +12,7 @@ namespace AirSimUnity
         private static bool serverStarted = false;
         private static int basePortId = 41452;
 
-        private string pedestrianName;
+        public string pedestrianName;
 
         static PedestrianCompanion()
         {
@@ -27,13 +27,25 @@ namespace AirSimUnity
             Pedestrians.Remove(person);
         }
 
+        public static PedestrianCompanion GetPedestrianCompanion(string pedestrianName)
+        {
+            var companion = new PedestrianCompanion();
+            companion.pedestrianName = pedestrianName;
+
+
+            Pedestrians.Add(companion);
+            Debug.LogWarning("Number of pedestrians: " + Pedestrians.Count.ToString() + ". Added - " + companion.pedestrianName);
+
+            return companion;
+        }
+
         private PedestrianCompanion()//IVehicleInterface vehicleInterface)
         {
             //VehicleInterface = vehicleInterface;
             //basePortId = AirSimSettings.GetSettings().GetPortIDForVehicle(isDrone);
         }
 
-        public bool StartPedestrianServer(string hostIP)
+        public bool StartPedestrianServer(int hostIP)
         {
             if (serverStarted == false)
             {
