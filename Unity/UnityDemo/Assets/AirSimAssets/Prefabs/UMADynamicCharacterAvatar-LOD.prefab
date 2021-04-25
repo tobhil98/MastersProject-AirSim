@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -4770773725896361310}
   - component: {fileID: 1330260328257212317}
   - component: {fileID: -8676110346352391326}
+  - component: {fileID: -8620564250906025973}
   m_Layer: 0
   m_Name: UMADynamicCharacterAvatar-LOD
   m_TagString: Untagged
@@ -369,8 +370,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153068}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 320b240f74e15c547b07556abc49ba95, type: 2}
+  m_Controller: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -411,3 +412,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8620564250906025973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6fdc372bd3dc94f9ecc0a99688591d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pedestrian_name: 

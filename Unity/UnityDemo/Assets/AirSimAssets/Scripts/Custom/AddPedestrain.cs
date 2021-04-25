@@ -32,7 +32,15 @@ namespace AirSimUnity
             {
                 InitPedestrain s = PedestrainQueue.Dequeue();
                 var obj = Instantiate(AssetHandler.getInstance().getPedestrian(), s.pos, s.rotation);
-                //obj.GetComponent<Pedestrian>().vehicle_name = s.vehicle_name;
+                //Debug.LogError("");
+                //obj.gameObject.GetComponentsInChildren(Pedestrian).pedestrian_name = s.name;
+                var component = obj.GetComponent<PedestrianOverhead>();
+                component.name = s.name;
+                //9component.name
+           /*     foreach (var i in lst)
+                {
+                }*/
+                //obj.GetComponent<Pedestrian>()
             }
         }
 

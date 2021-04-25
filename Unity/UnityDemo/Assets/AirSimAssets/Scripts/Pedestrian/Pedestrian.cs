@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
 namespace AirSimUnity
 {
     public class Pedestrian : MonoBehaviour
@@ -11,8 +12,13 @@ namespace AirSimUnity
         private bool isServerStarted = false;
 
         public string pedestrian_name;
-        private void Start()
+        private void Awake()
         {
+            Debug.Log("HELLO");
+            var t = transform.parent.name;
+            Debug.Log("Pedestrian " + t);
+            pedestrian_name = transform.GetComponentInParent<PedestrianOverhead>().name;
+
             InitialisePedestrian();
 
             pedestrianInterface = PedestrianCompanion.GetPedestrianCompanion(pedestrian_name);
@@ -41,7 +47,6 @@ namespace AirSimUnity
 
         private void InitialisePedestrian()
         {
-
         }
     };
 
