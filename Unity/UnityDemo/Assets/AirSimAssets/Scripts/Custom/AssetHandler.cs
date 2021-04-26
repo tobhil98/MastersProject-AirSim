@@ -8,6 +8,7 @@ public class AssetHandler : MonoBehaviour
 
     public Transform vehicle;
     public Transform randomPedestrian;
+    public RuntimeAnimatorController pedestrianAnimation;
 
     private static AssetHandler instance;
 

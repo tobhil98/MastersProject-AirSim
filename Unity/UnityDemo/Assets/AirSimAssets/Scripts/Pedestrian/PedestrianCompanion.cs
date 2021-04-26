@@ -14,6 +14,8 @@ namespace AirSimUnity
 
         public string pedestrianName;
 
+        private Pedestrian pedestrianPtr;
+
         static PedestrianCompanion()
         {
             InitDelegators();
@@ -23,15 +25,15 @@ namespace AirSimUnity
         {
             Debug.LogWarning("Destroy pedestrian");
             var person = Pedestrians.Find(element => element.pedestrianName == name);
-            //vehicle.VehicleInterface.DestroySelf();
+            person.pedestrianPtr.DestroySelf();
             Pedestrians.Remove(person);
         }
 
-        public static PedestrianCompanion GetPedestrianCompanion(string pedestrianName)
+        public static PedestrianCompanion GetPedestrianCompanion(Pedestrian ped, string pedestrianName)
         {
             var companion = new PedestrianCompanion();
             companion.pedestrianName = pedestrianName;
-
+            companion.pedestrianPtr = ped;
 
             Pedestrians.Add(companion);
             Debug.LogWarning("Number of pedestrians: " + Pedestrians.Count.ToString() + ". Added - " + companion.pedestrianName);

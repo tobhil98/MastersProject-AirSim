@@ -51,7 +51,6 @@ namespace AirSimUnity
         // Remove vehicle
         private static bool RemoveVehicle(string vehicle_name, string vehicle_type) // Take in init pose and path?
         {
-            Debug.LogError("Attempting to remove car: " + vehicle_name + " - " + vehicle_type);
             VehicleCompanion.DestroyVehicle(vehicle_name);
             return true;
         }
@@ -59,8 +58,7 @@ namespace AirSimUnity
         // Remove pedestrian
         private static bool RemovePedestrian(string vehicle_name) // Take in init pose and path?
         {
-            //VehicleCompanion.DestroyVehicle(vehicle_name);
-            Debug.LogWarning("Attempt to delete pedestrian");
+            PedestrianCompanion.DestroyPedestrian(vehicle_name);
             return true;
         }
 

@@ -14,7 +14,7 @@ public class PedestrianOverhead : MonoBehaviour
 
     private void Update()
     {
-        Debug.LogWarning("Child Count from overhead: " + transform.childCount);
+        //Debug.LogWarning("Child Count from overhead: " + transform.childCount);
 
     }
 }

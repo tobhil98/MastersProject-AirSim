@@ -10,33 +10,39 @@ namespace AirSimUnity
     {
         private PedestrianCompanion pedestrianInterface;
         private bool isServerStarted = false;
+        private bool destroySelf_ = false;
 
         public string pedestrian_name;
-        private void Awake()
+
+        
+        public void Start()
         {
-            Debug.Log("HELLO");
-            var t = transform.parent.name;
-            Debug.Log("Pedestrian " + t);
             pedestrian_name = transform.GetComponentInParent<PedestrianOverhead>().name;
 
             InitialisePedestrian();
 
-            pedestrianInterface = PedestrianCompanion.GetPedestrianCompanion(pedestrian_name);
+            pedestrianInterface = PedestrianCompanion.GetPedestrianCompanion(this, pedestrian_name);
             isServerStarted = pedestrianInterface.StartPedestrianServer(AirSimSettings.GetSettings().GetPort(AirSimSettings.AgentType.Pedestrian));
 
             if (isServerStarted == false)
             {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
                 EditorUtility.DisplayDialog("Problem in starting AirSim server!!!", "Please check logs for more information.", "Exit");
                 EditorApplication.Exit(1);
-    #else
+#else
                 Application.Quit();
-    #endif
+#endif
             }
 
             //AirSimGlobal.Instance.Weather.AttachToVehicle(this);
-            
+
             //count = UnityEngine.Random.Range(0, 10);
+        }
+
+        private void FixedUpdate()
+        {
+            if (destroySelf_) Destroy(transform.parent.gameObject);
+
         }
 
 
@@ -47,6 +53,12 @@ namespace AirSimUnity
 
         private void InitialisePedestrian()
         {
+            transform.GetComponent<Animator>().runtimeAnimatorController = AssetHandler.getInstance().pedestrianAnimation;
+        }
+
+        public void DestroySelf()
+        {
+            destroySelf_ = true;
         }
     };
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2885161576785209578}
   - component: {fileID: 2885161576314354680}
-  - component: {fileID: -7841439636473311469}
+  - component: {fileID: 5022290831579881544}
   m_Layer: 0
   m_Name: UMARandomGeneratedCharacter
   m_TagString: Untagged
@@ -55,11 +55,11 @@ MonoBehaviour:
   GridDistance: 0
   RandomOffset: 0
   RandomRotation: 0
-  NameBase: Pat
+  NameBase: Ian
   RandomAvatarGenerated:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-7841439636473311469
+--- !u!114 &5022290831579881544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
