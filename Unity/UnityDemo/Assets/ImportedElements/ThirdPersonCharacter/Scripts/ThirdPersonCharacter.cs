@@ -44,6 +44,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 
 		public void Move(Vector3 move, bool crouch, bool jump)
+		//public void Move(float forward, float turnAmount, bool crouch, bool jump)
 		{
 
 			// convert the world relative moveInput vector into a local-relative
@@ -68,8 +69,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				HandleAirborneMovement();
 			}
 
-			ScaleCapsuleForCrouching(crouch);
-			PreventStandingInLowHeadroom();
+			//ScaleCapsuleForCrouching(crouch);
+			//PreventStandingInLowHeadroom();
 
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
