@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using AirSimUnity.CarStructs;
+using AirSimUnity.PedestrianStructs;
 
 namespace AirSimUnity {
     /*
@@ -49,7 +50,6 @@ namespace AirSimUnity {
         }
 
         public static void SetCarControls(CarControls src, ref CarControls dst) {
-            Debug.Log("Controls" + src.throttle + ", " + src.brake);
             dst.brake = src.brake;
             dst.gear_immediate = src.gear_immediate;
             dst.handbrake = src.handbrake;
@@ -57,6 +57,12 @@ namespace AirSimUnity {
             dst.manual_gear = src.manual_gear;
             dst.steering = src.steering;
             dst.throttle = src.throttle;
+        }
+
+        public static void SetPedestrianControls(PedestrianControls src, ref PedestrianControls dst)
+        {
+            dst.speed = src.speed;
+            dst.steering = src.steering;
         }
 
         public static long GetCurrentTimeInMilli() {

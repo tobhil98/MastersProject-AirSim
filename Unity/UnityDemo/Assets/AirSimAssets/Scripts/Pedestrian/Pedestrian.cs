@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityStandardAssets.Characters.ThirdPerson;
+using AirSimUnity.PedestrianStructs;
 
 
 namespace AirSimUnity
@@ -12,20 +13,15 @@ namespace AirSimUnity
         private PedestrianCompanion pedestrianInterface;
         private bool isServerStarted = false;
         private bool destroySelf_ = false;
+        private bool resetPedestrian_ = false;
         private bool isApiEnabled = false;
 
+        private PedestrianControls pedestrianControls;
+        private PedestrianState pedestrianState;
+        private PedestrianData pedestrianData;
 
-        public struct PedestrianController
-        {
-            public float speed;
-            public float steeringRotation;
-            public PedestrianController(float speed, float steeringRotation)
-            {
-                this.speed = speed;
-                this.steeringRotation = steeringRotation;
-            }
-        };
-        PedestrianController pc;
+        protected AirSimPose poseFromAirLib;
+        protected AirSimPose currentPose;
 
         public string pedestrian_name;
         private float steering, speed;
@@ -53,7 +49,7 @@ namespace AirSimUnity
             //AirSimGlobal.Instance.Weather.AttachToVehicle(this);
 
             //count = UnityEngine.Random.Range(0, 10);
-            pc = new PedestrianController(0, 0);
+            pedestrianControls = new PedestrianControls(0, 0);
         }
 
         private void FixedUpdate()
@@ -62,10 +58,13 @@ namespace AirSimUnity
 
             if (isServerStarted)
             {
+                DataManager.SetToAirSim(transform.position, ref currentPose.position);
+                DataManager.SetToAirSim(transform.rotation, ref currentPose.orientation);
+
                 if (isApiEnabled)
                 {
-                    steering = pc.steeringRotation;
-                    speed = pc.speed;
+                    steering = pedestrianControls.steering;
+                    speed = pedestrianControls.speed;
                 }
                 else
                 {
@@ -100,6 +99,41 @@ namespace AirSimUnity
 
         }
 
+
+        public bool SetEnableApi(bool enableApi)
+        {
+            Debug.Log("Updated pedestrian api - " + enableApi);
+            isApiEnabled = enableApi;
+            return true;
+        }
+
+        public void ResetPedestrian()
+        {
+            resetPedestrian_ = true;
+        }
+
+        public AirSimVector GetVelocity()
+        {
+            var rigidBody = GetComponent<Rigidbody>();
+            return new AirSimVector(rigidBody.velocity.x, rigidBody.velocity.y, rigidBody.velocity.z);
+        }
+
+        public bool SetPose(AirSimPose pose, bool ignore_collision)
+        {
+            poseFromAirLib = pose;
+            return true;
+        }
+
+        public AirSimPose GetPose()
+        {
+            return currentPose;
+        }
+
+        public bool SetCarControls(PedestrianControls controls)
+        {
+            DataManager.SetPedestrianControls(controls, ref pedestrianControls);
+            return true;
+        }
 
         private void OnApplicationQuit()
         {
