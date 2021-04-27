@@ -51,6 +51,8 @@ namespace AirSimUnity {
             }
         }
 
+
+
         [StructLayout(LayoutKind.Sequential)]
         public struct CarState {
             public int gear;
@@ -92,6 +94,62 @@ namespace AirSimUnity {
             }
         }
     }
+
+
+    namespace PedestrianStructs
+    {
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PedestrianControls
+        {
+            public float speed; /* 1 to -1 */
+            public float steering; /* 1 to -1 */
+
+
+            public PedestrianControls(float speed, float steering)
+            {
+                this.speed = speed;
+                this.steering = steering;
+            }
+
+            public void Reset()
+            {
+                speed = 0;
+                steering = 0;
+            }
+        }
+
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PedestrianState
+        {
+            public float speed;
+            public long timeStamp;
+            public AirSimPose pose;
+
+            public void Reset()
+            {
+                speed = 0;
+                timeStamp = 0;
+                pose.Reset();
+            }
+        }
+
+        public struct PedestrianData
+        {
+            public int speed;
+            public float steering;
+
+
+            public void Reset()
+            {
+                speed = 0;
+                steering = 0f;
+            }
+        }
+    }
+
 
     namespace DroneStructs {
 
