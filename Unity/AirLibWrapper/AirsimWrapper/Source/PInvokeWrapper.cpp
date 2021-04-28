@@ -30,6 +30,13 @@ bool(*AddPedestrian)(const char* pedestrianName);
 bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
 bool(*RemovePedestrian)(const char* pedestrianName);
 
+bool(*SetPedestrianPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName);
+AirSimPose(*GetPedestrianPose)(const char* pedestrianName);
+bool(*PedestrianReset)(const char* pedestrianName);
+bool(*PedestrianSetEnableApi)(bool enableApi, const char* pedestrianName);
+
+
+
 void InitVehicleManager(
 	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* vehicleName),
 	AirSimPose(*getPose)(const char* vehicleName),
@@ -96,7 +103,13 @@ void InitServerManager(
 
 
 void InitPedestrianManager(
-
+	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName),
+	AirSimPose(*getPose)(const char* pedestrianName),
+	bool(*reset)(const char* pedestrianName),
+	bool(*setEnableApi)(bool enableApi, const char* pedestrianName)
 ) {
-
+	SetPedestrianPose = setPose;
+	GetPedestrianPose = getPose;
+	PedestrianReset = reset;
+	PedestrianSetEnableApi = setEnableApi;
 }

@@ -4,13 +4,22 @@ import setup_path
 import airsim
 
 server = airsim.CarClient(port=41450)
+client = airsim.CarClient(port=41451)
 status = server.ping()
 print(status)
 server.simPrintTest("This is the important test")
 pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))
 server.simAddVehicle("Test", "PhysXCar", pose)
 server.simAddPedestrian("TestPedestrian", pose)
-sleep(3)
+sleep(2)
+pedClient = airsim.PedestrianClient(port=41452)
+print("Client created")
+print("Ped client ping : ", pedClient.ping())
+sleep(0.3)
+pedClient.enableApiControl(True, "TestPedestrian")
+#print("reset ", pedClient.reset())
+print("Enable api control done")
+sleep(1)
 server.simRemoveVehicle("Test", "PhysXCar")
 server.simRemovePedestrian("TestPedestrian")
 # for i in range(5):

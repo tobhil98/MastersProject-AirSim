@@ -111,7 +111,7 @@ extern "C" EXPORT void StoreImage(char* vehicle_name, char* camera, AirSimUnity:
 
 extern "C" EXPORT bool StartPedestrianServer(int port_number)
 {
-	LOGGER->WriteLog("Starting pedestrianserver server on port: " + port_number);
+	LOGGER->WriteLog("Starting pedestrian server");
 	std::thread server_thread(StartPedestrianServerThread, port_number);
 	server_thread.detach();
 	int waitCounter = 25; // waiting for maximum 5 seconds to start a server.

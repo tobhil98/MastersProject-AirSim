@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
+using System.Runtime.InteropServices;
 
 namespace AirSimUnity
 {
@@ -52,7 +53,7 @@ namespace AirSimUnity
             if (serverStarted == false)
             {
                 serverStarted = PInvokeWrapper.StartPedestrianServer(basePortId);
-                Debug.LogWarning("Pedestrian server started: " + serverStarted);
+                Debug.Log("Pedestrian server startedv on port: " + basePortId);
                 return serverStarted;
             }
             return true;
@@ -62,27 +63,19 @@ namespace AirSimUnity
             if (serverStarted == true)
             {
                 PInvokeWrapper.StopPedestrianServer();
-                Debug.LogWarning("Pedestrian server halted");
+                Debug.Log("Pedestrian server halted");
                 serverStarted = false;
-            }
-            else
-            {
-                Debug.LogWarning("Pedestrian server already halted");
             }
         }
         private static void InitDelegators()
         {
             PInvokeWrapper.InitPedestrianManager(
-            //Marshal.GetFunctionPointerForDelegate(new Func<AirSimPose, bool, string, bool>(SetPose)),
+                Marshal.GetFunctionPointerForDelegate(new Func<AirSimPose, bool, string, bool>(SetPose)),
+                Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimPose>(GetPose)),
+                Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(Reset)),
+                Marshal.GetFunctionPointerForDelegate(new Func<bool, string, bool>(SetEnableApi))
             );
         }
-        /*
-                public static extern void InitVehicleManager(IntPtr SetPose, IntPtr GetPose, IntPtr GetCollisionInfo, IntPtr GetRCData,
-            IntPtr GetSimImages, IntPtr SetRotorSpeed, IntPtr SetEnableApi, IntPtr SetCarApiControls, IntPtr GetCarState,
-            IntPtr GetCameraInfo, IntPtr SetCameraPose, IntPtr SetCameraFoV, IntPtr SetDistortionParam, IntPtr GetDistortionParams,
-            IntPtr SetSegmentationObjectId, IntPtr GetSegmentationObjectId, IntPtr PrintLogMessage, IntPtr GetTransformFromUnity,
-            IntPtr Reset, IntPtr GetVelocity, IntPtr GetRayCastHit, IntPtr Pause);*/
-
 
         private static bool SetPose(AirSimPose pose, bool ignoreCollision, string pedestrianName)
         {
@@ -99,8 +92,9 @@ namespace AirSimUnity
 
         private static bool Reset(string pedestrianName)
         {
-            var pedestrian = Pedestrians.Find(element => element.pedestrianName == pedestrianName);
-            pedestrian.pedestrianPtr.ResetPedestrian();
+            /*  var pedestrian = Pedestrians.Find(element => element.pedestrianName == pedestrianName);
+              pedestrian.pedestrianPtr.ResetPedestrian();*/
+            Debug.Log("Reset called on pedestrian " + pedestrianName);
             return true;
         }
 

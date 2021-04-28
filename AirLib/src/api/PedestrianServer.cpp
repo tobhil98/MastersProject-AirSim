@@ -8,6 +8,8 @@
 namespace msr {
     namespace airlib {
 
+        typedef msr::airlib_rpclib::RpcLibAdaptorsBase RpcLibAdaptorsBase;
+
 
         struct PedestrianServer::impl {
             impl(string server_address, uint16_t port)
@@ -71,7 +73,25 @@ namespace msr {
             else
                 pimpl_.reset(new impl(ip_address, port));
 
-            pimpl_->server.bind("ping", [&]() -> bool { return true; });
+            pimpl_->server.bind("PedestrianPing", [&]() -> bool { return true; });
+            pimpl_->server.bind("getServerVersion", [&]() -> int { return 5; });
+
+            pimpl_->server.bind("SetPedestrianPose", [&](const RpcLibAdaptorsBase::Pose& pose, bool ignore_collision, const std::string& pedestrian_name) -> void {
+               ptr->setPose(pose.to(), ignore_collision, pedestrian_name);
+            });
+
+            pimpl_->server.bind("GetPedestrianPose", [&](const std::string& pedestrian_name) -> RpcLibAdaptorsBase::Pose {
+                const auto& pose = ptr->getPose(pedestrian_name);
+                return RpcLibAdaptorsBase::Pose(pose);
+            });
+
+            pimpl_->server.bind("PedestrianReset", [&](const std::string& pedestrian_name) -> bool {
+                return ptr->reset(pedestrian_name);
+            });
+
+            pimpl_->server.bind("PedestrianEnableApiControl", [&](bool is_enabled, const std::string& pedestrian_name) -> bool {
+                return ptr->enableApi(is_enabled, pedestrian_name);
+            });
 
 
         }

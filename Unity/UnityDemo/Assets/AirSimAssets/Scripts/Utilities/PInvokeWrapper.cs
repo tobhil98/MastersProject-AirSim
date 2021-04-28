@@ -55,7 +55,7 @@ namespace AirSimUnity {
 
         // PEDESTRIANS // 
         [DllImport(DLL_NAME)]
-        public static extern void InitPedestrianManager();
+        public static extern void InitPedestrianManager(IntPtr SetPose, IntPtr GetPose, IntPtr Reset, IntPtr SetEnableApi);
 
         [DllImport(DLL_NAME)]
         public static extern bool StartPedestrianServer(int portNumber);

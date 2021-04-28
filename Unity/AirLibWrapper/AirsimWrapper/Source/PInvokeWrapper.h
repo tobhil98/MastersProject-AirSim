@@ -46,6 +46,12 @@ extern bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
 extern bool(*RemovePedestrian)(const char* pedestrianName);
 
 
+extern bool(*SetPedestrianPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName);
+extern AirSimPose(*GetPedestrianPose)(const char* pedestrianName);
+extern bool(*PedestrianReset)(const char* pedestrianName);
+extern bool(*PedestrianSetEnableApi)(bool enableApi, const char* pedestrianName);
+
+
 // PInvoke call to initialize the function pointers. This function is called from Unity.
 
 extern "C" EXPORT void InitVehicleManager(
@@ -83,5 +89,8 @@ extern "C" EXPORT void InitServerManager(
 );
 
 extern "C" EXPORT void InitPedestrianManager(
-
+	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName),
+	AirSimPose(*getPose)(const char* pedestrianName),
+	bool(*reset)(const char* pedestrianName),
+	bool(*setEnableApi)(bool enableApi, const char* pedestrianName)
 );
