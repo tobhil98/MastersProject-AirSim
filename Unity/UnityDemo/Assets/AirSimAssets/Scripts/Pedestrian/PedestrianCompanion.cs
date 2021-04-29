@@ -102,6 +102,22 @@ namespace AirSimUnity
 
         private static bool SetEnableApi(bool enableApi, string pedestrianName)
         {
+            if (pedestrianName == "")
+            {
+                foreach (var p in Pedestrians)
+                {
+                    if (p != null)
+                    {
+                        p.pedestrianPtr.SetEnableApi(enableApi);
+                    }
+                    else
+                    {
+                        Debug.LogError("Should not happen - Check why this happend");
+                    }
+                }
+                return true;
+            }
+
             var pedestrian = Pedestrians.Find(element => element.pedestrianName == pedestrianName);
             if (pedestrian != null)
                 return pedestrian.pedestrianPtr.SetEnableApi(enableApi);
@@ -110,6 +126,23 @@ namespace AirSimUnity
 
         private static bool SetPedestrianApiControls(PedestrianControls controls, string pedestrianName)
         {
+            if (pedestrianName == "")
+            {
+                foreach(var p in Pedestrians)
+                {
+                    if(p != null)
+                    {
+                        p.pedestrianPtr.SetPedestrianControls(controls);
+                    }
+                    else
+                    {
+                        Debug.LogError("Should not happen - Check why this happend");
+                    }
+
+                }
+                return true;
+            }
+
             var pedestrian = Pedestrians.Find(element => element.pedestrianName == pedestrianName);
             if (pedestrian != null)
                 return pedestrian.pedestrianPtr.SetPedestrianControls(controls);

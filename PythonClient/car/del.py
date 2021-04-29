@@ -16,10 +16,20 @@ pedClient = airsim.PedestrianClient(port=41452)
 print("Client created")
 print("Ped client ping : ", pedClient.ping())
 sleep(0.3)
-pedClient.enableApiControl(True, "TestPedestrian")
+pedClient.enableApiControl(True)
+client.enableApiControl(True)
+pedestrian_controls = airsim.PedestrianControls()
+pedestrian_controls.speed = 0.5
+pedestrian_controls.steering = 0
+pedClient.setPedestrianControl(pedestrian_controls, "TestPedestrian")
 #print("reset ", pedClient.reset())
+car_controls = airsim.CarControls()
+car_controls.throttle = 0.5
+car_controls.steering = 0
+client.setCarControls(car_controls, "PhysXCar", "Test")
+
 print("Enable api control done")
-sleep(1)
+sleep(5)
 server.simRemoveVehicle("Test", "PhysXCar")
 server.simRemovePedestrian("TestPedestrian")
 # for i in range(5):

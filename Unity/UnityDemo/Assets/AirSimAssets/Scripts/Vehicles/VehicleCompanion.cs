@@ -201,6 +201,22 @@ namespace AirSimUnity {
         }
 
         private static bool SetEnableApi(bool enableApi, string vehicleName) {
+            if (vehicleName == "")
+            {
+                foreach (var v in Vehicles)
+                {
+                    if (v != null)
+                    {
+                        v.VehicleInterface.SetEnableApi(enableApi);
+                    }
+                    else
+                    {
+                        Debug.LogError("Should not happen - Check why this happend");
+                    }
+                }
+                return true;
+            }
+
             var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
             if(vehicle != null)
                 return vehicle.VehicleInterface.SetEnableApi(enableApi);
@@ -208,6 +224,22 @@ namespace AirSimUnity {
         }
 
         private static bool SetCarApiControls(CarControls controls, string vehicleName) {
+            if (vehicleName == "")
+            {
+                foreach (var v in Vehicles)
+                {
+                    if (v != null)
+                    {
+                        v.VehicleInterface.SetCarControls(controls);
+                    }
+                    else
+                    {
+                        Debug.LogError("Should not happen - Check why this happend");
+                    }
+                }
+                return true;
+            }
+
             var vehicle = Vehicles.Find(element => element.vehicleName == vehicleName);
             if(vehicle != null)
                 return vehicle.VehicleInterface.SetCarControls(controls);
