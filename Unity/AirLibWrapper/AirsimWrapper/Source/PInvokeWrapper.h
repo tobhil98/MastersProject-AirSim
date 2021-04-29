@@ -4,7 +4,7 @@
 #include "UnityImageCapture.h"
 #include "vehicles/car/api/CarApiBase.hpp"
 #include "VehicleUtils.h"
-
+#include "PedestrianUtils.h"
 
 #ifdef _WIN32
 	#define EXPORT __declspec(dllexport)
@@ -50,7 +50,7 @@ extern bool(*SetPedestrianPose)(AirSimPose pose, bool ignoreCollision, const cha
 extern AirSimPose(*GetPedestrianPose)(const char* pedestrianName);
 extern bool(*PedestrianReset)(const char* pedestrianName);
 extern bool(*PedestrianSetEnableApi)(bool enableApi, const char* pedestrianName);
-
+extern bool(*SetPedestrianApiControls)(AirSimUnity::PedestrianControls controls, const char* pedestrianName);
 
 // PInvoke call to initialize the function pointers. This function is called from Unity.
 
@@ -92,5 +92,6 @@ extern "C" EXPORT void InitPedestrianManager(
 	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName),
 	AirSimPose(*getPose)(const char* pedestrianName),
 	bool(*reset)(const char* pedestrianName),
-	bool(*setEnableApi)(bool enableApi, const char* pedestrianName)
+	bool(*setEnableApi)(bool enableApi, const char* pedestrianName),
+	bool(*setPedestrianApiControls)(AirSimUnity::PedestrianControls, const char* pedestrianName)
 );

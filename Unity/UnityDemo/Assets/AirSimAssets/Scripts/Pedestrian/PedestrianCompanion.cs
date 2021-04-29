@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
+using AirSimUnity.PedestrianStructs;
 
 namespace AirSimUnity
 {
@@ -73,7 +74,8 @@ namespace AirSimUnity
                 Marshal.GetFunctionPointerForDelegate(new Func<AirSimPose, bool, string, bool>(SetPose)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimPose>(GetPose)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(Reset)),
-                Marshal.GetFunctionPointerForDelegate(new Func<bool, string, bool>(SetEnableApi))
+                Marshal.GetFunctionPointerForDelegate(new Func<bool, string, bool>(SetEnableApi)),
+                Marshal.GetFunctionPointerForDelegate(new Func<PedestrianControls, string, bool>(SetPedestrianApiControls))
             );
         }
 
@@ -106,7 +108,13 @@ namespace AirSimUnity
             return false;
         }
 
-
+        private static bool SetPedestrianApiControls(PedestrianControls controls, string pedestrianName)
+        {
+            var pedestrian = Pedestrians.Find(element => element.pedestrianName == pedestrianName);
+            if (pedestrian != null)
+                return pedestrian.pedestrianPtr.SetPedestrianControls(controls);
+            return false;
+        }
     }
 
 

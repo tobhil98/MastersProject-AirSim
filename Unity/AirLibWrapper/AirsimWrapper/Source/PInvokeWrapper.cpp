@@ -34,6 +34,7 @@ bool(*SetPedestrianPose)(AirSimPose pose, bool ignoreCollision, const char* pede
 AirSimPose(*GetPedestrianPose)(const char* pedestrianName);
 bool(*PedestrianReset)(const char* pedestrianName);
 bool(*PedestrianSetEnableApi)(bool enableApi, const char* pedestrianName);
+bool(*SetPedestrianApiControls)(AirSimUnity::PedestrianControls, const char* pedestrianName);
 
 
 
@@ -106,10 +107,12 @@ void InitPedestrianManager(
 	bool(*setPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName),
 	AirSimPose(*getPose)(const char* pedestrianName),
 	bool(*reset)(const char* pedestrianName),
-	bool(*setEnableApi)(bool enableApi, const char* pedestrianName)
+	bool(*setEnableApi)(bool enableApi, const char* pedestrianName),
+	bool(*setPedestrianApiControls)(AirSimUnity::PedestrianControls, const char* pedestrianName)
 ) {
 	SetPedestrianPose = setPose;
 	GetPedestrianPose = getPose;
 	PedestrianReset = reset;
 	PedestrianSetEnableApi = setEnableApi;
+	SetPedestrianApiControls = setPedestrianApiControls;
 }

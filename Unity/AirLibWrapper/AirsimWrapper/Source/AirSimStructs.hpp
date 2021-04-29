@@ -87,6 +87,11 @@ namespace AirSimUnity
 		}
 	};
 
+	struct PedestrianControls {
+		float speed;
+		float steering;
+	};
+
 	struct AirSimTwist
 	{
 		AirSimVector angular;

@@ -218,13 +218,11 @@ void WorldSimApi::setWind(const Vector3r& wind) const
 
 bool WorldSimApi::setEnableApi(bool is_enabled, const std::string& vehicle_name)
 {
-    LOGGER->WriteLog("Attempting to setEnableApi");
     return SetEnableApi(is_enabled, vehicle_name.c_str());
 }
 
 bool WorldSimApi::setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name)
 {
-    LOGGER->WriteLog("setCarControls called :D");
     return SetCarApiControls(c, vehicle_name.c_str());
 }
 

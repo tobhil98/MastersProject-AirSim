@@ -86,6 +86,7 @@
     <ClInclude Include="include\common\common_utils\AsyncTasker.hpp" />
     <ClInclude Include="include\common\ImageCaptureBase.hpp" />
     <ClInclude Include="include\api\VehicleConnectorBase.hpp" />
+    <ClInclude Include="include\PedestrianUtils.h" />
     <ClInclude Include="include\sensors\SensorFactory.hpp" />
     <ClInclude Include="include\vehicles\car\api\CarApiBase.hpp" />
     <ClInclude Include="include\vehicles\multirotor\api\MultirotorCommon.hpp" />

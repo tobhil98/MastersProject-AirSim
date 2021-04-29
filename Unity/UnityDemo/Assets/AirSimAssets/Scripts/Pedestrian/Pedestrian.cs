@@ -129,7 +129,7 @@ namespace AirSimUnity
             return currentPose;
         }
 
-        public bool SetCarControls(PedestrianControls controls)
+        public bool SetPedestrianControls(PedestrianControls controls)
         {
             DataManager.SetPedestrianControls(controls, ref pedestrianControls);
             return true;

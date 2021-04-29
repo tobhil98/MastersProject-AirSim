@@ -68,3 +68,14 @@ class PedestrianClient:
             pedestrian_name (str, optional): Name of the vehicle to send this command to
         """
         return self.client.call('PedestrianEnableApiControl', is_enabled, pedestrian_name)
+
+
+    def setPedestrianControl(self, controls, pedestrian_name = ''):
+        """
+        Control the car using throttle, steering, brake, etc.
+
+        Args:
+            controls (PedestrianControls): Struct containing control values
+            vehicle_name (str, optional): Name of vehicle to be controlled
+        """
+        self.client.call('setPedestrianControls', controls, pedestrian_name)

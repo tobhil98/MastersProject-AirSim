@@ -9,4 +9,6 @@ class PedestrianSimApi : public msr::airlib::PedestrianSimApiBase
 	virtual void setPose(const  msr::airlib::Pose& pose, bool ignore_collision, const std::string& pedestrian_name) override;
 	virtual bool reset(const std::string& pedestrian_name) override;
 	virtual bool enableApi(bool status, const std::string& pedestrian_name) override;
+	virtual bool setPedestrianControls(const msr::airlib::PedestrianControls& controls, const std::string& pedestrian_name) override;
+
 };

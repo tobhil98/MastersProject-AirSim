@@ -3,7 +3,7 @@
 #include "rpc/server.h"
 #include "common/Common.hpp"
 #include "api/RpcLibAdaptorsBase.hpp"
-
+#include "PedestrianUtils.h"
 
 namespace msr {
     namespace airlib {
@@ -91,6 +91,10 @@ namespace msr {
 
             pimpl_->server.bind("PedestrianEnableApiControl", [&](bool is_enabled, const std::string& pedestrian_name) -> bool {
                 return ptr->enableApi(is_enabled, pedestrian_name);
+            });
+
+            pimpl_->server.bind("setPedestrianControls", [&](const msr::airlib::PedestrianControls& controls, const std::string& pedestrian_name) -> bool {
+                return ptr->setPedestrianControls(controls, pedestrian_name);
             });
 
 

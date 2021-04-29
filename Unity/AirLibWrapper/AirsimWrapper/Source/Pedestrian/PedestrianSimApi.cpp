@@ -2,6 +2,7 @@
 #include "../Logger.h"
 #include "../PInvokeWrapper.h"
 #include "../UnityUtilities.hpp"
+#include "../AirSimStructs.hpp"
 
 void PedestrianSimApi::printTest(const std::string& message)
 {
@@ -27,4 +28,12 @@ bool PedestrianSimApi::reset(const std::string& pedestrian_name)
 bool PedestrianSimApi::enableApi(bool status, const std::string& pedestrian_name)
 {
 	return PedestrianSetEnableApi(status, pedestrian_name.c_str());
+}
+
+bool PedestrianSimApi::setPedestrianControls(const msr::airlib::PedestrianControls& controls, const std::string& pedestrian_name)
+{
+	AirSimUnity::PedestrianControls c;
+	c.speed = controls.speed;
+	c.steering = controls.steering;
+	return SetPedestrianApiControls(c, pedestrian_name.c_str());
 }
