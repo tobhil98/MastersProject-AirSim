@@ -33,6 +33,7 @@ namespace AirSimUnity{
                 InitVehicle s = VehicleQueue.Dequeue();
                 var obj = Instantiate(AssetHandler.getInstance().getVehicle(), s.pos, s.rotation);
                 obj.GetComponent<Vehicle>().vehicle_name = s.vehicle_name;
+                AirSimServer.vehicleList.Add(obj);
             }
         }
          

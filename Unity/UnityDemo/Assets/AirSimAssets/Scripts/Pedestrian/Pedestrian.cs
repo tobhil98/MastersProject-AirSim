@@ -26,7 +26,6 @@ namespace AirSimUnity
         public string pedestrian_name;
         private float steering, speed;
 
-
         public void Start()
         {
             pedestrian_name = transform.GetComponentInParent<PedestrianOverhead>().name;
@@ -54,7 +53,11 @@ namespace AirSimUnity
 
         private void FixedUpdate()
         {
-            if (destroySelf_) Destroy(transform.parent.gameObject);
+            if (destroySelf_)
+            {
+                AirSimServer.pedestrianList.Remove(transform.parent);
+                Destroy(transform.parent.gameObject);
+            }
 
             if (isServerStarted)
             {

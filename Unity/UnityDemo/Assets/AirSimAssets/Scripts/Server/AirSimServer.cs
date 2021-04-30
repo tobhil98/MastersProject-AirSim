@@ -14,12 +14,18 @@ namespace AirSimUnity
         // Start is called before the first frame update
         private ServerCompanion comp;
 
+        public static List<Transform> vehicleList;
+        public static List<Transform> pedestrianList;
+
     /*    AirSimServer()
         {
         }*/
 
         void Start()
         {
+            vehicleList = new List<Transform>();
+            pedestrianList = new List<Transform>();
+
             comp = new ServerCompanion();
             var settings = AirSimSettings.GetSettings();
                         

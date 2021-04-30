@@ -35,8 +35,11 @@ namespace AirSimUnity
         public new void FixedUpdate()
         {
             // Debug.LogWarning("A warning assigned to this transform!");
-            if (destroySelf_) Destroy(gameObject);
-
+            if (destroySelf_)
+            {
+                AirSimServer.vehicleList.Remove(transform);
+                Destroy(gameObject);
+            }
             if (isServerStarted)
             {
                 if (resetVehicle)
