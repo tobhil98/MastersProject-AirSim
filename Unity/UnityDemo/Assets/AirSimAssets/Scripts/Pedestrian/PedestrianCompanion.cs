@@ -11,7 +11,7 @@ namespace AirSimUnity
     {
         public static List<PedestrianCompanion> Pedestrians = new List<PedestrianCompanion>();
 
-        private static bool serverStarted = false;
+        public static bool serverStarted = false;
         private static int basePortId = 41452;
 
         public string pedestrianName;

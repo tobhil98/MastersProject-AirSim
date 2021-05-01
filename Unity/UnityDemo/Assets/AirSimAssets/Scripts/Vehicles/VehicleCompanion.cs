@@ -18,7 +18,7 @@ namespace AirSimUnity {
         //All the vehicles that are created in this game.
         public static List<VehicleCompanion> Vehicles = new List<VehicleCompanion>();
 
-        private static bool serverStarted = false;
+        public static bool serverStarted = false;
         private static int basePortId;
 
         //An interface to interact with Unity vehicle component.

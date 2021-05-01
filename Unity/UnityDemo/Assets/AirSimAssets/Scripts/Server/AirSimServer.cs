@@ -55,6 +55,16 @@ namespace AirSimUnity
         {
             PInvokeWrapper.StopMainServer();
             Debug.LogWarning("Main server stopped");
+            if(PedestrianCompanion.serverStarted)
+            {
+                PInvokeWrapper.StopPedestrianServer();
+                PedestrianCompanion.serverStarted = false;
+            }
+            if(VehicleCompanion.serverStarted)
+            {
+                PInvokeWrapper.StopServer("");
+                PedestrianCompanion.serverStarted = false;
+            }
         }
     }
 

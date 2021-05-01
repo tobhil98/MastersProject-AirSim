@@ -44,7 +44,7 @@ extern "C" EXPORT void StopMainServer()
 		delete serverKey;
 		serverKey = nullptr;
 	}
-	LOGGER->WriteLog("Server stopped");
+	LOGGER->WriteLog("Main server stopped");
 }
 
 
@@ -64,13 +64,14 @@ extern "C" EXPORT bool StartServer(char* vehicle_name, char* sim_mode_name, int 
 
 extern "C" EXPORT void StopServer(char* vehicle_name)
 {
+	LOGGER->WriteLog("Attempt vehicle server stop");
 	key->EndPlay();
 	if (key != nullptr)
 	{
 		delete key;
 		key = nullptr;
 	}
-		LOGGER->WriteLog("Server stopped");
+	LOGGER->WriteLog("Vehicle server stopped");
 }
 
 extern "C" EXPORT void CallTick(float deltaSeconds)
@@ -125,11 +126,12 @@ extern "C" EXPORT bool StartPedestrianServer(int port_number)
 
 extern "C" EXPORT void StopPedestrianServer()
 {
+	LOGGER->WriteLog("Pedestrian server attempt stop");
 	pedestrianKey->EndPlay();
 	if (pedestrianKey != nullptr)
 	{
 		delete pedestrianKey;
 		pedestrianKey = nullptr;
 	}
-	LOGGER->WriteLog("Server stopped");
+	LOGGER->WriteLog("Pedestrian server stopped");
 }
