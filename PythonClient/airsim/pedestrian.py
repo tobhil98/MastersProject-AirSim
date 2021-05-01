@@ -79,3 +79,10 @@ class PedestrianClient:
             vehicle_name (str, optional): Name of vehicle to be controlled
         """
         self.client.call('setPedestrianControls', controls, pedestrian_name)
+
+
+    # Pedestrian camera
+
+
+    # Get a list of all pedestrians
+
