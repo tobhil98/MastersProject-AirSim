@@ -13,8 +13,8 @@ PedestrianHUD::PedestrianHUD(int port_number) : port_number_(port_number)
 
 void PedestrianHUD::BeginPlay()
 {
-	startApiServer();
 	server_sim_api_.reset(new PedestrianSimApi());
+	startApiServer();
 }
 
 void PedestrianHUD::Tick(float DeltaSeconds)
@@ -23,6 +23,11 @@ void PedestrianHUD::Tick(float DeltaSeconds)
 void PedestrianHUD::EndPlay()
 {
 	stopApiServer();
+}
+
+msr::airlib::PedestrianSimApiBase* PedestrianHUD::GetPedestrianSimApiBasePtr()
+{
+	return server_sim_api_.get();
 }
 
 void PedestrianHUD::startApiServer()
@@ -54,6 +59,6 @@ std::unique_ptr<msr::airlib::ApiServerBase> PedestrianHUD::createApiServer() con
 #ifdef AIRLIB_NO_RPC
 	return ASimModeBase::createApiServer();
 #else
-	return std::unique_ptr<msr::airlib::ApiServerBase>(new msr::airlib::PedestrianServer(new PedestrianSimApi(), msr::airlib::AirSimSettings::singleton().api_server_address, port_number_));
+	return std::unique_ptr<msr::airlib::ApiServerBase>(new msr::airlib::PedestrianServer(server_sim_api_.get(), msr::airlib::AirSimSettings::singleton().api_server_address, port_number_));
 #endif
 }

@@ -19,6 +19,9 @@ namespace msr {
 			virtual bool reset(const std::string& pedestrian_name) = 0;
 			virtual bool enableApi(bool status, const std::string& pedestrian_name) = 0;
 			virtual bool setPedestrianControls(const msr::airlib::PedestrianControls& controls, const std::string& pedestrian_name) = 0;
+			virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) = 0;
+			virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(
+				const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& pedestrian_name) = 0;
 		};
 
 	}

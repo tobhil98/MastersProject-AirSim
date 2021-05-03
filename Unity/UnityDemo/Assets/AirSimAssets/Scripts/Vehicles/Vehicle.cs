@@ -130,8 +130,7 @@ namespace AirSimUnity {
                         var imageRequest = new ImageRequest(camera, ImageType.Scene, false, false);
 
                         imageResponse = p.GetImageBasedOnRequest(imageRequest);
-
-                        PInvokeWrapper.StoreImage(vehicle_name, camera, imageResponse);
+                        PInvokeWrapper.StoreVehicleImage(vehicle_name, camera, imageResponse);
                     }
                 }
                 count++;

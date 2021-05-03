@@ -94,7 +94,7 @@ extern "C" EXPORT void InvokeCollisionDetection(AirSimUnity::AirSimCollisionInfo
 	}
 }
 
-extern "C" EXPORT void StoreImage(char* vehicle_name, char* camera, AirSimUnity::AirSimImageResponse img)
+extern "C" EXPORT void StoreVehicleImage(char* vehicle_name, char* camera, AirSimUnity::AirSimImageResponse img)
 {
 	auto simMode = key->GetSimMode();
 
@@ -106,7 +106,17 @@ extern "C" EXPORT void StoreImage(char* vehicle_name, char* camera, AirSimUnity:
 			worldPtr->storeImage(vehicle_name, camera, reponse);
 		}
 	}
+}
 
+extern "C" EXPORT void StorePedestrianImage(char* pedestrian_name, char* camera, AirSimUnity::AirSimImageResponse img)
+{
+	auto pedestrianPtr = pedestrianKey->GetPedestrianSimApiBasePtr();
+
+	if (pedestrianPtr) {
+			msr::airlib::ImageCaptureBase::ImageResponse reponse;
+			UnityUtilities::Convert_to_AirsimResponse(img, reponse, camera);
+			pedestrianPtr->storeImage(pedestrian_name, camera, reponse);
+	}
 }
 
 

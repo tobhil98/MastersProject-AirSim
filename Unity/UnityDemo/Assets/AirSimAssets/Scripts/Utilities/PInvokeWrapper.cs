@@ -41,7 +41,10 @@ namespace AirSimUnity {
         public static extern void InvokeCollisionDetection(CollisionInfo collisionInfo);
         
         [DllImport(DLL_NAME)]
-        public static extern void StoreImage(string vehicle_name, string camera_name, ImageResponse image);
+        public static extern void StoreVehicleImage(string vehicle_name, string camera_name, ImageResponse image);
+
+        [DllImport(DLL_NAME)]
+        public static extern void StorePedestrianImage(string pedetrian_name, string camera_name, ImageResponse image);
 
 
         // SERVER //
@@ -61,5 +64,7 @@ namespace AirSimUnity {
         public static extern bool StartPedestrianServer(int portNumber);
         [DllImport(DLL_NAME)]
         public static extern void StopPedestrianServer();
+
+
     }
 }

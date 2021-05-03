@@ -7,7 +7,7 @@
 WorldSimApi::WorldSimApi(SimModeBase* simmode, std::string vehicle_name)
 	: simmode_(simmode), vehicle_name_(vehicle_name)
 {
-    cameraPtr = new UnityImageCapture("Vehicle");
+    //cameraPtr = new UnityImageCapture("Vehicle");
 }
 
 WorldSimApi::~WorldSimApi()

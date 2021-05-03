@@ -33,5 +33,13 @@ namespace msr {
         };
 
 
+
+        struct PedestrianEntity {
+            std::string name;
+            CarControls controls;
+            //State?
+            std::unordered_map<std::string, msr::airlib::ImageCaptureBase::ImageResponse> ResponseMap;
+        };
+
 	}
 }

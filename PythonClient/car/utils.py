@@ -9,6 +9,7 @@ async def get_image(client, cameraName, vehicle_name):
     #print("Request", vehicle_name)
     image = client.simGetImages([airsim.ImageRequest(cameraName, airsim.ImageType.Scene, False, False)],vehicle_name)[0]
     #print(type(image))
+    print("Image return", image.height)
     image1d = np.fromstring(image.image_data_uint8, dtype=np.uint8)
     image_rgb = image1d.reshape(image.height, image.width, 3)[::-1,::]
     return image_rgb

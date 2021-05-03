@@ -37,3 +37,26 @@ bool PedestrianSimApi::setPedestrianControls(const msr::airlib::PedestrianContro
 	c.steering = controls.steering;
 	return SetPedestrianApiControls(c, pedestrian_name.c_str());
 }
+
+std::vector<msr::airlib::ImageCaptureBase::ImageResponse> PedestrianSimApi::getImages(
+    const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& pedestrian_name)
+{
+    std::string camera = requests[0].camera_name;
+    std::vector<msr::airlib::ImageCaptureBase::ImageResponse> responses;
+    try {
+        responses.push_back(PedestrianMap[pedestrian_name].ResponseMap[camera]);
+    }
+    catch (...)
+    {
+        LOGGER->WriteLog("Invalid lookup for " + pedestrian_name);
+    }
+    return responses;
+}
+
+
+
+void PedestrianSimApi::storeImage(const std::string& pedestrian_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img)
+{
+	if (pedestrian_name != "" && camera_name != "")
+		PedestrianMap[pedestrian_name].ResponseMap[camera_name] = img;
+}

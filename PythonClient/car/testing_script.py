@@ -2,6 +2,10 @@ from time import sleep
 
 import setup_path 
 import airsim
+import utils
+
+import numpy as np
+import cv2
 
 server = airsim.CarClient(port=41450)
 client = airsim.CarClient(port=41451)
@@ -29,7 +33,31 @@ car_controls.steering = 0
 client.setCarControls(car_controls, "PhysXCar", "Test")
 
 print("Enable api control done")
-sleep(5)
+while True:
+    lst = [("Left", "TestPedestrian"), ("Right", "TestPedestrian")]
+    imgDict = utils.actually_get(pedClient, lst)
+
+    img1 = imgDict[("Left", "TestPedestrian")]
+    img2 = imgDict[("Right", "TestPedestrian")]
+
+    # lst2 = [("FC", "Test"), ("FC", "Test")]
+    # imgDict = utils.actually_get(client, lst2)
+
+    # img1 = imgDict[("FC", "Test")]
+    # img2 = imgDict[("FC", "Test")]
+    
+    image = np.concatenate((img1, img2), axis=1)
+    cv2.imshow('image', image)
+    cv2.waitKey(20)
+# pedestrian_controls.speed = 0
+# pedestrian_controls.steering = 0
+# pedClient.setPedestrianControl(pedestrian_controls, "TestPedestrian")
+
+# car_controls.throttle = 0
+# car_controls.steering = 0
+# car_controls.handbrake = True
+# client.setCarControls(car_controls, "PhysXCar", "Test")
+
 server.simRemoveVehicle("Test", "PhysXCar")
 server.simRemovePedestrian("TestPedestrian")
 # for i in range(5):

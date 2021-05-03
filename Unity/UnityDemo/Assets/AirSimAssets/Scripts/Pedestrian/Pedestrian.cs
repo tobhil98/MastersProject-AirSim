@@ -11,6 +11,7 @@ namespace AirSimUnity
     public class Pedestrian : MonoBehaviour
     {
         private PedestrianCompanion pedestrianInterface;
+        private List<DataCaptureScript> captureCameras = new List<DataCaptureScript>();
         private bool isServerStarted = false;
         private bool destroySelf_ = false;
         private bool resetPedestrian_ = false;
@@ -25,6 +26,11 @@ namespace AirSimUnity
 
         public string pedestrian_name;
         private float steering, speed;
+
+        private bool isCapturingImages = false;
+        private ImageRequest imageRequest;
+        private ImageResponse imageResponse;
+
 
         public void Start()
         {
@@ -102,6 +108,25 @@ namespace AirSimUnity
 
         }
 
+        private int count = 0;
+        private void LateUpdate()
+        {
+
+            if (count > 5)
+            {
+                count = 0;
+                foreach (var p in captureCameras)
+                {
+                    string camera = p.GetCameraName();
+                    var imageRequest = new ImageRequest(camera, ImageType.Scene, false, false);
+
+                    imageResponse = p.GetImageBasedOnRequest(imageRequest);
+                    PInvokeWrapper.StorePedestrianImage(pedestrian_name, camera, imageResponse);
+                }
+            }
+            count++;
+        }
+
 
         public bool SetEnableApi(bool enableApi)
         {
@@ -137,6 +162,10 @@ namespace AirSimUnity
             DataManager.SetPedestrianControls(controls, ref pedestrianControls);
             return true;
         }
+        public void DestroySelf()
+        {
+            destroySelf_ = true;
+        }
 
         private void OnApplicationQuit()
         {
@@ -146,11 +175,26 @@ namespace AirSimUnity
         private void InitialisePedestrian()
         {
             transform.GetComponent<Animator>().runtimeAnimatorController = AssetHandler.getInstance().pedestrianAnimation;
+            SetUpCameras();
         }
 
-        public void DestroySelf()
+        private void SetUpCameras()
         {
-            destroySelf_ = true;
+            GameObject camerasParent = transform.Find("CaptureCameras").gameObject;
+            //GameObject camerasParent = GameObject.FindGameObjectWithTag("CaptureCameras"); 
+
+            if (!camerasParent)
+            {
+                Debug.LogWarning("No Cameras found in the scene to capture data");
+                return;
+            }
+
+            for (int i = 0; i < camerasParent.transform.childCount; i++)
+            {
+                DataCaptureScript camCapture = camerasParent.transform.GetChild(i).GetComponent<DataCaptureScript>();
+                captureCameras.Add(camCapture);
+                camCapture.SetUpCamera(camCapture.GetCameraName(), false);
+            }
         }
     };
 

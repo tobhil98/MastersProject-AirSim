@@ -83,6 +83,21 @@ class PedestrianClient:
 
     # Pedestrian camera
 
+    def simGetImages(self, requests, vehicle_name = ''):
+        """
+        Get multiple images
+
+        See https://microsoft.github.io/AirSim/image_apis/ for details and examples
+
+        Args:
+            requests (list[ImageRequest]): Images required
+            vehicle_name (str, optional): Name of vehicle associated with the camera
+
+        Returns:
+            list[ImageResponse]:
+        """
+        responses_raw = self.client.call('simGetImages', requests, vehicle_name)
+        return [ImageResponse.from_msgpack(response_raw) for response_raw in responses_raw]
 
     # Get a list of all pedestrians
 

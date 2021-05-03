@@ -11,6 +11,7 @@ public:
 	void BeginPlay();
 	void Tick(float DeltaSeconds);
 	void EndPlay();
+	msr::airlib::PedestrianSimApiBase* GetPedestrianSimApiBasePtr();
 private:
 	void startApiServer();
 	void stopApiServer();
