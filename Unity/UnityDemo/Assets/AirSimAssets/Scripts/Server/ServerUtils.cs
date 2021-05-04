@@ -11,7 +11,7 @@ namespace AirSimUnity
     {
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct VehicleTypes {
+        public struct StringArray {
             public int length;
             public int elements;
             public char[] str;

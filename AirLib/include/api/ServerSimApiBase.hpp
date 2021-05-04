@@ -15,7 +15,9 @@ namespace msr {	namespace airlib {
 		virtual bool addPedestrian(const std::string& pedestrian_name, const msr::airlib::Pose& pose, const std::string& pawn_path) = 0;
 		virtual bool removeVehicle(const std::string& vehicle_name, const std::string& vehicle_type) = 0;
 		virtual bool removePedestrian(const std::string& pedestrian_name) = 0;
-		virtual msr::airlib::VehicleTypes GetVehicleTypes() = 0;
+		virtual msr::airlib::StringArray getVehicleTypes() = 0;
+		virtual msr::airlib::StringArray getAllVehiclesList() = 0;
+		virtual msr::airlib::StringArray getAllPedestriansList() = 0;
 	};
 	
 }} // Namespace

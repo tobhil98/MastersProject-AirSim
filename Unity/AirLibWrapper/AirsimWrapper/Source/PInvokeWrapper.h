@@ -44,7 +44,9 @@ extern bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
 extern bool(*AddPedestrian)(const char* pedestrianName);
 extern bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
 extern bool(*RemovePedestrian)(const char* pedestrianName);
-extern VehicleTypes(*GetVehicleTypesCall)();
+extern UnityStringArray(*GetVehicleTypesCall)();
+extern UnityStringArray(*GetAllVehiclesListCall)();
+extern UnityStringArray(*GetAllPedestriansListCall)();
 
 
 extern bool(*SetPedestrianPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName);
@@ -87,7 +89,9 @@ extern "C" EXPORT void InitServerManager(
 	bool(*addPedestrian)(const char* pedestrianName),
 	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType),
 	bool(*removePedestrian)(const char* pedestrianName),
-	VehicleTypes(*getVehicleTypes)()
+	UnityStringArray(*getVehicleTypes)(),
+	UnityStringArray(*getAllVehiclesList)(),
+	UnityStringArray(*getAllPedestriansList)()
 );
 
 extern "C" EXPORT void InitPedestrianManager(

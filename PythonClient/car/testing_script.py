@@ -14,8 +14,13 @@ print(status)
 server.simPrintTest("This is the important test")
 response = server.simGetVehicleTypes()
 print(response)
-pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))
-server.simAddVehicle("Test3", response[1], pose)
+
+print(server.simGetAllVehiclesList())
+print(server.simGetAllPedestriansList())
+
+
+# pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))
+# server.simAddVehicle("Test3", response[1], pose)
 
 
 # pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))

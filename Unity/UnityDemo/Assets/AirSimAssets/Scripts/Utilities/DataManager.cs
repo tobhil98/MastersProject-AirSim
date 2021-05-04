@@ -71,7 +71,7 @@ namespace AirSimUnity {
             return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         }
 
-        public static void ConvertToVehicleTypes(List<string> s, ref VehicleTypes c)
+        public static void ConvertToStringArray(List<string> s, ref StringArray c)
         {
             c.Reset();
             foreach (var e in s)

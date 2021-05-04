@@ -22,7 +22,9 @@ namespace AirSimUnity
                Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(AddPedestrianFunc)),
                Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(RemoveVehicle)),
                Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(RemovePedestrian)),
-               Marshal.GetFunctionPointerForDelegate(new Func<ServerUtils.VehicleTypes>(GetVehicleTypes))
+               Marshal.GetFunctionPointerForDelegate(new Func<ServerUtils.StringArray>(GetVehicleTypes)),
+               Marshal.GetFunctionPointerForDelegate(new Func<ServerUtils.StringArray>(GetAllVehiclesList)),
+               Marshal.GetFunctionPointerForDelegate(new Func<ServerUtils.StringArray>(GetAllPedestriansList))
                // Add functions that can be called from server to Unity
             );
         }
@@ -67,17 +69,42 @@ namespace AirSimUnity
             return true;
         }
 
-        private static ServerUtils.VehicleTypes GetVehicleTypes()
+        private static ServerUtils.StringArray GetVehicleTypes()
         {
-            ServerUtils.VehicleTypes c = new ServerUtils.VehicleTypes();
+            ServerUtils.StringArray array = new ServerUtils.StringArray();
             List<string> lst = new List<string>();
             foreach(var i in AssetHandler.getInstance().vehicles)
             {
                 lst.Add(i.name);
             }
-            DataManager.ConvertToVehicleTypes(lst, ref c);
-            return c;
+            DataManager.ConvertToStringArray(lst, ref array);
+            return array;
         }
+
+        private static ServerUtils.StringArray GetAllVehiclesList()
+        {
+            ServerUtils.StringArray array = new ServerUtils.StringArray();
+            List<string> lst = new List<string>();
+            foreach (var i in VehicleCompanion.Vehicles)
+            {
+                lst.Add(i.vehicleName);
+            }
+            DataManager.ConvertToStringArray(lst, ref array);
+            return array;
+        }
+
+        private static ServerUtils.StringArray GetAllPedestriansList()
+        {
+            ServerUtils.StringArray array = new ServerUtils.StringArray();
+            List<string> lst = new List<string>();
+            foreach (var i in PedestrianCompanion.Pedestrians)
+            {
+                lst.Add(i.pedestrianName);
+            }
+            DataManager.ConvertToStringArray(lst, ref array);
+            return array;
+        }
+
 
     }
 

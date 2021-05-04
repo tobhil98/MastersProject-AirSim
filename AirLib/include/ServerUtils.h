@@ -6,12 +6,12 @@
 namespace msr {
     namespace airlib {
 
-        struct VehicleTypes {
+        struct StringArray {
             std::vector<std::string> data;
             int elements;
 
 
-            VehicleTypes()
+            StringArray()
             {
             }
 

@@ -43,10 +43,27 @@ bool ServerSimApi::removePedestrian(const std::string& vehicle_name)
     return true;
 }
 
-msr::airlib::VehicleTypes ServerSimApi::GetVehicleTypes()
+msr::airlib::StringArray ServerSimApi::getVehicleTypes()
 {
-    AirSimUnity::VehicleTypes rawTypes = GetVehicleTypesCall();
-    msr::airlib::VehicleTypes out;
-    UnityUtilities::Convert_to_AirSimVehicleType(rawTypes, out);
+    AirSimUnity::UnityStringArray rawTypes = GetVehicleTypesCall();
+    msr::airlib::StringArray out;
+    UnityUtilities::Convert_to_AirSimStringArray(rawTypes, out);
+    return out;
+}
+
+
+msr::airlib::StringArray ServerSimApi::getAllVehiclesList()
+{
+    AirSimUnity::UnityStringArray rawTypes = GetAllVehiclesListCall();
+    msr::airlib::StringArray out;
+    UnityUtilities::Convert_to_AirSimStringArray(rawTypes, out);
+    return out;
+}
+
+msr::airlib::StringArray ServerSimApi::getAllPedestriansList()
+{
+    AirSimUnity::UnityStringArray rawTypes = GetAllPedestriansListCall();
+    msr::airlib::StringArray out;
+    UnityUtilities::Convert_to_AirSimStringArray(rawTypes, out);
     return out;
 }

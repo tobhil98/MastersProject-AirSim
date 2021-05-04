@@ -225,7 +225,7 @@ namespace AirSimUnity
 		float distance = 0.0f;
 	};
 
-	struct VehicleTypes
+	struct UnityStringArray
 	{
 		int length;
 		int elements;

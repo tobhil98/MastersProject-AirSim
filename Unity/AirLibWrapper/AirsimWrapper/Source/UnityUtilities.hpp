@@ -119,7 +119,7 @@ namespace UnityUtilities
 	}
 
 
-	static void Convert_to_AirSimVehicleType(const AirSimUnity::VehicleTypes& src, msr::airlib::VehicleTypes& dest)
+	static void Convert_to_AirSimStringArray(const AirSimUnity::UnityStringArray& src, msr::airlib::StringArray& dest)
 	{
 		dest.elements = src.elements;
 

@@ -98,7 +98,15 @@ SimulatorServer::SimulatorServer(ServerSimApiBase* serverptr, const string& ip_a
     });
 
     pimpl_->server.bind("simGetVehicleTypes", [&]()-> std::vector<std::string> {
-        return ptr->GetVehicleTypes().data;
+        return ptr->getVehicleTypes().data;
+    });
+
+    pimpl_->server.bind("simGetAllVehiclesList", [&]()-> std::vector<std::string> {
+        return ptr->getAllVehiclesList().data;
+    });
+
+    pimpl_->server.bind("simGetAllPedestriansList", [&]()-> std::vector<std::string> {
+        return ptr->getAllPedestriansList().data;
     });
 }
 

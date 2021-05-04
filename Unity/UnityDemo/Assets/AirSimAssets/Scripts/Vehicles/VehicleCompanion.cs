@@ -24,8 +24,8 @@ namespace AirSimUnity {
         //An interface to interact with Unity vehicle component.
         private IVehicleInterface VehicleInterface;
 
-        private string vehicleType;
-        private string vehicleName;
+        public string vehicleType;
+        public string vehicleName;
         private readonly bool isDrone;
 
 
