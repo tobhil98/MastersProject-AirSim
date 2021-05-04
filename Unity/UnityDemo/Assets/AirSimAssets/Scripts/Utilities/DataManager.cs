@@ -2,6 +2,8 @@
 using System;
 using AirSimUnity.CarStructs;
 using AirSimUnity.PedestrianStructs;
+using AirSimUnity.ServerUtils;
+using System.Collections.Generic;
 
 namespace AirSimUnity {
     /*
@@ -67,6 +69,26 @@ namespace AirSimUnity {
 
         public static long GetCurrentTimeInMilli() {
             return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        }
+
+        public static void ConvertToVehicleTypes(List<string> s, ref VehicleTypes c)
+        {
+            c.Reset();
+            foreach (var e in s)
+            {
+                c.elements++;
+                c.length += e.Length + 1;
+            }
+            c.str = new char[c.length];
+            int index = 0;
+            foreach (var e in s)
+            {
+                var temp = e + "\0";
+                temp.ToCharArray().CopyTo(c.str, index);
+                index += e.Length + 1;
+            }
+
+            //Debug.Log("ConvertToVehicleTypes check: " + index + " " + c.length + " " + c.str.Length);
         }
     }
 }

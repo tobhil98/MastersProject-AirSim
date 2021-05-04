@@ -315,6 +315,9 @@ namespace AirSimUnity {
             capSettings.ImageType = 0;
             capSettings.Width = 256;
             capSettings.Height = 144;
+
+            /*capSettings.Width = 1280;
+            capSettings.Height = 720;*/
             capSettings.FOV_Degrees = 90;
             capSettings.AutoExposureSpeed = 100;
             capSettings.AutoExposureBias = 0;

@@ -44,6 +44,7 @@ extern bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
 extern bool(*AddPedestrian)(const char* pedestrianName);
 extern bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
 extern bool(*RemovePedestrian)(const char* pedestrianName);
+extern VehicleTypes(*GetVehicleTypesCall)();
 
 
 extern bool(*SetPedestrianPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName);
@@ -85,7 +86,8 @@ extern "C" EXPORT void InitServerManager(
 	bool(*addVehicle)(const char* vehicleName, const char* vehicleType),
 	bool(*addPedestrian)(const char* pedestrianName),
 	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType),
-	bool(*removePedestrian)(const char* pedestrianName)
+	bool(*removePedestrian)(const char* pedestrianName),
+	VehicleTypes(*getVehicleTypes)()
 );
 
 extern "C" EXPORT void InitPedestrianManager(

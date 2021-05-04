@@ -49,7 +49,8 @@ namespace AirSimUnity {
 
         // SERVER //
         [DllImport(DLL_NAME)]
-        public static extern void InitServerManager(IntPtr PrintTest, IntPtr AddVehicle, IntPtr AddPedestrianFunc, IntPtr RemoveVehicle, IntPtr RemovePedestrian);
+        public static extern void InitServerManager(IntPtr PrintTest, IntPtr AddVehicle, IntPtr AddPedestrianFunc, IntPtr RemoveVehicle, IntPtr RemovePedestrian,
+                IntPtr GetVehicleTypes);
 
         [DllImport(DLL_NAME)]
         public static extern bool StartMainServer(int portNumber);

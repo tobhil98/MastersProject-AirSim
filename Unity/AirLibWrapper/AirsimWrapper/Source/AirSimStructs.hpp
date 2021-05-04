@@ -224,4 +224,11 @@ namespace AirSimUnity
 		bool isHit = false;
 		float distance = 0.0f;
 	};
+
+	struct VehicleTypes
+	{
+		int length;
+		int elements;
+		char* str;
+	};
 }

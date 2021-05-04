@@ -2,6 +2,7 @@
 
 #include "Vehicles/Multirotor/MultirotorPawnEvents.h"
 #include "AirSimStructs.hpp"
+#include "ServerUtils.h"
 
 namespace UnityUtilities
 {
@@ -115,5 +116,25 @@ namespace UnityUtilities
 		airSimPose.orientation.z = pose.orientation.z();
 		airSimPose.orientation.w = pose.orientation.w();
 		return airSimPose;
+	}
+
+
+	static void Convert_to_AirSimVehicleType(const AirSimUnity::VehicleTypes& src, msr::airlib::VehicleTypes& dest)
+	{
+		dest.elements = src.elements;
+
+		int j = 0;
+		for (int i = 0; i < src.elements; i++)
+		{
+			std::string strIn = "";
+			while (src.str[j] != NULL)
+			{
+				strIn += src.str[j];
+				j += 2;
+			}
+			j+=2;
+			dest.data.push_back(strIn);
+		}
+
 	}
 }

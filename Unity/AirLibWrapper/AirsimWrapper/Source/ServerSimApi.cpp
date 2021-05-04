@@ -1,6 +1,7 @@
 #include "PInvokeWrapper.h"
 #include "ServerSimApi.h"
 #include "Logger.h"
+#include "UnityUtilities.hpp"
 
 void ServerSimApi::printTest(const std::string& message)
 {
@@ -40,4 +41,12 @@ bool ServerSimApi::removePedestrian(const std::string& vehicle_name)
 {
     RemovePedestrian(vehicle_name.c_str());
     return true;
+}
+
+msr::airlib::VehicleTypes ServerSimApi::GetVehicleTypes()
+{
+    AirSimUnity::VehicleTypes rawTypes = GetVehicleTypesCall();
+    msr::airlib::VehicleTypes out;
+    UnityUtilities::Convert_to_AirSimVehicleType(rawTypes, out);
+    return out;
 }

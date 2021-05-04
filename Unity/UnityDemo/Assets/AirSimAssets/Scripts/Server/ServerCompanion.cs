@@ -21,7 +21,8 @@ namespace AirSimUnity
                Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(AddVehicle)),
                Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(AddPedestrianFunc)),
                Marshal.GetFunctionPointerForDelegate(new Func<string, string, bool>(RemoveVehicle)),
-               Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(RemovePedestrian))
+               Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(RemovePedestrian)),
+               Marshal.GetFunctionPointerForDelegate(new Func<ServerUtils.VehicleTypes>(GetVehicleTypes))
                // Add functions that can be called from server to Unity
             );
         }
@@ -60,6 +61,14 @@ namespace AirSimUnity
         {
             PedestrianCompanion.DestroyPedestrian(vehicle_name);
             return true;
+        }
+
+        private static ServerUtils.VehicleTypes GetVehicleTypes()
+        {
+            ServerUtils.VehicleTypes c = new ServerUtils.VehicleTypes();
+            List<string> lst = new List<string> { "basicVehicle" };
+            DataManager.ConvertToVehicleTypes(lst, ref c);
+            return c;
         }
 
     }

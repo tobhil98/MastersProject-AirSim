@@ -3,7 +3,7 @@
 #include "rpc/server.h"
 #include "common/Common.hpp"
 #include "api/RpcLibAdaptorsBase.hpp"
-
+#include "ServerUtils.h"
 
 namespace msr {namespace airlib {
 
@@ -95,6 +95,10 @@ SimulatorServer::SimulatorServer(ServerSimApiBase* serverptr, const string& ip_a
     // Remove Pedestrian
     pimpl_->server.bind("simRemovePedestrian", [&](const std::string& vehicle_name) -> bool {
         return ptr->removePedestrian(vehicle_name);
+    });
+
+    pimpl_->server.bind("simGetVehicleTypes", [&]()-> std::vector<std::string> {
+        return ptr->GetVehicleTypes().data;
     });
 }
 

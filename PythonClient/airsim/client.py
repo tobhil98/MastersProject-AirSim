@@ -480,6 +480,11 @@ class VehicleClient:
         """
         self.client.call('simPrintLogMessage', message, message_param, severity)
 
+
+    def simGetVehicleTypes(self):
+        return self.client.call('simGetVehicleTypes')
+
+
     def simGetCameraInfo(self, camera_name, vehicle_name = ''):
         """
         Get details about the camera

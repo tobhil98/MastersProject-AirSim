@@ -29,6 +29,7 @@ bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
 bool(*AddPedestrian)(const char* pedestrianName);
 bool(*RemoveVehicle)(const char* vehicleName, const char* vehicleType);
 bool(*RemovePedestrian)(const char* pedestrianName);
+VehicleTypes(*GetVehicleTypesCall)();
 
 bool(*SetPedestrianPose)(AirSimPose pose, bool ignoreCollision, const char* pedestrianName);
 AirSimPose(*GetPedestrianPose)(const char* pedestrianName);
@@ -93,13 +94,15 @@ void InitServerManager(
 	bool(*addVehicle)(const char* vehicleName, const char* vehicleType),
 	bool(*addPedestrian)(const char* pedestrianName),
 	bool(*removeVehicle)(const char* vehicleName, const char* vehicleType),
-	bool(*removePedestrian)(const char* pedestrianName)
+	bool(*removePedestrian)(const char* pedestrianName),
+	VehicleTypes(*getVehicleTypes)()
 ) {
 	PrintTest = printTest;
 	AddVehicle = addVehicle;
 	AddPedestrian = addPedestrian;
 	RemoveVehicle = removeVehicle;
 	RemovePedestrian = removePedestrian;
+	GetVehicleTypesCall = getVehicleTypes;
 }
 
 
