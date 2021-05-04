@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-namespace AirSimUnity{
+namespace AirSimUnity
+{
     public class AddCar : MonoBehaviour
     {
         // Start is called before the first frame update
@@ -20,6 +22,7 @@ namespace AirSimUnity{
         private struct InitVehicle
         {
             public string vehicle_name;
+            public string vehicle_type;
             public Vector3 pos;
             public Quaternion rotation;
         }
@@ -31,7 +34,8 @@ namespace AirSimUnity{
            if(VehicleQueue.Count > 0)
             {
                 InitVehicle s = VehicleQueue.Dequeue();
-                var obj = Instantiate(AssetHandler.getInstance().getVehicle(), s.pos, s.rotation);
+                var type = Array.Find(AssetHandler.getInstance().vehicles, element => element.name == s.vehicle_type);
+                var obj = Instantiate(type.vehicle, s.pos, s.rotation);
                 obj.GetComponent<Vehicle>().vehicle_name = s.vehicle_name;
                 AirSimServer.vehicleList.Add(obj);
             }
@@ -39,18 +43,19 @@ namespace AirSimUnity{
          
         async public void Pressed()
         {
-            Debug.LogWarning("Adding new car");
             var s = new InitVehicle();
             s.vehicle_name = "car"+ ++counter;
+            s.vehicle_type = AssetHandler.getInstance().getVehicle();
             s.pos = new Vector3(-250, 2, 50);
             s.rotation = Quaternion.identity;
             VehicleQueue.Enqueue(s);
         }
 
-        async public void SpawnVehicle(string name, Vector3 pos, Quaternion rotation)
+        async public void SpawnVehicle(string name, string type, Vector3 pos, Quaternion rotation)
         {
             var s = new InitVehicle();
             s.vehicle_name = name;
+            s.vehicle_type = type;
             s.pos = pos;
             s.rotation = rotation;
             VehicleQueue.Enqueue(s);

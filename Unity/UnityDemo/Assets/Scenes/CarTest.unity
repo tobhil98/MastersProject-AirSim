@@ -461,7 +461,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ae3dc2bcf67d2488f391095bd81f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicle: {fileID: 4071658815805002, guid: 20a8ea8f047df2a47baacf48fc9d6598, type: 3}
+  vehicles:
+  - name: BasicCar
+    vehicle: {fileID: 4071658815805002, guid: 20a8ea8f047df2a47baacf48fc9d6598, type: 3}
+  - name: FamilyCar
+    vehicle: {fileID: 5235728330675211488, guid: 877336d94aa97994a836419762aa6bed,
+      type: 3}
   randomPedestrian: {fileID: 2885161576785209578, guid: 11b6342601a487e45a8ca8ed561a9b7a,
     type: 3}
   pedestrianAnimation: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}

@@ -37,7 +37,11 @@ namespace AirSimUnity
         private static bool AddVehicle(string vehicle_name, string vehicle_type) // Take in init pose and path?
         {
             Debug.LogError("Attempting to add car: " + vehicle_name + " - " + vehicle_type);
-            AddCar.GetInstance().SpawnVehicle(vehicle_name, new Vector3(-250, 2, 50), Quaternion.identity);
+            if (vehicle_type == "")
+            {
+                vehicle_type = AssetHandler.getInstance().getVehicle();
+            }
+            AddCar.GetInstance().SpawnVehicle(vehicle_name, vehicle_type, new Vector3(-250, 2, 50), Quaternion.identity);
             return true;
         }
 
@@ -66,7 +70,11 @@ namespace AirSimUnity
         private static ServerUtils.VehicleTypes GetVehicleTypes()
         {
             ServerUtils.VehicleTypes c = new ServerUtils.VehicleTypes();
-            List<string> lst = new List<string> { "basicVehicle" };
+            List<string> lst = new List<string>();
+            foreach(var i in AssetHandler.getInstance().vehicles)
+            {
+                lst.Add(i.name);
+            }
             DataManager.ConvertToVehicleTypes(lst, ref c);
             return c;
         }

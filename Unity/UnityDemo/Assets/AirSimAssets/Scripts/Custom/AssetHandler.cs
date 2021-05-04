@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AssetHandler : MonoBehaviour
 {
     // TODOME: Create something to set up scene
+    public VehicleInput[] vehicles;
 
-    public Transform vehicle;
     public Transform randomPedestrian;
     public RuntimeAnimatorController pedestrianAnimation;
 
@@ -28,9 +29,15 @@ public class AssetHandler : MonoBehaviour
         return randomPedestrian;
     }
 
-    public Transform getVehicle()
+    public string getVehicle()
     {
-        return vehicle;
+        return vehicles[0].name;
     }
 
+    [Serializable]
+    public struct VehicleInput
+    {
+        public string name;
+        public Transform vehicle;
+    };
 }
