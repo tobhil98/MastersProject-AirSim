@@ -4,6 +4,7 @@
 #include "common/Common.hpp"
 #include "api/RpcLibServerBase.hpp"
 #include "PedestrianUtils.h"
+#include "ServerUtils.h"
 
 namespace msr {
 	namespace airlib {
@@ -22,6 +23,7 @@ namespace msr {
 			virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) = 0;
 			virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(
 				const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& pedestrian_name) = 0;
+			virtual msr::airlib::StringArray getCameras(const std::string& pedestrian_name) = 0;
 		};
 
 	}

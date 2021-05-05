@@ -407,5 +407,10 @@ namespace AirSimUnity {
         {
             throw new NotImplementedException("This is supposed to be implemented in Sub classes");
         }
+
+        public virtual List<DataCaptureScript> GetCaptureCameras()
+        {
+            return captureCameras;
+        }
     }
 }

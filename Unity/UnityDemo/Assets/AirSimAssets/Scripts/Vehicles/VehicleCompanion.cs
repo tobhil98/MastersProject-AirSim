@@ -136,7 +136,8 @@ namespace AirSimUnity {
                 Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(Reset)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimVector>(GetVelocity)),
                 Marshal.GetFunctionPointerForDelegate(new Func<AirSimVector, AirSimVector, string, RayCastHitResult>(GetRayCastHit)),
-                Marshal.GetFunctionPointerForDelegate(new Func<string, float, bool>(Pause))
+                Marshal.GetFunctionPointerForDelegate(new Func<string, float, bool>(Pause)),
+                Marshal.GetFunctionPointerForDelegate(new Func<string, ServerUtils.StringArray>(GetVehicleCameras))
             );
         }
 
@@ -299,6 +300,19 @@ namespace AirSimUnity {
         {
             var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
             return vehicle.VehicleInterface.Pause(timeScale);
+        }
+
+        private static ServerUtils.StringArray GetVehicleCameras(string pedestrianName)
+        {
+            var pedestrian = Vehicles.Find(element => element.vehicleName == pedestrianName);
+            ServerUtils.StringArray array = new ServerUtils.StringArray();
+            List<string> lst = new List<string>();
+            foreach (var c in pedestrian.VehicleInterface.GetCaptureCameras())
+            {
+                lst.Add(c.cameraName);
+            }
+            DataManager.ConvertToStringArray(lst, ref array);
+            return array;
         }
     }
 }

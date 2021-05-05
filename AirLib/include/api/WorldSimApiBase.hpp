@@ -7,6 +7,7 @@
 #include "common/CommonStructs.hpp"
 #include "common/AirSimSettings.hpp"
 #include "VehicleUtils.h"
+#include "ServerUtils.h"
 
 namespace msr { namespace airlib {
 
@@ -89,6 +90,7 @@ public:
     virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) = 0;
     virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name) = 0;
     virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) = 0;
+    virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) = 0;
 };
 
 

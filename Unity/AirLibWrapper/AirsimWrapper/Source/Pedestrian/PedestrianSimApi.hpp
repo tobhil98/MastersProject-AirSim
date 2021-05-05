@@ -14,6 +14,7 @@ private:
 	virtual bool setPedestrianControls(const msr::airlib::PedestrianControls& controls, const std::string& pedestrian_name) override;
 	virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(
 		const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& pedestrian_name) override;
+	virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) override;
 
 public:
 	virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) override;

@@ -1,4 +1,5 @@
 ﻿using AirSimUnity.DroneStructs;
+using System.Collections.Generic;
 
 namespace AirSimUnity {
     /*
@@ -52,5 +53,7 @@ namespace AirSimUnity {
         bool Pause(float timeScale);
 
         void DestroySelf();
+
+        List<DataCaptureScript> GetCaptureCameras();
     }
 }

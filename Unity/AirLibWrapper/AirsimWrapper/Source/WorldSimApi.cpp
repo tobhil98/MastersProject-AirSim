@@ -255,6 +255,16 @@ void WorldSimApi::storeImage(const std::string& vehicle_name, const std::string&
         CarMap[vehicle_name].ResponseMap[camera_name] = img;
 }
 
+
+msr::airlib::StringArray WorldSimApi::getCameras(const std::string& vehicle_name)
+{
+    AirSimUnity::UnityStringArray rawTypes = GetVehicleCameras(vehicle_name.c_str());
+    msr::airlib::StringArray out;
+    UnityUtilities::Convert_to_AirSimStringArray(rawTypes, out);
+    return out;
+}
+
+
 void WorldSimApi::fixedUpdate()
 {
 

@@ -11,7 +11,7 @@ namespace AirSimUnity
     public class Pedestrian : MonoBehaviour
     {
         private PedestrianCompanion pedestrianInterface;
-        private List<DataCaptureScript> captureCameras = new List<DataCaptureScript>();
+        public List<DataCaptureScript> captureCameras = new List<DataCaptureScript>();
         private bool isServerStarted = false;
         private bool destroySelf_ = false;
         private bool resetPedestrian_ = false;

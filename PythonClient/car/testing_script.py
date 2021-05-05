@@ -9,14 +9,20 @@ import cv2
 
 server = airsim.CarClient(port=41450)
 client = airsim.CarClient(port=41451)
+pedClient = airsim.PedestrianClient()
 status = server.ping()
 print(status)
 server.simPrintTest("This is the important test")
 response = server.simGetVehicleTypes()
 print(response)
 
-print(server.simGetAllVehiclesList())
-print(server.simGetAllPedestriansList())
+pedestrians = server.simGetAllPedestriansList()
+print(pedestrians)
+print(pedClient.simGetCameras(pedestrians[0]))
+print()
+# vehicles = server.simGetAllVehiclesList()
+# print(vehicles)
+# print(client.simGetCameras(vehicles[0]))
 
 
 # pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))

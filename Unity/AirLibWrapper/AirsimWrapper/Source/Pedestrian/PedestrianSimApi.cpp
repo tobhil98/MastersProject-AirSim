@@ -53,10 +53,17 @@ std::vector<msr::airlib::ImageCaptureBase::ImageResponse> PedestrianSimApi::getI
     return responses;
 }
 
-
-
 void PedestrianSimApi::storeImage(const std::string& pedestrian_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img)
 {
 	if (pedestrian_name != "" && camera_name != "")
 		PedestrianMap[pedestrian_name].ResponseMap[camera_name] = img;
+}
+
+
+msr::airlib::StringArray PedestrianSimApi::getCameras(const std::string& pedestrian_name)
+{
+    AirSimUnity::UnityStringArray rawTypes = GetPedestrianCameras(pedestrian_name.c_str());
+    msr::airlib::StringArray out;
+    UnityUtilities::Convert_to_AirSimStringArray(rawTypes, out);
+    return out;
 }

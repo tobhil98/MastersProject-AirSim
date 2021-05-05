@@ -102,7 +102,11 @@ namespace msr {
                     //const auto& response = getVehicleSimApi(vehicle_name)->getImages(RpcLibAdaptorsBase::ImageRequest::to(request_adapter));
                     const auto& response = ptr->getImages(RpcLibAdaptorsBase::ImageRequest::to(request_adapter), vehicle_name);
                     return RpcLibAdaptorsBase::ImageResponse::from(response);
-                });
+            });
+
+            pimpl_->server.bind("getCameras", [&](const std::string& pedestrian_name) -> std::vector<std::string> {
+                return ptr->getCameras(pedestrian_name).data;
+            });
 
 
         }

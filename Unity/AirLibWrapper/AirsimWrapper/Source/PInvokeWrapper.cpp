@@ -23,6 +23,7 @@ bool(*Reset)(const char* vehicleName);
 AirSimVector(*GetVelocity)(const char* vehicleName);
 RayCastHitResult(*GetRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName);
 bool(*Pause)(const char* vehicleName, float timeScale);
+UnityStringArray(*GetVehicleCameras)(const char* vehicleName);
 
 bool(*PrintTest) (const char* message);
 bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
@@ -38,6 +39,7 @@ AirSimPose(*GetPedestrianPose)(const char* pedestrianName);
 bool(*PedestrianReset)(const char* pedestrianName);
 bool(*PedestrianSetEnableApi)(bool enableApi, const char* pedestrianName);
 bool(*SetPedestrianApiControls)(AirSimUnity::PedestrianControls, const char* pedestrianName);
+UnityStringArray(*GetPedestrianCameras)(const char* pedestrianName);
 
 
 
@@ -63,7 +65,8 @@ void InitVehicleManager(
 	bool(*reset)(const char* vehicleName),
 	AirSimVector(*getVelocity)(const char* vehicleName),
 	RayCastHitResult(*getRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName),
-	bool(*pause)(const char* vehicleName, float timeScale)
+	bool(*pause)(const char* vehicleName, float timeScale),
+	UnityStringArray(*getVehicleCameras)(const char* vehicleName)
 )
 {
 	SetPose = setPose;
@@ -88,6 +91,7 @@ void InitVehicleManager(
 	GetVelocity = getVelocity;
 	GetRayCastHit = getRayCastHit;
 	Pause = pause;
+	GetVehicleCameras = getVehicleCameras;
 }
 
 
@@ -117,11 +121,13 @@ void InitPedestrianManager(
 	AirSimPose(*getPose)(const char* pedestrianName),
 	bool(*reset)(const char* pedestrianName),
 	bool(*setEnableApi)(bool enableApi, const char* pedestrianName),
-	bool(*setPedestrianApiControls)(AirSimUnity::PedestrianControls, const char* pedestrianName)
+	bool(*setPedestrianApiControls)(AirSimUnity::PedestrianControls, const char* pedestrianName),
+	UnityStringArray(*getPedestrianCameras)(const char* pedestrianName)
 ) {
 	SetPedestrianPose = setPose;
 	GetPedestrianPose = getPose;
 	PedestrianReset = reset;
 	PedestrianSetEnableApi = setEnableApi;
 	SetPedestrianApiControls = setPedestrianApiControls;
+	GetPedestrianCameras = getPedestrianCameras;
 }

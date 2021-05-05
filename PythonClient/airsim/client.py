@@ -490,6 +490,10 @@ class VehicleClient:
     def simGetAllPedestriansList(self):
         return self.client.call('simGetAllPedestriansList')
 
+                
+    def simGetCameras(self, vehicle_name):
+        return self.client.call('getCameras', vehicle_name)
+
 
     def simGetCameraInfo(self, camera_name, vehicle_name = ''):
         """

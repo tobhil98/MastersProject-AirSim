@@ -99,5 +99,8 @@ class PedestrianClient:
         responses_raw = self.client.call('simGetImages', requests, vehicle_name)
         return [ImageResponse.from_msgpack(response_raw) for response_raw in responses_raw]
 
+    def simGetCameras(self, vehicle_name):
+        return self.client.call('getCameras', vehicle_name)
+
     # Get a list of all pedestrians
 

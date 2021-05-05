@@ -75,7 +75,8 @@ namespace AirSimUnity
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimPose>(GetPose)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, bool>(Reset)),
                 Marshal.GetFunctionPointerForDelegate(new Func<bool, string, bool>(SetEnableApi)),
-                Marshal.GetFunctionPointerForDelegate(new Func<PedestrianControls, string, bool>(SetPedestrianApiControls))
+                Marshal.GetFunctionPointerForDelegate(new Func<PedestrianControls, string, bool>(SetPedestrianApiControls)),
+                Marshal.GetFunctionPointerForDelegate(new Func<string, ServerUtils.StringArray>(GetPedestrianCameras))
             );
         }
 
@@ -148,8 +149,19 @@ namespace AirSimUnity
                 return pedestrian.pedestrianPtr.SetPedestrianControls(controls);
             return false;
         }
+
+        private static ServerUtils.StringArray GetPedestrianCameras(string pedestrianName)
+        {
+            var pedestrian = Pedestrians.Find(element => element.pedestrianName == pedestrianName);
+            ServerUtils.StringArray array = new ServerUtils.StringArray();
+            List<string> lst = new List<string>();
+            foreach (var c in pedestrian.pedestrianPtr.captureCameras)
+            {
+                lst.Add(c.cameraName);
+            }
+            DataManager.ConvertToStringArray(lst, ref array);
+            return array;
+        }
     }
-
-
 
 }
