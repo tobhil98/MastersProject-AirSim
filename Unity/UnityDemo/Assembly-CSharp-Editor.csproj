@@ -265,6 +265,24 @@
     <Reference Include="PackageManagerAssembly">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Assets/ImportedElements/MoreVehicles/Scripts/Editor/PackageManagerAssembly/PackageManagerAssembly.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.barracuda@1.0.4/Barracuda/Runtime/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.burst@1.3.4/Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Abstractions">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Abstractions.TestingHelpers">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive.Async">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
@@ -631,11 +649,23 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Barracuda.MacBLAS">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Barracuda.MacBLAS.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
+    </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Barracuda.Editor">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Barracuda.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -646,8 +676,14 @@
     <Reference Include="Unity.Timeline">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Barracuda">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Barracuda.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Barracuda.iOSBLAS">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Barracuda.iOSBLAS.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-weaver.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
@@ -655,8 +691,17 @@
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ML-Agents.CommunicatorObjects">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.ML-Agents.CommunicatorObjects.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Barracuda.BurstBLAS">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Barracuda.BurstBLAS.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
@@ -673,11 +718,20 @@
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ML-Agents.Editor">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.ML-Agents.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ML-Agents">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.ML-Agents.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
