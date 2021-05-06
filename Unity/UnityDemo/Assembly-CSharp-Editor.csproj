@@ -266,22 +266,22 @@
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Assets/ImportedElements/MoreVehicles/Scripts/Editor/PackageManagerAssembly/PackageManagerAssembly.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf">
-      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.barracuda@1.0.4/Barracuda/Runtime/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.barracuda@1.3.2-preview/Barracuda/Runtime/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Unsafe">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.burst@1.3.4/Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Abstractions">
-      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/System.IO.Abstractions.dll</HintPath>
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.9.1-preview/Plugins/System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Abstractions.TestingHelpers">
-      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.9.1-preview/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core">
-      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.9.1-preview/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Interactive.Async">
-      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.0.7/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ml-agents@1.9.1-preview/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -735,6 +735,9 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Barracuda.ONNX">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Barracuda.ONNX.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
