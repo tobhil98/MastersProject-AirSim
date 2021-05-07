@@ -1,4 +1,26 @@
 {
+    "MLCarControl": {
+        "checkpoints": [
+            {
+                "steps": 320,
+                "file_path": "results\\ppo\\MLCarControl\\MLCarControl-320.onnx",
+                "reward": null,
+                "creation_time": 1620346918.4135058,
+                "auxillary_file_paths": [
+                    "results\\ppo\\MLCarControl\\MLCarControl-320.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 320,
+            "file_path": "results\\ppo\\MLCarControl.onnx",
+            "reward": null,
+            "creation_time": 1620346918.4135058,
+            "auxillary_file_paths": [
+                "results\\ppo\\MLCarControl\\MLCarControl-320.pt"
+            ]
+        }
+    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "0.26.0",

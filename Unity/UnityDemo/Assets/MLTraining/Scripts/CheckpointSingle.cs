@@ -14,7 +14,7 @@ public class CheckpointSingle : MonoBehaviour
         //Debug.LogError(other.GetComponent<CarCollision>());
         if (other.TryGetComponent<CarCollision>(out CarCollision car))
         {
-            trackCheckpoints.PlayerThroughCheckpoint(this);
+            trackCheckpoints.CarThroughCheckpoint(this, other.transform);
         }
     }
 

@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TrackCheckpoints : MonoBehaviour
 {
+    public event EventHandler OnPlayerCorrectCheckpoint;
+    public event EventHandler OnPlayerWrongCheckpoint;
+
+    [SerializeField] private List<Transform> carTransformList;
+
     private List<CheckpointSingle> checkpointSingleList;
-    private int nextCheckpointSingleIndex;
+    private List<int> nextCheckpointSingleIndexList;
 
     private void Awake()
     {
@@ -20,21 +26,26 @@ public class TrackCheckpoints : MonoBehaviour
 
             checkpointSingleList.Add(checkpointSingle);
         }
-
-        nextCheckpointSingleIndex = 0;
+        nextCheckpointSingleIndexList = new List<int>();
+        foreach (Transform carTransfrom in carTransformList)
+        {
+            nextCheckpointSingleIndexList.Add(0);
+        }
     } 
 
-    public void PlayerThroughCheckpoint(CheckpointSingle checkpointSingle)
+    public void CarThroughCheckpoint(CheckpointSingle checkpointSingle, Transform carTransfrom)
     {
+        int nextCheckpointSingleIndex = nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransfrom)];
         if (checkpointSingleList.IndexOf(checkpointSingle) == nextCheckpointSingleIndex)
         {
-            nextCheckpointSingleIndex = (nextCheckpointSingleIndex + 1) % checkpointSingleList.Count;
-            Debug.Log("Checkpoint " + nextCheckpointSingleIndex);
+            CheckpointSingle correctCheckpointSingle = checkpointSingleList[nextCheckpointSingleIndex];
+            nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransfrom)] = (nextCheckpointSingleIndex + 1) % checkpointSingleList.Count;
+            OnPlayerCorrectCheckpoint?.Invoke(this, EventArgs.Empty);
         }
         else
         {
-            Debug.Log("Missed checkpoint");
+            OnPlayerWrongCheckpoint?.Invoke(this, EventArgs.Empty);
         }
-      
+
     }
 }
