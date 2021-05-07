@@ -32,6 +32,8 @@ public class MLCar : Agent
 
     [SerializeField] private Transform targetTransform;
 
+    private float optimalDistance;
+
     public override void OnActionReceived(ActionBuffers actions)
     {
         carControls.handbrake = actions.DiscreteActions[0]>0 ? true : false;
@@ -42,8 +44,9 @@ public class MLCar : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
+        Vector3 v = targetTransform.localPosition - transform.localPosition;
+        float directionDot = Vector3.Dot(transform.forward, v);
+        sensor.AddObservation(directionDot);
     }
 
     public override void OnEpisodeBegin()
@@ -51,6 +54,11 @@ public class MLCar : Agent
         transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         transform.localPosition = startPos;
         transform.rotation = startRotation;
+        optimalDistance = Vector3.Distance(startPos, targetTransform.localPosition);
+
+        transform.localPosition += new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+        transform.Rotate(0, Random.Range(-30, 100), 0, Space.Self);
+        targetTransform.localPosition = new Vector3(Random.Range(-40, 40), targetTransform.localPosition.y, Random.Range(20, 40));
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -66,7 +74,6 @@ public class MLCar : Agent
 
     private void Start()
     {
-        Debug.Log("Car start");
         carController = transform.GetComponent<AirSimCarController>();
         carControls.Reset();
         startPos = transform.localPosition;
@@ -77,59 +84,28 @@ public class MLCar : Agent
 
     public void FixedUpdate()
     {
-/*            if (resetVehicle)
-        {
-            resetVehicle = false;
-            carData.Reset();
-            carControls.Reset();
-            rcData.Reset();
-            DataManager.SetToUnity(poseFromAirLib.position, ref position);
-            DataManager.SetToUnity(poseFromAirLib.orientation, ref rotation);
-            transform.position = position;
-            transform.rotation = rotation;
-            currentPose = poseFromAirLib;
-            steering = 0;
-            throttle = 0;
-            footBreak = 0;
-            handBrake = 0;
+            throttle = carControls.throttle;
+            handBrake = carControls.handbrake ? 1 : 0;
+            footBreak = carControls.brake;
+            steering = carControls.steering;
 
-            var rb = GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-            rb.constraints = RigidbodyConstraints.None;
-        }
-        else
-        {*/
-            /*  if (isApiEnabled)
-            {*/
-                throttle = carControls.throttle;
-                handBrake = carControls.handbrake ? 1 : 0;
-                footBreak = carControls.brake;
-                steering = carControls.steering;
-            /*}
-            else
-            {
-
-                steering = Input.GetAxis("Horizontal");
-                throttle = Input.GetAxis("Vertical");
-                handBrake = Input.GetAxis("Jump");
-                footBreak = throttle;
-            }
-*/
             carController.Move(steering, throttle, footBreak, handBrake);
             carController.UpdateCarData(ref carData);
             carData.throttle = throttle;
             carData.brake = footBreak;
             carData.steering = steering;
 
-
-        if(Vector3.Distance(transform.localPosition, targetTransform.localPosition) < 15)
+        if (Vector3.Distance(transform.localPosition, targetTransform.localPosition) < optimalDistance - 5)
         {
-            SetReward(1f);
-            EndEpisode();
+            AddReward(0.05f);
+            optimalDistance = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
         }
 
-
-
+        if (Vector3.Distance(transform.localPosition, targetTransform.localPosition) < 15)
+        {
+            SetReward(2f);
+            EndEpisode();
+        }
 
         }
 
@@ -140,13 +116,3 @@ public class MLCar : Agent
     }
 
 }
-
-        //Car controls being set through client api calls
-/*        public bool SetCarControls(CarControls controls)
-        {
-            DataManager.SetCarControls(controls, ref carControls);
-            return true;
-        }*/
-
-
-        //Get the current car data to save in a text file along with the images taken while }
