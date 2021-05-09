@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412508297696205530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.5, y: 10, z: 32.5}
+  m_LocalPosition: {x: 42, y: 10, z: 38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8412165880291732433}
@@ -810,7 +810,7 @@ PrefabInstance:
     - target: {fileID: 2854142418258802984, guid: e0e971c9049865f42adde4b898e5173b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 2854142418258802984, guid: e0e971c9049865f42adde4b898e5173b,
         type: 3}
@@ -820,22 +820,22 @@ PrefabInstance:
     - target: {fileID: 2854142418258802984, guid: e0e971c9049865f42adde4b898e5173b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -31
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 2854142418258802984, guid: e0e971c9049865f42adde4b898e5173b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2854142418258802984, guid: e0e971c9049865f42adde4b898e5173b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2854142418258802984, guid: e0e971c9049865f42adde4b898e5173b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2854142418258802984, guid: e0e971c9049865f42adde4b898e5173b,
         type: 3}
@@ -861,6 +861,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889066606381131024, guid: e0e971c9049865f42adde4b898e5173b,
+        type: 3}
+      propertyPath: targetTransform
+      value: 
+      objectReference: {fileID: 7637382762794687651}
+    - target: {fileID: 4081964825950418593, guid: e0e971c9049865f42adde4b898e5173b,
+        type: 3}
+      propertyPath: DemonstrationName
+      value: SimpleNavigation
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0e971c9049865f42adde4b898e5173b, type: 3}
