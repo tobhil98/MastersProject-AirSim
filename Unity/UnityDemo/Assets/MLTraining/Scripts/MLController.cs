@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MLController : MonoBehaviour
 {
-    public Transform car;
+/*    public Transform car;
     public Transform target;
     public Transform carPrefab;
 
@@ -27,6 +27,6 @@ public class MLController : MonoBehaviour
         t.position = carInitPos;
         t.GetComponent<MLCar>().targetTransform = target;
         Debug.LogError("MapReset");
-    }
+    }*/
 
 }

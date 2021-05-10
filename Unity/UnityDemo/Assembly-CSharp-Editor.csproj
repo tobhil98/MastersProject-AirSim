@@ -739,11 +739,11 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="com.unity.multiplayer-hlapi.Runtime">
-      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Barracuda.ONNX">
       <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/Unity.Barracuda.ONNX.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.multiplayer-hlapi.Runtime">
+      <HintPath>I:/Simulators/AirSim/Unity/UnityDemo/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
