@@ -40,6 +40,7 @@ public class MLCar : Agent
     private Transform target;
 
     List<Transform> targetList;
+    List<Transform> startList;
 
     private int targetIndex;
 
@@ -48,9 +49,31 @@ public class MLCar : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         //carControls.handbrake = actions.DiscreteActions[0]>0 ? true : false;
-        carControls.throttle = actions.ContinuousActions[0];
-        carControls.brake = actions.ContinuousActions[0];
-        carControls.steering = actions.ContinuousActions[1]*1.2f;
+        /*        carControls.throttle = actions.ContinuousActions[0];
+                carControls.brake = actions.ContinuousActions[0];
+                carControls.steering = actions.ContinuousActions[1];*/
+
+        float throttle = 0f;
+        float turn = 0f;
+
+        switch (actions.DiscreteActions[0])
+        {
+            case 0: throttle =  0f; break;
+            case 1: throttle = +1f; break;
+            case 2: throttle = -1f; break;
+        }
+        
+        switch (actions.DiscreteActions[1])
+        {
+            case 0: turn =  0f; break;
+            case 1: turn = +1f; break;
+            case 2: turn = -1f; break;
+        }
+
+
+        carControls.throttle = throttle;
+        carControls.brake = throttle;
+        carControls.steering = turn;
 
     }
 /*    public override void OnActionReceived(float[] vectorAction)
@@ -64,32 +87,40 @@ public class MLCar : Agent
     {
         Vector3 v = target.position - transform.position;
         float directionDot = (float)System.Math.Tanh(Vector3.Angle(transform.forward.normalized, v)/180f);
-        sensor.AddObservation(directionDot);
         float turn = AngleDir(transform.forward, v, transform.up);
-        sensor.AddObservation(turn);
-        //Debug.Log("Observation: " + directionDot + " - " + turn);
+        sensor.AddObservation(directionDot * turn);
+
+        sensor.AddObservation(Vector3.Magnitude(r.velocity) / 25.0f);
+        //sensor.AddObservation(turn);
+
+        //Debug.Log(Vector3.Magnitude(r.velocity)/25);
+        //Debug.Log("Observation: " + directionDot + " / " + turn + " / " + directionDot * turn);
     }
 
     public override void OnEpisodeBegin()
     {
+        targetList.Reverse();
+
         targetIndex = 0;
         target = targetList[0];
 
         r.velocity = Vector3.zero;
         r.angularVelocity = Vector3.zero;
 
-        transform.localPosition = startPos;
+        var p = startList[Random.Range(0, startList.Count)].position;
+
+        transform.position = new Vector3(p.x, startPos.y, p.z);
         transform.rotation = startRotation;
 
         transform.localPosition += new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
-        transform.Rotate(0, Random.Range(-30, 30), 0, Space.Self);
+        transform.Rotate(0, Random.Range(-10, 50), 0, Space.Self);
         //target.localPosition = new Vector3(Random.Range(-40, 40), target.localPosition.y, Random.Range(20, 40));
 
         optimalDistance = Vector3.Distance(transform.position, target.position);
 
         SetReward(0);
         moved = false;
-
+        Debug.LogWarning(target.name);
     }
 
 
@@ -97,12 +128,23 @@ public class MLCar : Agent
     {
 
 
-        ActionSegment<float> continousActions = actionsOut.ContinuousActions;
-        //ActionSegment<int> descreteActions = actionsOut.DiscreteActions;
-        continousActions[0] = Input.GetAxis("Vertical");
+        //ActionSegment<float> continousActions = actionsOut.ContinuousActions;
+        ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
+        //discreteActions[0] = (int)Input.GetAxis("Vertical");
         //continousActions[1] = Input.GetAxis("Vertical");
-        continousActions[1] = Input.GetAxis("Horizontal");
-        //descreteActions[0] = Input.GetAxis("Jump")>0 ? 1 : 0;
+        //discreteActions[1] = (int)Input.GetAxis("Horizontal");
+        //discreteActions[0] = Input.GetAxis("Jump")>0 ? 1 : 0;
+
+        int forward = 0;
+        if (Input.GetKey(KeyCode.W)) forward = 1;
+        if (Input.GetKey(KeyCode.S)) forward = 2;
+        
+        int turn = 0;
+        if (Input.GetKey(KeyCode.D)) turn = 1;
+        if (Input.GetKey(KeyCode.A)) turn = 2;
+
+        discreteActions[0] = forward;
+        discreteActions[1] = turn;
     }
 
 /*    public override void Heuristic(float[] actionsOut)
@@ -114,11 +156,10 @@ public class MLCar : Agent
 
     private void Start()
     {
-        Debug.LogError("Starting now!");
         //carController = transform.GetComponent<AirSimCarController>();
         carController2 = transform.GetComponent<SimpleControls>();
         carControls.Reset();
-        startPos = transform.localPosition;
+        startPos = transform.position;
         startRotation = transform.rotation;
         //Debug.LogWarning("A warning assigned to this transform!");
         r = transform.GetComponent<Rigidbody>();
@@ -130,11 +171,20 @@ public class MLCar : Agent
     public Transform checkpointsTransform;
     private void Awake()
     {
+        Transform s = transform.parent.Find("Starts");
+        startList = new List<Transform>();
+        foreach (Transform t in s)
+        {
+            startList.Add(t);
+        }
+
+
         targetList = new List<Transform>();
         foreach (Transform t in checkpointsTransform)
         {
             targetList.Add(t);
         }
+        //targetList.Reverse();
     }
 
     public void FixedUpdate()
@@ -168,24 +218,14 @@ public class MLCar : Agent
 
             if (a < 10)
             {
-                if (throttle > 0.2)
-                {
-                    AddReward((10 - a) / 400);
-                }
+                AddReward((10 - a) / 400);
             }
             
-        }
-        else
-        {
-            if (throttle < 0.2)
-            {
-                AddReward(-0.003f);
-            }
         }
 
         if (Vector3.Magnitude(r.velocity) > 7)
         {
-            AddReward(0.003f);
+            AddReward(0.001f);
         }
         else if (Vector3.Magnitude(r.velocity) < 3)
         {
@@ -209,9 +249,11 @@ public class MLCar : Agent
             if (targetIndex == 0)
             {
                 AddReward(2f);
+                EndEpisode();
             }
 
             target = targetList[targetIndex];
+            Debug.LogWarning(target.name);
             optimalDistance = Vector3.Distance(transform.position, target.position);
             //EndEpisode();
         }
@@ -240,7 +282,7 @@ public class MLCar : Agent
         }
         else if (dir < 0f)
         {
-            return 0f;
+            return -1f;
         }
         else
         {
