@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2885161576785209578}
   - component: {fileID: 2885161576314354680}
   m_Layer: 0
-  m_Name: UMARandomGeneratedCharacter
+  m_Name: UMARandomGeneratedCharacter 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2885161576785399288}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Randomizers:
   - {fileID: 11400000, guid: a94e15a57b385cd4fb1551ea2582187a, type: 2}
-  prefab: {fileID: 153068, guid: 165a16ac9ccf1a94080956c3b8c82000, type: 3}
+  prefab: {fileID: 153068, guid: 28f00a09c0f0e5f44aa2230bb7d57d9f, type: 3}
   ParentObject: {fileID: 0}
   ShowPlaceholder: 1
   GenerateGrid: 1
@@ -55,3 +55,6 @@ MonoBehaviour:
   RandomOffset: 0
   RandomRotation: 0
   NameBase: Pat
+  RandomAvatarGenerated:
+    m_PersistentCalls:
+      m_Calls: []
