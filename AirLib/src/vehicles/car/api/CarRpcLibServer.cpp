@@ -46,11 +46,11 @@ CarRpcLibServer::CarRpcLibServer(ApiProvider* api_provider, string server_addres
         bind("getCarState", [&](const std::string& vehicle_name) -> CarRpcLibAdaptors::CarState {
         return CarRpcLibAdaptors::CarState(getVehicleApi(vehicle_name)->getCarState());
     });
-
+    /*
     (static_cast<rpc::server*>(getServer()))->
         bind("setCarControls", [&](const CarRpcLibAdaptors::CarControls& controls, const std::string& vehicle_name) -> void {
         getVehicleApi(vehicle_name)->setCarControls(controls.to());
-    });
+    });*/
 	(static_cast<rpc::server*>(getServer()))->
 		bind("getCarControls", [&](const std::string& vehicle_name) -> CarRpcLibAdaptors::CarControls {
 		return CarRpcLibAdaptors::CarControls(getVehicleApi(vehicle_name)->getCarControls());

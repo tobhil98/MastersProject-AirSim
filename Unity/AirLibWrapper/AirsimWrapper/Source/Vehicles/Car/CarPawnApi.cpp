@@ -11,7 +11,7 @@ CarPawnApi::CarPawnApi(CarPawn* pawn, const msr::airlib::Kinematics::State* pawn
 void CarPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& controls)
 {
 	last_controls_ = controls;
-	SetCarApiControls(controls, car_name_.c_str());
+	//SetCarApiControls(controls, car_name_.c_str());
 }
 
 msr::airlib::CarApiBase::CarState CarPawnApi::getCarState() const

@@ -17,11 +17,15 @@ namespace AirSimUnity
         private CarControls carControls;
         private CarState carState;
         private CarData carData;
-
+        
         private float steering, throttle, footBreak, handBrake;
+
+        private bool destroySelf_ = false;
+
 
         private new void Start()
         {
+            Debug.Log("Car start");
             base.Start();
             carController = GetComponent<AirSimCarController>();
             //Debug.LogWarning("A warning assigned to this transform!");
@@ -30,7 +34,12 @@ namespace AirSimUnity
 
         public new void FixedUpdate()
         {
-           // Debug.LogWarning("A warning assigned to this transform!");
+            // Debug.LogWarning("A warning assigned to this transform!");
+            if (destroySelf_)
+            {
+                AirSimServer.vehicleList.Remove(transform);
+                Destroy(gameObject);
+            }
             if (isServerStarted)
             {
                 if (resetVehicle)
@@ -108,6 +117,11 @@ namespace AirSimUnity
             data.carData = carData;
             data.image = null;
             return data;
+        }
+
+        override public void DestroySelf()
+        {
+            destroySelf_ = true;
         }
     }
 }

@@ -208,8 +208,9 @@ public: //methods
         return is_api_control_enabled_;
     }
 
-    virtual void enableApiControl(bool is_enabled) override
+    virtual void enableApiControl(bool is_enabled, const std::string& vehicle_name) override
     {
+        unused(vehicle_name);
         checkValidVehicle();
         if (is_enabled) {
             mav_vehicle_->requestControl();

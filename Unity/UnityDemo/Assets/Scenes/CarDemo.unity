@@ -3969,6 +3969,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 421222799, guid: e40b37a58e90168489aecb17d1395cbb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421222799, guid: e40b37a58e90168489aecb17d1395cbb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421222799, guid: e40b37a58e90168489aecb17d1395cbb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050490639, guid: e40b37a58e90168489aecb17d1395cbb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050490639, guid: e40b37a58e90168489aecb17d1395cbb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224535373885583630, guid: e40b37a58e90168489aecb17d1395cbb,
         type: 3}
       propertyPath: m_RootOrder
@@ -5034,7 +5054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldRotate: 1
-  target: {fileID: 1262457283}
+  target: {fileID: 0}
 --- !u!81 &716284899
 AudioListener:
   m_ObjectHideFlags: 0
@@ -9412,7 +9432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e924d4c00c2c05d42830dd3a94dd86a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: PhysXCar
+  vehicle_name: 
 --- !u!114 &1472270036
 MonoBehaviour:
   m_ObjectHideFlags: 0

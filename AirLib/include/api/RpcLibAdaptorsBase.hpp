@@ -10,7 +10,7 @@
 #include "physics/Environment.hpp"
 #include "common/ImageCaptureBase.hpp"
 #include "safety/SafetyEval.hpp"
-#include "api/WorldSimApiBase.hpp"
+//#include "api/WorldSimApiBase.hpp"
 
 #include "common/common_utils/WindowsApisCommonPre.hpp"
 #include "rpc/msgpack.hpp"

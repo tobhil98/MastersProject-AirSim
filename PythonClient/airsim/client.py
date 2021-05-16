@@ -55,7 +55,7 @@ class VehicleClient:
             is_enabled (bool): True to enable, False to disable API control
             vehicle_name (str, optional): Name of the vehicle to send this command to
         """
-        self.client.call('enableApiControl', is_enabled, vehicle_name)
+        self.client.call('enableApiControl', is_enabled, "", vehicle_name)
 
     def isApiControlEnabled(self, vehicle_name = ''):
         """
@@ -461,7 +461,6 @@ class VehicleClient:
         return self.client.call('simGetSegmentationObjectID', mesh_name)
 	
     def simPrintTest(self, message):
-        print("Attempt!")
         self.client.call('simPrintTest', message)
 	
     def simPrintLogMessage(self, message, message_param = "", severity = 0):
@@ -480,6 +479,21 @@ class VehicleClient:
             severity (int, optional): Range 0-3, inclusive, corresponding to the severity of the message
         """
         self.client.call('simPrintLogMessage', message, message_param, severity)
+
+
+    def simGetVehicleTypes(self):
+        return self.client.call('simGetVehicleTypes')
+
+    def simGetAllVehiclesList(self):
+        return self.client.call('simGetAllVehiclesList')
+        
+    def simGetAllPedestriansList(self):
+        return self.client.call('simGetAllPedestriansList')
+
+                
+    def simGetCameras(self, vehicle_name):
+        return self.client.call('getCameras', vehicle_name)
+
 
     def simGetCameraInfo(self, camera_name, vehicle_name = ''):
         """
@@ -875,6 +889,53 @@ class VehicleClient:
             bool: Whether vehicle was created
         """
         return self.client.call('simAddVehicle', vehicle_name, vehicle_type, pose, pawn_path)
+
+    # Add new vehicle via RPC
+    def simRemoveVehicle(self, vehicle_name, vehicle_type):
+        """
+        Create vehicle at runtime
+
+        Args:
+            vehicle_name (str): Name of the vehicle being created
+            vehicle_type (str): Type of vehicle, e.g. "simpleflight"
+            pose (Pose): Initial pose of the vehicle
+            pawn_path (str): Vehicle blueprint path, default empty wbich uses the default blueprint for the vehicle type
+
+        Returns:
+            bool: Whether vehicle was created
+        """
+        return self.client.call('simRemoveVehicle', vehicle_name, vehicle_type)
+
+    def simAddPedestrian(self, vehicle_name, pose, pawn_path = ""):
+        """
+        Create vehicle at runtime
+
+        Args:
+            vehicle_name (str): Name of the vehicle being created
+            vehicle_type (str): Type of vehicle, e.g. "simpleflight"
+            pose (Pose): Initial pose of the vehicle
+            pawn_path (str): Vehicle blueprint path, default empty wbich uses the default blueprint for the vehicle type
+
+        Returns:
+            bool: Whether vehicle was created
+        """
+        return self.client.call('simAddPedestrian', vehicle_name, pose, pawn_path)
+
+    # Add new vehicle via RPC
+    def simRemovePedestrian(self, vehicle_name):
+        """
+        Create vehicle at runtime
+
+        Args:
+            vehicle_name (str): Name of the vehicle being created
+            vehicle_type (str): Type of vehicle, e.g. "simpleflight"
+            pose (Pose): Initial pose of the vehicle
+            pawn_path (str): Vehicle blueprint path, default empty wbich uses the default blueprint for the vehicle type
+
+        Returns:
+            bool: Whether vehicle was created
+        """
+        return self.client.call('simRemovePedestrian', vehicle_name)
 
 # -----------------------------------  Multirotor APIs ---------------------------------------------
 class MultirotorClient(VehicleClient, object):
@@ -1341,7 +1402,7 @@ class CarClient(VehicleClient, object):
     def __init__(self, ip = "", port = 41451, timeout_value = 3600):
         super(CarClient, self).__init__(ip, port, timeout_value)
 
-    def setCarControls(self, controls, vehicle_name = ''):
+    def setCarControls(self, controls, vehicle_type, vehicle_name = ''):
         """
         Control the car using throttle, steering, brake, etc.
 
@@ -1349,7 +1410,7 @@ class CarClient(VehicleClient, object):
             controls (CarControls): Struct containing control values
             vehicle_name (str, optional): Name of vehicle to be controlled
         """
-        self.client.call('setCarControls', controls, vehicle_name)
+        self.client.call('setCarControls', controls, vehicle_type, vehicle_name)
 
     def getCarState(self, vehicle_name = ''):
         """

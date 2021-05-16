@@ -87,6 +87,11 @@ namespace AirSimUnity
 		}
 	};
 
+	struct PedestrianControls {
+		float speed;
+		float steering;
+	};
+
 	struct AirSimTwist
 	{
 		AirSimVector angular;
@@ -218,5 +223,12 @@ namespace AirSimUnity
 	{
 		bool isHit = false;
 		float distance = 0.0f;
+	};
+
+	struct UnityStringArray
+	{
+		int length;
+		int elements;
+		char* str;
 	};
 }

@@ -30,8 +30,8 @@ void SimModeBase::BeginPlay()
 
 void SimModeBase::Tick(float DeltaSeconds)
 {
-	for (auto& api : getApiProvider()->getVehicleSimApis())
-		static_cast<PawnSimApi*>(api)->pawnTick(DeltaSeconds);
+	world_sim_api_->fixedUpdate();
+	getVehicleSimApi(vehicle_name_)->pawnTick(DeltaSeconds);
 	showClockStats();
 	updateDebugReport(debug_reporter_);
 }

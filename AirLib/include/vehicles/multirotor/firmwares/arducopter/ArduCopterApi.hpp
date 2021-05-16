@@ -71,10 +71,11 @@ public:
         Utils::log("Not Implemented: isApiControlEnabled", Utils::kLogLevelInfo);
         return false;
     }
-    virtual void enableApiControl(bool is_enabled) override
+    virtual void enableApiControl(bool is_enabled, const std::string& vehicle_name) override
     {
         Utils::log("Not Implemented: enableApiControl", Utils::kLogLevelInfo);
         unused(is_enabled);
+        unused(vehicle_name);
     }
     virtual bool armDisarm(bool arm) override
     {

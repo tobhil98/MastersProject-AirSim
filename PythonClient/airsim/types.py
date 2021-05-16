@@ -349,6 +349,14 @@ class CarControls(MsgpackMixin):
             self.manual_gear = -1
             self.throttle = - abs(throttle_val)
 
+class PedestrianControls(MsgpackMixin):
+    speed = 0.0
+    steering = 0.0
+
+    def __init__(self, speed = 0, steering = 0):
+        self.speed = speed
+        self.steering = steering
+
 class KinematicsState(MsgpackMixin):
     position = Vector3r()
     orientation = Quaternionr()

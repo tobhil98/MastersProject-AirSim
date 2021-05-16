@@ -83,7 +83,7 @@ RpcLibClientBase::ConnectionState RpcLibClientBase::getConnectionState()
 }
 void RpcLibClientBase::enableApiControl(bool is_enabled, const std::string& vehicle_name)
 {
-    pimpl_->client.call("enableApiControl", is_enabled, vehicle_name);
+    pimpl_->client.call("enableApiControl", is_enabled, vehicle_name, "");
 }
 bool RpcLibClientBase::isApiControlEnabled(const std::string& vehicle_name) const
 {
@@ -243,20 +243,20 @@ vector<MeshPositionVertexBuffersResponse> RpcLibClientBase::simGetMeshPositionVe
     return RpcLibAdaptorsBase::MeshPositionVertexBuffersResponse::to(response_adaptor);
 }
 
-bool RpcLibClientBase::simAddVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path)
-{
-    return pimpl_->client.call("simAddVehicle", vehicle_name, vehicle_type, RpcLibAdaptorsBase::Pose(pose), pawn_path).as<bool>();
-}
+//bool RpcLibClientBase::simAddVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path)
+//{
+//    return pimpl_->client.call("simAddVehicle", vehicle_name, vehicle_type, RpcLibAdaptorsBase::Pose(pose), pawn_path).as<bool>();
+//}
 
 void RpcLibClientBase::simPrintLogMessage(const std::string& message, std::string message_param, unsigned char  severity)
 {
     pimpl_->client.call("simPrintLogMessage", message, message_param, severity);
 }
 
-void RpcLibClientBase::simPrintTest(const std::string& message)
-{
-    pimpl_->client.call("simPrintTest", message);
-}
+//void RpcLibClientBase::simPrintTest(const std::string& message)
+//{
+//    pimpl_->client.call("simPrintTest", message);
+//}
 
 
 void RpcLibClientBase::simFlushPersistentMarkers()

@@ -34,6 +34,8 @@ STRICT_MODE_OFF
 
 STRICT_MODE_ON
 
+#include "VehicleUtils.h"
+
 
 namespace msr { namespace airlib {
 
@@ -122,8 +124,9 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         getWorldSimApi()->setWeatherParameter(param, val);
     });
 
-    pimpl_->server.bind("enableApiControl", [&](bool is_enabled, const std::string& vehicle_name) -> void {
-        getVehicleApi(vehicle_name)->enableApiControl(is_enabled);
+    pimpl_->server.bind("enableApiControl", [&](bool is_enabled, const std::string& vehicle_type, const std::string& vehicle_name) -> void {
+        (void)vehicle_type;
+        getWorldSimApi()->setEnableApi(is_enabled, vehicle_name);
     });
 
     pimpl_->server.bind("isApiControlEnabled", [&](const std::string& vehicle_name) -> bool { 
@@ -140,7 +143,8 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
 
     pimpl_->server.bind("simGetImages", [&](const std::vector<RpcLibAdaptorsBase::ImageRequest>& request_adapter, const std::string& vehicle_name) -> 
         vector<RpcLibAdaptorsBase::ImageResponse> {
-            const auto& response = getVehicleSimApi(vehicle_name)->getImages(RpcLibAdaptorsBase::ImageRequest::to(request_adapter));
+            //const auto& response = getVehicleSimApi(vehicle_name)->getImages(RpcLibAdaptorsBase::ImageRequest::to(request_adapter));
+            const auto& response = getWorldSimApi()->getImages(RpcLibAdaptorsBase::ImageRequest::to(request_adapter), vehicle_name);
             return RpcLibAdaptorsBase::ImageResponse::from(response);
     });
 
@@ -153,10 +157,17 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         return RpcLibAdaptorsBase::MeshPositionVertexBuffersResponse::from(response);
     });
 
-    pimpl_->server.bind("simAddVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type, 
-        const RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
-        return getWorldSimApi()->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
+    //pimpl_->server.bind("simAddVehicle", [&](const std::string& vehicle_name, const std::string& vehicle_type, 
+    //    const RpcLibAdaptorsBase::Pose& pose, const std::string& pawn_path) -> bool {
+    //    return getWorldSimApi()->addVehicle(vehicle_name, vehicle_type, pose.to(), pawn_path);
+    //});
+
+    pimpl_->server.bind("setCarControls", [&](const CarControls& controls, const std::string& vehicle_type, const std::string& vehicle_name) -> bool {
+        unused(vehicle_type);
+        return getWorldSimApi()->setCarControls(controls, vehicle_name);
     });
+
+
 
     pimpl_->server.bind("simSetVehiclePose", [&](const RpcLibAdaptorsBase::Pose &pose, bool ignore_collision, const std::string& vehicle_name) -> void {
         getVehicleSimApi(vehicle_name)->setPose(pose.to(), ignore_collision);
@@ -202,10 +213,6 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         getWorldSimApi()->printLogMessage(m, message_param, severity);
     });
 
-    pimpl_->server.bind("simPrintTest", [&](const std::string& message) -> void {
-        std::string m = "Hello: " + message;
-        getWorldSimApi()->printTest(m);
-    });
 
     pimpl_->server.bind("getHomeGeoPoint", [&](const std::string& vehicle_name) -> RpcLibAdaptorsBase::GeoPoint {
         const auto& geo_point = getVehicleApi(vehicle_name)->getHomeGeoPoint();
@@ -388,6 +395,12 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
     pimpl_->server.bind("simSetWind", [&](const RpcLibAdaptorsBase::Vector3r& wind) -> void {
         getWorldSimApi()->setWind(wind.to());
     });
+
+
+    pimpl_->server.bind("getCameras", [&](const std::string& vehicle_name) -> std::vector<std::string> {
+        return getWorldSimApi()->getCameras(vehicle_name).data;
+    });
+
 
     //if we don't suppress then server will bomb out for exceptions raised by any method
     pimpl_->server.suppress_exceptions(true);

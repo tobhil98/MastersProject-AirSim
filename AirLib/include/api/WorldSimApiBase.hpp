@@ -6,7 +6,8 @@
 
 #include "common/CommonStructs.hpp"
 #include "common/AirSimSettings.hpp"
-
+#include "VehicleUtils.h"
+#include "ServerUtils.h"
 
 namespace msr { namespace airlib {
 
@@ -47,12 +48,12 @@ public:
     virtual bool setSegmentationObjectID(const std::string& mesh_name, int object_id, bool is_name_regex = false) = 0;
     virtual int getSegmentationObjectID(const std::string& mesh_name) const = 0;
 
-    virtual bool addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path = "") = 0;
+    //virtual bool addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path = "") = 0;
 
     virtual void printLogMessage(const std::string& message,
         const std::string& message_param = "", unsigned char severity = 0) = 0;
 
-    virtual void printTest(const std::string& message) = 0;
+    //virtual void printTest(const std::string& message) = 0;
 
     //----------- Plotting APIs ----------/
     virtual void simFlushPersistentMarkers() = 0;
@@ -81,6 +82,15 @@ public:
     virtual bool isRecording() const = 0;
 
     virtual void setWind(const Vector3r& wind) const = 0;
+
+        
+    // Other APIs
+    virtual void fixedUpdate() = 0;
+    virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) = 0;
+    virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) = 0;
+    virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name) = 0;
+    virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) = 0;
+    virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) = 0;
 };
 
 

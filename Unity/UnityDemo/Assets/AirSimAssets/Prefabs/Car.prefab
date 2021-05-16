@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d488591858471a4bbef459e45d9a839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraName: 
+  cameraName: RC
 --- !u!114 &114548669862568904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d488591858471a4bbef459e45d9a839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraName: 
+  cameraName: FL
 --- !u!114 &114102731149023602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1409,7 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d488591858471a4bbef459e45d9a839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraName: 
+  cameraName: FR
 --- !u!114 &114885906010900510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,7 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d488591858471a4bbef459e45d9a839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraName: 
+  cameraName: CB
 --- !u!114 &114432108645550266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1934,7 +1934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e924d4c00c2c05d42830dd3a94dd86a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: 
+  vehicle_name: 
 --- !u!1 &1747988442045362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,7 +2550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d488591858471a4bbef459e45d9a839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraName: 
+  cameraName: FC
 --- !u!114 &114165520353168102
 MonoBehaviour:
   m_ObjectHideFlags: 0
