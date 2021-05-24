@@ -37,14 +37,31 @@ public class MLCar : Agent
     private bool moved = false;
     private int stuckCount = 0;
 
-    private Transform target;
+    public Transform target;
+    public Transform selfTransfrom;
 
-    List<Transform> targetList;
-    List<Transform> startList;
+    // List<Transform> targetList;
+    // List<Transform> startList;
 
     private int targetIndex;
 
-    private Rigidbody r;
+    public Rigidbody Rb;
+
+    public int tag;
+    private MLController controller;
+
+
+    public void Setup(MLController c, int t)
+    {
+        controller = c;
+        tag = t;
+    }
+    public void SetPosition(Vector3 pos, Quaternion ang)
+    {
+        transform.position = pos;
+        transform.rotation = ang;
+    }
+
 
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -90,39 +107,40 @@ public class MLCar : Agent
         float turn = AngleDir(transform.forward, v, transform.up);
         sensor.AddObservation(directionDot * turn);
 
-        sensor.AddObservation(Vector3.Magnitude(r.velocity) / 25.0f);
+        sensor.AddObservation(Vector3.Magnitude(Rb.velocity) / 25.0f);
         //sensor.AddObservation(turn);
 
         //Debug.Log(Vector3.Magnitude(r.velocity)/25);
         //Debug.Log("Observation: " + directionDot + " / " + turn + " / " + directionDot * turn);
     }
 
+    /*    public override void OnEpisodeBegin()
+        {
+            Rb.velocity = Vector3.zero;
+            Rb.angularVelocity = Vector3.zero;
+
+            var p = startList[Random.Range(0, startList.Count)].position;
+
+            transform.position = new Vector3(p.x, startPos.y, p.z);
+            transform.rotation = startRotation;
+
+            transform.localPosition += new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
+            transform.Rotate(0, Random.Range(-10, 50), 0, Space.Self);
+            //target.localPosition = new Vector3(Random.Range(-40, 40), target.localPosition.y, Random.Range(20, 40));
+
+            optimalDistance = Vector3.Distance(transform.position, target.position);
+
+            SetReward(0);
+            moved = false;
+            Debug.LogWarning(target.name);
+        }*/
+
+
     public override void OnEpisodeBegin()
     {
-        targetList.Reverse();
-
-        targetIndex = 0;
-        target = targetList[0];
-
-        r.velocity = Vector3.zero;
-        r.angularVelocity = Vector3.zero;
-
-        var p = startList[Random.Range(0, startList.Count)].position;
-
-        transform.position = new Vector3(p.x, startPos.y, p.z);
-        transform.rotation = startRotation;
-
-        transform.localPosition += new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
-        transform.Rotate(0, Random.Range(-10, 50), 0, Space.Self);
-        //target.localPosition = new Vector3(Random.Range(-40, 40), target.localPosition.y, Random.Range(20, 40));
-
-        optimalDistance = Vector3.Distance(transform.position, target.position);
-
-        SetReward(0);
-        moved = false;
-        Debug.LogWarning(target.name);
+        Rb.velocity = Vector3.zero;
+        Rb.angularVelocity = Vector3.zero;
     }
-
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -158,11 +176,12 @@ public class MLCar : Agent
     {
         //carController = transform.GetComponent<AirSimCarController>();
         carController2 = transform.GetComponent<SimpleControls>();
-        carControls.Reset();
+/*        carControls.Reset();
         startPos = transform.position;
-        startRotation = transform.rotation;
+        startRotation = transform.rotation;*/
         //Debug.LogWarning("A warning assigned to this transform!");
-        r = transform.GetComponent<Rigidbody>();
+        Rb = transform.GetComponent<Rigidbody>();
+        selfTransfrom = transform;
 
 
     }
@@ -170,21 +189,7 @@ public class MLCar : Agent
 
     public Transform checkpointsTransform;
     private void Awake()
-    {
-        Transform s = transform.parent.Find("Starts");
-        startList = new List<Transform>();
-        foreach (Transform t in s)
-        {
-            startList.Add(t);
-        }
-
-
-        targetList = new List<Transform>();
-        foreach (Transform t in checkpointsTransform)
-        {
-            targetList.Add(t);
-        }
-        //targetList.Reverse();
+    { 
     }
 
     public void FixedUpdate()
@@ -223,11 +228,11 @@ public class MLCar : Agent
             
         }
 
-        if (Vector3.Magnitude(r.velocity) > 7)
+        if (Vector3.Magnitude(Rb.velocity) > 7)
         {
             AddReward(0.001f);
         }
-        else if (Vector3.Magnitude(r.velocity) < 3)
+        else if (Vector3.Magnitude(Rb.velocity) < 3)
         {
             AddReward(-0.002f);
         }
@@ -244,21 +249,10 @@ public class MLCar : Agent
         if (Vector3.Distance(transform.position, target.position) < 12)
         {
             AddReward(3f);
-            targetIndex = (targetIndex + 1) % targetList.Count;
-
-            if (targetIndex == 0)
-            {
-                AddReward(2f);
-                EndEpisode();
-            }
-
-            target = targetList[targetIndex];
-            Debug.LogWarning(target.name);
-            optimalDistance = Vector3.Distance(transform.position, target.position);
-            //EndEpisode();
+            EndEpisode();
         }
         //Debug.Log(GetCumulativeReward());
-        if(GetCumulativeReward() < -8)
+        if (GetCumulativeReward() < -8)
         {
             EndEpisode();
         }
