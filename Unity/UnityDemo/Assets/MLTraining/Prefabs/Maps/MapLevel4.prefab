@@ -1956,7 +1956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxEnvironmentSteps: 4000
-  count: 0
+  count: 4
   car: {fileID: 0}
   objects: {fileID: 0}
 --- !u!1 &8040959657223474257

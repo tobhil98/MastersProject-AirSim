@@ -103,7 +103,7 @@ public class MLCar : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         Vector3 v = target.position - transform.position;
-        float directionDot = (float)System.Math.Tanh(Vector3.Angle(transform.forward.normalized, v)/180f);
+        float directionDot = (float)System.Math.Tanh(2.5f*Vector3.Angle(transform.forward.normalized, v)/180f);
         float turn = AngleDir(transform.forward, v, transform.up);
         sensor.AddObservation(directionDot * turn);
 
@@ -111,7 +111,8 @@ public class MLCar : Agent
         //sensor.AddObservation(turn);
 
         //Debug.Log(Vector3.Magnitude(r.velocity)/25);
-        //Debug.Log("Observation: " + directionDot + " / " + turn + " / " + directionDot * turn);
+/*        if(tag ==1)
+        Debug.Log("Observation: " + directionDot + " / " + turn + " / " + directionDot * turn);*/
     }
 
     /*    public override void OnEpisodeBegin()
@@ -128,7 +129,6 @@ public class MLCar : Agent
             transform.Rotate(0, Random.Range(-10, 50), 0, Space.Self);
             //target.localPosition = new Vector3(Random.Range(-40, 40), target.localPosition.y, Random.Range(20, 40));
 
-            optimalDistance = Vector3.Distance(transform.position, target.position);
 
             SetReward(0);
             moved = false;
@@ -143,6 +143,7 @@ public class MLCar : Agent
 
         transform.localScale = defaultScale;
         gameObject.SetActive(true);
+        optimalDistance = Vector3.Distance(transform.position, target.position);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
