@@ -22,7 +22,7 @@ public static class Extension
 public class MLController : MonoBehaviour
 {
 
-    [Header("Max Environment Steps")] public int MaxEnvironmentSteps = 4000;
+    [Header("Max Environment Steps")] public int MaxEnvironmentSteps = 2000;
 
     public int count = 0;
     public Transform car;
@@ -32,7 +32,7 @@ public class MLController : MonoBehaviour
     private List<MLCar> carLst;
     private List<Transform> goals;
 
-    public void Start()
+    public void Awake()
     {
 
         goals = new List<Transform>();
@@ -49,11 +49,22 @@ public class MLController : MonoBehaviour
         }
 
 
-        carLst = new List<MLCar>();
 
+
+
+
+        ResetScene();
+    }
+
+    void ResetScene()
+    {
+        m_ResetTimer = 0;
+
+        carLst = new List<MLCar>();
         m_AgentGroup = new SimpleMultiAgentGroup();
 
-        for(int i = 0; i < count; i++ )
+
+        for (int i = 0; i < count; i++)
         {
             var t = Instantiate(car);
             t.parent = transform.parent;
@@ -62,18 +73,8 @@ public class MLController : MonoBehaviour
             a.Setup(this, i);
             m_AgentGroup.RegisterAgent(a);
         }
+        //Debug.Log(m_AgentGroup.GetRegisteredAgents().Count);
 
-        ResetScene();
-    }
-
-    public void Awake()
-    {
-        //Academy.Instance.OnEnvironmentReset += EnvironmentReset;
-    }
-
-    void ResetScene()
-    {
-        m_ResetTimer = 0;
         Extension.Shuffle(goals);
 
         int index = 0;
@@ -90,11 +91,51 @@ public class MLController : MonoBehaviour
             item.SetPosition(goals[index].position, goals[index].rotation);
 
             item.target = goals[target];
+            Debug.Log("Player" + index + " - " + goals[index].name + ", " + goals[target].name);
+
             index++;
         }
 
+        activeCars = count;
+
     }
 
+    public void CarFinished(MLCar carId)
+    {
+        m_AgentGroup.AddGroupReward(1f);
+        CarDisable(carId);
+    }
+
+    public void CarCollision()
+    {
+        m_AgentGroup.AddGroupReward(-1f);
+        m_AgentGroup.EndGroupEpisode();
+        Cleanup();
+        ResetScene();
+    }
+
+    public void CarDisable(MLCar carID, bool list = false)
+    {
+        if (!list)
+        {
+            carLst.Remove(carID);
+        }
+
+        activeCars--;
+        carID.Kill();
+
+    }
+
+    private void Cleanup()
+    {
+        foreach (var i in carLst)
+        {
+            CarDisable(i, true);
+        }
+    }
+
+
+    private int activeCars;
 
     private int m_ResetTimer;
     private void FixedUpdate()
@@ -102,9 +143,18 @@ public class MLController : MonoBehaviour
         m_ResetTimer += 1;
         if (m_ResetTimer >= MaxEnvironmentSteps && MaxEnvironmentSteps > 0)
         {
+            Debug.Log("Timeout!");
+            Cleanup();
             m_AgentGroup.GroupEpisodeInterrupted();
             ResetScene();
         }
+
+        if (activeCars == 0) {
+            m_AgentGroup.AddGroupReward(1 - m_ResetTimer/MaxEnvironmentSteps);
+            m_AgentGroup.EndGroupEpisode();
+            ResetScene();
+        }
+
     }
 
 

@@ -140,6 +140,9 @@ public class MLCar : Agent
     {
         Rb.velocity = Vector3.zero;
         Rb.angularVelocity = Vector3.zero;
+
+        transform.localScale = defaultScale;
+        gameObject.SetActive(true);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -153,27 +156,44 @@ public class MLCar : Agent
         //discreteActions[1] = (int)Input.GetAxis("Horizontal");
         //discreteActions[0] = Input.GetAxis("Jump")>0 ? 1 : 0;
 
+
         int forward = 0;
-        if (Input.GetKey(KeyCode.W)) forward = 1;
-        if (Input.GetKey(KeyCode.S)) forward = 2;
-        
         int turn = 0;
-        if (Input.GetKey(KeyCode.D)) turn = 1;
-        if (Input.GetKey(KeyCode.A)) turn = 2;
+
+        if (tag == 1)
+        {
+            if (Input.GetKey(KeyCode.UpArrow)) forward = 1;
+            if (Input.GetKey(KeyCode.DownArrow)) forward = 2;
+
+            if (Input.GetKey(KeyCode.RightArrow)) turn = 1;
+            if (Input.GetKey(KeyCode.LeftArrow)) turn = 2;
+
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.W)) forward = 1;
+            if (Input.GetKey(KeyCode.S)) forward = 2;
+
+            if (Input.GetKey(KeyCode.D)) turn = 1;
+            if (Input.GetKey(KeyCode.A)) turn = 2;
+        }
 
         discreteActions[0] = forward;
         discreteActions[1] = turn;
     }
 
-/*    public override void Heuristic(float[] actionsOut)
-    {
-        actionsOut[0] = Input.GetAxis("Vertical");
-        actionsOut[1] = Input.GetAxis("Horizontal");
-    }
-*/
+    /*    public override void Heuristic(float[] actionsOut)
+        {
+            actionsOut[0] = Input.GetAxis("Vertical");
+            actionsOut[1] = Input.GetAxis("Horizontal");
+        }
+    */
 
-    private void Start()
+
+    Vector3 defaultScale;
+    public override void Initialize()
     {
+        base.Initialize();
         //carController = transform.GetComponent<AirSimCarController>();
         carController2 = transform.GetComponent<SimpleControls>();
 /*        carControls.Reset();
@@ -182,14 +202,8 @@ public class MLCar : Agent
         //Debug.LogWarning("A warning assigned to this transform!");
         Rb = transform.GetComponent<Rigidbody>();
         selfTransfrom = transform;
+        defaultScale = transform.localScale;
 
-
-    }
-
-
-    public Transform checkpointsTransform;
-    private void Awake()
-    { 
     }
 
     public void FixedUpdate()
@@ -215,7 +229,7 @@ public class MLCar : Agent
         {
             moved = true;
             stuckCount = 0;
-            AddReward(0.007f);
+            AddReward(0.003f);
             optimalDistance = Vector3.Distance(transform.position, target.position);
             
             Vector3 v = Vector3.Scale((target.position - transform.position), new Vector3(1, 0, 1)).normalized;
@@ -223,7 +237,7 @@ public class MLCar : Agent
 
             if (a < 10)
             {
-                AddReward((10 - a) / 400);
+                AddReward((10 - a) / 1000);
             }
             
         }
@@ -249,12 +263,12 @@ public class MLCar : Agent
         if (Vector3.Distance(transform.position, target.position) < 12)
         {
             AddReward(3f);
-            EndEpisode();
+            controller.CarFinished(this);
         }
         //Debug.Log(GetCumulativeReward());
         if (GetCumulativeReward() < -8)
         {
-            EndEpisode();
+            controller.CarDisable(this);
         }
 
        }
@@ -262,7 +276,16 @@ public class MLCar : Agent
     public void ObjectCollided(Collider other)
     {
         AddReward(-12f);
-        EndEpisode();
+        //Debug.LogWarning("Car " + tag + " - Collided with " + other.tag);
+        if (other.tag == "Vehicle")
+        {
+            //Debug.Log("CarCollision");
+            controller.CarCollision();
+        }
+        else if(other.tag == "Map")
+        {
+            controller.CarDisable(this);
+        }
     }
 
     private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
@@ -284,5 +307,9 @@ public class MLCar : Agent
         }
     }
 
+    public void Kill()
+    {
+        Destroy(gameObject);
+    }
 
 }

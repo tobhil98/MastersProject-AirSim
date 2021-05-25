@@ -1833,12 +1833,11 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 0
   target: {fileID: 0}
   selfTransfrom: {fileID: 0}
   Rb: {fileID: 0}
   tag: 0
-  checkpointsTransform: {fileID: 0}
 --- !u!114 &2851777403107915559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1867,7 +1866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Record: 0
   NumStepsToRecord: 0
-  DemonstrationName: DemoTest
+  DemonstrationName: CollabTest
   DemonstrationDirectory: Demoes
 --- !u!114 &7017400126759423936
 MonoBehaviour:
