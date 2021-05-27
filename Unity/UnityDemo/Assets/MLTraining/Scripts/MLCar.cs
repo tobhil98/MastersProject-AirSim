@@ -51,11 +51,19 @@ public class MLCar : Agent
     private MLController controller;
 
 
-    public void Setup(MLController c, int t)
+    public void Setup(MLController c, int t, Transform target)
     {
         controller = c;
         tag = t;
+        this.target = target;
+
+        Rb.velocity = Vector3.zero;
+        Rb.angularVelocity = Vector3.zero;
+
+        transform.localScale = defaultScale;
+        optimalDistance = Vector3.Distance(transform.position, target.position);
     }
+
     public void SetPosition(Vector3 pos, Quaternion ang)
     {
         transform.position = pos;
@@ -136,15 +144,15 @@ public class MLCar : Agent
         }*/
 
 
-    public override void OnEpisodeBegin()
+/*    public override void OnEpisodeBegin()
     {
+        Debug.Log("Too soon!" + tag);
         Rb.velocity = Vector3.zero;
         Rb.angularVelocity = Vector3.zero;
 
         transform.localScale = defaultScale;
-        gameObject.SetActive(true);
         optimalDistance = Vector3.Distance(transform.position, target.position);
-    }
+    }*/
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {

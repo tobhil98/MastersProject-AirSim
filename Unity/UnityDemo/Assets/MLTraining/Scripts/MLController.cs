@@ -63,38 +63,32 @@ public class MLController : MonoBehaviour
         carLst = new List<MLCar>();
         m_AgentGroup = new SimpleMultiAgentGroup();
 
-
-        for (int i = 0; i < count; i++)
-        {
-            var t = Instantiate(car);
-            t.parent = transform.parent;
-            var a = t.GetComponent<MLCar>();
-            carLst.Add(a);
-            a.Setup(this, i);
-            m_AgentGroup.RegisterAgent(a);
-        }
-        //Debug.Log(m_AgentGroup.GetRegisteredAgents().Count);
-
         Extension.Shuffle(goals);
 
-        int index = 0;
-        foreach(var item in carLst)
+        for (int i = 0; i < count; i++)
         {
             // Random target
             int target = 0;
             do
             {
                 target = Random.Range(0, goals.Count);
-            } while (target == index);
+            } while (target == i);
 
             //item.selfTransfrom.SetPositionAndRotation(goals[index].position, goals[index].rotation);
-            item.SetPosition(goals[index].position, goals[index].rotation);
 
-            item.target = goals[target];
-            Debug.Log("Player" + index + " - " + goals[index].name + ", " + goals[target].name);
+            //a.target = goals[target];
+            Debug.Log("Player" + i + " - " + goals[i].name + ", " + goals[target].name);
 
-            index++;
+            var t = Instantiate(car);
+            t.parent = transform.parent;
+            var a = t.GetComponent<MLCar>();
+            carLst.Add(a);
+            a.Setup(this, i, goals[target]);
+            m_AgentGroup.RegisterAgent(a);
+            a.SetPosition(goals[i].position, goals[i].rotation);
+
         }
+        //Debug.Log(m_AgentGroup.GetRegisteredAgents().Count);
 
         activeCars = count;
 
@@ -109,8 +103,8 @@ public class MLController : MonoBehaviour
     public void CarCollision()
     {
         m_AgentGroup.AddGroupReward(-1f);
-        m_AgentGroup.EndGroupEpisode();
         Cleanup();
+        m_AgentGroup.EndGroupEpisode();
         ResetScene();
     }
 
