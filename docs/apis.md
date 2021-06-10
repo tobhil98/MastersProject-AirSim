@@ -150,6 +150,10 @@ The `is_enabled` parameter must be `True` to enable time of day effect. If it is
 
 Other parameters are same as in [settings](settings.md#timeofday).
 
+### Line-of-sight and world extent APIs
+To test line-of-sight in the sim from a vehicle to a point or between two points, see simTestLineOfSightToPoint(lat, lon, alt, vehicle_name) and simTestLineOfSightBetweenPoints(lat1, lon1, alt1, lat2, lon2, alt2), respectively.
+Sim world extent, in the form of a vector of two GeoPoints, can be retrieved using simGetWorldExtents().
+
 ### Weather APIs
 By default all weather effects are disabled. To enable weather effect, first call:
 
@@ -178,7 +182,7 @@ class WeatherParameter:
 
 Please note that `Roadwetness`, `RoadSnow` and `RoadLeaf` effects requires adding [materials](https://github.com/Microsoft/AirSim/tree/master/Unreal/Plugins/AirSim/Content/Weather/WeatherFX) to your scene.
 
-Please see [example code](https://github.com/Microsoft/AirSim/blob/master/PythonClient/computer_vision/weather.py) for more details.
+Please see [example code](https://github.com/Microsoft/AirSim/blob/master/PythonClient/environment/weather.py) for more details.
 
 ### Recording APIs
 
