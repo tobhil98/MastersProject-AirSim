@@ -33,6 +33,10 @@
   <ItemGroup>
     <ClInclude Include="include\api\ApiProvider.hpp" />
     <ClInclude Include="include\api\ApiServerBase.hpp" />
+    <ClInclude Include="include\api\PedestrianServer.hpp" />
+    <ClInclude Include="include\api\PedestrianSimApiBase.hpp" />
+    <ClInclude Include="include\api\ServerSimApiBase.hpp" />
+    <ClInclude Include="include\api\SimulatorServer.hpp" />
     <ClInclude Include="include\api\RpcLibAdaptorsBase.hpp" />
     <ClInclude Include="include\api\RpcLibClientBase.hpp" />
     <ClInclude Include="include\api\RpcLibServerBase.hpp" />
@@ -90,7 +94,9 @@
     <ClInclude Include="include\common\common_utils\AsyncTasker.hpp" />
     <ClInclude Include="include\common\ImageCaptureBase.hpp" />
     <ClInclude Include="include\api\VehicleConnectorBase.hpp" />
+    <ClInclude Include="include\PedestrianUtils.h" />
     <ClInclude Include="include\sensors\SensorFactory.hpp" />
+    <ClInclude Include="include\ServerUtils.h" />
     <ClInclude Include="include\vehicles\car\api\CarApiBase.hpp" />
     <ClInclude Include="include\vehicles\multirotor\api\MultirotorCommon.hpp" />
     <ClInclude Include="include\vehicles\multirotor\api\MultirotorRpcLibAdaptors.hpp" />
@@ -178,10 +184,13 @@
     <ClInclude Include="include\vehicles\multirotor\MultiRotorParamsFactory.hpp" />
     <ClInclude Include="include\vehicles\multirotor\RotorActuator.hpp" />
     <ClInclude Include="include\vehicles\multirotor\RotorParams.hpp" />
+    <ClInclude Include="include\VehicleUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\api\PedestrianServer.cpp" />
     <ClCompile Include="src\api\RpcLibClientBase.cpp" />
     <ClCompile Include="src\api\RpcLibServerBase.cpp" />
+    <ClCompile Include="src\api\SimulatorServer.cpp" />
     <ClCompile Include="src\vehicles\multirotor\api\MultirotorApiBase.cpp" />
     <ClCompile Include="src\safety\ObstacleMap.cpp" />
     <ClCompile Include="src\safety\SafetyEval.cpp" />

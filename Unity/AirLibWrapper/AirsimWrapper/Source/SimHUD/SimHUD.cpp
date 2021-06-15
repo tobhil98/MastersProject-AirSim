@@ -12,6 +12,8 @@ SimHUD::SimHUD(std::string vehicle_name, std::string sim_mode_name, int port_num
 void SimHUD::BeginPlay()
 {
 	try {
+		PrintLogMessage("Wrapper: Begin SimHUD", "Test" , vehicle_name_.c_str(), 2);
+		
 		initializeSettings();
 		createSimMode();
 		if (simmode_)

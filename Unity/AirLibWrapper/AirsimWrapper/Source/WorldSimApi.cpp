@@ -2,10 +2,13 @@
 #include "WorldSimApi.h"
 #include "PInvokeWrapper.h"
 #include "UnityUtilities.hpp"
+#include "Logger.h"
 
 WorldSimApi::WorldSimApi(SimModeBase* simmode, std::string vehicle_name)
 	: simmode_(simmode), vehicle_name_(vehicle_name)
-{}
+{
+    //cameraPtr = new UnityImageCapture("Vehicle");
+}
 
 WorldSimApi::~WorldSimApi()
 {}
@@ -54,8 +57,16 @@ int WorldSimApi::getSegmentationObjectID(const std::string& mesh_name) const
 
 void WorldSimApi::printLogMessage(const std::string& message, const std::string& message_param, unsigned char severity)
 {
-	PrintLogMessage(message.c_str(), message_param.c_str(), vehicle_name_.c_str(), severity);
+    const std::string s = "WorldSimAPI: " + message;
+	PrintLogMessage(s.c_str(), message_param.c_str(), vehicle_name_.c_str(), severity);
 }
+
+//void WorldSimApi::printTest(const std::string& message)
+//{
+//    // TODO change this
+//    const std::string s = "This is my WorldSimAPI: " + message;
+//    PrintTest(s.c_str());
+//}
 
 std::unique_ptr<std::vector<std::string>> WorldSimApi::swapTextures(const std::string& tag, int tex_id, int component_id, int material_id)
 {
@@ -195,11 +206,53 @@ void WorldSimApi::setWind(const Vector3r& wind) const
     simmode_->setWind(wind);
 };
 
-bool WorldSimApi::addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const WorldSimApi::Pose& pose, const std::string& pawn_path)
+//bool WorldSimApi::addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const WorldSimApi::Pose& pose, const std::string& pawn_path)
+//{
+//    unused(pose);
+//    unused(pawn_path);
+//
+//    // Add element to map
+//    AddVehicle(vehicle_name.c_str(), vehicle_type.c_str());
+//    return true;
+//}
+
+bool WorldSimApi::setEnableApi(bool is_enabled, const std::string& vehicle_name)
 {
-    throw std::invalid_argument(common_utils::Utils::stringf(
-        "addVehicle is not supported on unity").c_str());
-    return false;
+    return SetEnableApi(is_enabled, vehicle_name.c_str());
+}
+
+bool WorldSimApi::setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name)
+{
+    return SetCarApiControls(c, vehicle_name.c_str());
+}
+
+// I:\Simulators\AirSim\Unity\AirLibWrapper\AirsimWrapper\Source\UnityImageCapture.h
+
+
+std::vector<msr::airlib::ImageCaptureBase::ImageResponse> WorldSimApi::getImages(
+    const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name)
+{
+    //LOGGER->WriteLog("Capture image for " + vehicle_name);
+    //std::vector<msr::airlib::ImageCaptureBase::ImageResponse> responses;
+    //cameraPtr->getImages(requests, responses, vehicle_name);
+    //LOGGER->WriteLog("Image captured for " + vehicle_name);
+    std::string camera = requests[0].camera_name;
+    std::vector<msr::airlib::ImageCaptureBase::ImageResponse> responses;
+    try {
+        responses.push_back(CarMap[vehicle_name].ResponseMap[camera]);
+    }
+    catch (...)
+    {
+        LOGGER->WriteLog("Invalid lookup for " + vehicle_name);
+    }
+    return responses;
+}
+
+void WorldSimApi::storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img)
+{
+    //LOGGER->WriteLog("storeImage " + vehicle_name + " " + camera_name);
+    if(vehicle_name != "" && camera_name != "")
+        CarMap[vehicle_name].ResponseMap[camera_name] = img;
 }
 
 std::string WorldSimApi::getSettingsString() const
@@ -207,5 +260,22 @@ std::string WorldSimApi::getSettingsString() const
     return msr::airlib::AirSimSettings::singleton().settings_text_;
 }
 
+
+msr::airlib::StringArray WorldSimApi::getCameras(const std::string& vehicle_name)
+{
+    AirSimUnity::UnityStringArray rawTypes = GetVehicleCameras(vehicle_name.c_str());
+    msr::airlib::StringArray out;
+    UnityUtilities::Convert_to_AirSimStringArray(rawTypes, out);
+    return out;
+}
+
+
+void WorldSimApi::fixedUpdate()
+{
+
+    // Get car states
+
+    ;       // Not in use
+}
 
 #pragma endregion

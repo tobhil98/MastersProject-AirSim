@@ -3,6 +3,7 @@
 #include "api/WorldSimApiBase.hpp"
 #include "./SimMode/SimModeBase.h"
 #include "AirSimStructs.hpp"
+#include "VehicleUtils.h"
 
 class WorldSimApi : public msr::airlib::WorldSimApiBase
 {
@@ -35,6 +36,8 @@ public:
 	virtual void printLogMessage(const std::string& message,
 		const std::string& message_param = "", unsigned char severity = 0) override;
 
+    //virtual void printTest(const std::string& message) override;
+
     virtual std::unique_ptr<std::vector<std::string>> swapTextures(const std::string& tag, int tex_id = 0, int component_id = 0, int material_id = 0) override;
 	virtual std::vector<std::string> listSceneObjects(const std::string& name_regex) const override;
 	virtual Pose getObjectPose(const std::string& object_name) const override;
@@ -64,11 +67,22 @@ public:
 
     virtual void setWind(const Vector3r& wind) const override;
     virtual bool createVoxelGrid(const Vector3r& position, const int& x_size, const int& y_size, const int& z_size, const float& res, const std::string& output_file) override;
-    virtual bool addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path = "") override;
+    //virtual bool addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path = "") override;
 
+  // Other APIs
+    virtual void fixedUpdate() override;
+    virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) override;
+    virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) override;
+    virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(
+        const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name) override;
+    virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) override;
+    virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) override;
+ 
     virtual std::string getSettingsString() const override;
 
 private:
 	SimModeBase * simmode_;
 	std::string vehicle_name_;
+    std::unordered_map<std::string, msr::airlib::CarEntity> CarMap;
+    const msr::airlib::ImageCaptureBase* cameraPtr;
 };

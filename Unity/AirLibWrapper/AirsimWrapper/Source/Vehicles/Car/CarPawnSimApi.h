@@ -5,6 +5,8 @@
 #include "../../PawnSimApi.h"
 #include "vehicles/car/api/CarApiBase.hpp"
 #include "vehicles/car/CarApiFactory.hpp"
+#include "VehicleUtils.h"
+
 
 class CarPawnSimApi : public PawnSimApi
 {

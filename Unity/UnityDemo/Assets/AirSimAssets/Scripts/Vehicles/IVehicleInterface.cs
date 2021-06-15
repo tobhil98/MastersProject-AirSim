@@ -1,4 +1,5 @@
 ﻿using AirSimUnity.DroneStructs;
+using System.Collections.Generic;
 
 namespace AirSimUnity {
     /*
@@ -50,5 +51,9 @@ namespace AirSimUnity {
         RayCastHitResult GetRayCastHit(AirSimVector start, AirSimVector end);
 
         bool Pause(float timeScale);
+
+        void DestroySelf();
+
+        List<DataCaptureScript> GetCaptureCameras();
     }
 }

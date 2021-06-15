@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CaptureCameras
   - ViewCameras
+  - Map
+  - Vehicle
+  - Pedestrian
   layers:
   - Default
   - TransparentFX
@@ -17,10 +20,10 @@ TagManager:
   - 
   - PostProcessing
   - Vehicle
-  - 
-  - 
-  - 
-  - 
+  - Map
+  - Checkpoints
+  - MLVehicle
+  - Pedestrians
   - 
   - 
   - 

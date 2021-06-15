@@ -19,7 +19,9 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #endif
 
+#define PedestrianPort 41452
 #define RpcLibPort 41451
+#define ServerPort 41450
 
 namespace msr { namespace airlib {
 

@@ -32,7 +32,7 @@ Some methods may not be applicable to specific vehicle in which case an exceptio
 */
 class VehicleApiBase : public UpdatableObject {
 public:
-    virtual void enableApiControl(bool is_enabled) = 0;
+    virtual void enableApiControl(bool is_enabled, const std::string& vehicle_name) = 0;
     virtual bool isApiControlEnabled() const = 0;
     virtual bool armDisarm(bool arm) = 0;
     virtual GeoPoint getHomeGeoPoint() const = 0;

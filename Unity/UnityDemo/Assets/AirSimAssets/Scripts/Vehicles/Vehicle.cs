@@ -46,6 +46,10 @@ namespace AirSimUnity {
         RaycastHit hitInfo;
         bool hitResult;
 
+        public string vehicle_name;
+        private int count = 0;
+
+
         //Ensure to call this method as the first statement, from derived class `Start()` method.
         protected void Start() {
             isDrone = this is Drone ? true : false;
@@ -55,7 +59,7 @@ namespace AirSimUnity {
 
             InitializeVehicle();
 
-            airsimInterface = VehicleCompanion.GetVehicleCompanion(this);
+            airsimInterface = VehicleCompanion.GetVehicleCompanion(this, vehicle_name);
             isServerStarted = airsimInterface.StartVehicleServer(AirSimSettings.GetSettings().LocalHostIP);
 
             if (isServerStarted == false)
@@ -69,6 +73,7 @@ namespace AirSimUnity {
             }
 
             AirSimGlobal.Instance.Weather.AttachToVehicle(this);
+            count = UnityEngine.Random.Range(0, 10);
         }
 
         //Ensure to call this method as the first statement, from derived class `FixedUpdate()` method.
@@ -80,6 +85,7 @@ namespace AirSimUnity {
             }
         }
 
+        
         //Ensure to call this method as the last statement, from derived class `LateUpdate()` method.
         protected void LateUpdate() {
             if (isServerStarted)
@@ -103,7 +109,7 @@ namespace AirSimUnity {
                     captureResetEvent.Set(); //Release the GetSimulationImages thread with the image response.
                     isCapturingImages = false;
                 }
-
+                
                 if (calculateRayCast)
                 {
                     hitResult = Physics.Linecast(startVec, endVec, out hitInfo);
@@ -115,7 +121,25 @@ namespace AirSimUnity {
                     print_log_messages_ = !print_log_messages_;
                 }
 
-                airsimInterface.InvokeTickInAirSim(Time.deltaTime);
+                if (count > 10)
+                {
+                    count = 0;
+                    foreach (var p in captureCameras)
+                    {
+                        string camera = p.GetCameraName();
+                        var imageRequest = new ImageRequest(camera, ImageType.Scene, false, false);
+
+                        imageResponse = p.GetImageBasedOnRequest(imageRequest);
+                        PInvokeWrapper.StoreVehicleImage(vehicle_name, camera, imageResponse);
+                    }
+                }
+                count++;
+                // Update images
+
+
+
+
+                airsimInterface.InvokeTickInAirSim(Time.deltaTime);     //TODOME check this
             }
         }
 
@@ -237,7 +261,6 @@ namespace AirSimUnity {
 
         public ImageResponse GetSimulationImages(ImageRequest request) {
             imageResponse.reset();
-
             if (!captureCameras.Find(element => element.GetCameraName() == request.camera_name))
             {
                 return imageResponse;
@@ -250,6 +273,7 @@ namespace AirSimUnity {
         }
 
         public bool SetEnableApi(bool enableApi) {
+            Debug.Log("Updated vehicle api - " + enableApi);
             isApiEnabled = enableApi;
             return true;
         }
@@ -308,10 +332,11 @@ namespace AirSimUnity {
             } else if (severity == 1) {
                 Debug.LogWarning(message + " " + messageParams + " Vehicle=" + vehicleName);
             } else {
-                Debug.Log(message + " " + messageParams + " Vehicle=" + vehicleName);
+                //Debug.Log(message + " " + messageParams + " Vehicle=" + vehicleType);
             }
             return true;
         }
+
 
         public static bool SetSegmentationObjectId(string objectName, int objectId, bool isNameRegex) {
             int finalId = ((objectId + 2) << 16) | ((objectId + 1) << 8) | objectId;
@@ -351,7 +376,9 @@ namespace AirSimUnity {
         //Register all the capture cameras in the scene for recording and data capture.
         //Make sure every camera is a child of a gameobject with tag "CaptureCameras"
         private void SetUpCameras() {
-            GameObject camerasParent = GameObject.FindGameObjectWithTag("CaptureCameras");
+            GameObject camerasParent = transform.Find("CaptureCameras").gameObject;
+            //GameObject camerasParent = GameObject.FindGameObjectWithTag("CaptureCameras"); 
+            
             if (!camerasParent) {
                 Debug.LogWarning("No Cameras found in the scene to capture data");
                 return;
@@ -374,6 +401,16 @@ namespace AirSimUnity {
                     viewCam.SetShaderEffect(ImageType.Segmentation);
                 }
             }
+        }
+
+        public virtual void DestroySelf()
+        {
+            throw new NotImplementedException("This is supposed to be implemented in Sub classes");
+        }
+
+        public virtual List<DataCaptureScript> GetCaptureCameras()
+        {
+            return captureCameras;
         }
     }
 }

@@ -12,7 +12,8 @@ car_controls = airsim.CarControls()
 
 client.reset()
 
-client.simPrintLogMessage("Hello", "345", 2)
+client.simPrintLogMessage("Hello", "645", 2)
+client.simPrintTest("This is the important test")
 
 # go forward
 car_controls.throttle = 0.5
