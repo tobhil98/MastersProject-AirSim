@@ -69,7 +69,7 @@ public:
     virtual bool createVoxelGrid(const Vector3r& position, const int& x_size, const int& y_size, const int& z_size, const float& res, const std::string& output_file) override;
     //virtual bool addVehicle(const std::string& vehicle_name, const std::string& vehicle_type, const Pose& pose, const std::string& pawn_path = "") override;
 
-    // Other APIs
+  // Other APIs
     virtual void fixedUpdate() override;
     virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) override;
     virtual bool setCarControls(const msr::airlib::CarControls& c, const std::string& vehicle_name) override;
@@ -77,6 +77,9 @@ public:
         const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name) override;
     virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) override;
     virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) override;
+ 
+    virtual std::string getSettingsString() const override;
+
 private:
 	SimModeBase * simmode_;
 	std::string vehicle_name_;

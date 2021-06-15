@@ -255,6 +255,11 @@ void WorldSimApi::storeImage(const std::string& vehicle_name, const std::string&
         CarMap[vehicle_name].ResponseMap[camera_name] = img;
 }
 
+std::string WorldSimApi::getSettingsString() const
+{
+    return msr::airlib::AirSimSettings::singleton().settings_text_;
+}
+
 
 msr::airlib::StringArray WorldSimApi::getCameras(const std::string& vehicle_name)
 {

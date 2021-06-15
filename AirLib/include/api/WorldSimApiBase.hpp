@@ -83,7 +83,6 @@ public:
 
     virtual void setWind(const Vector3r& wind) const = 0;
 
-        
     // Other APIs
     virtual void fixedUpdate() = 0;
     virtual bool setEnableApi(bool is_enabled, const std::string& vehicle_name) = 0;
@@ -91,6 +90,7 @@ public:
     virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name) = 0;
     virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) = 0;
     virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) = 0;
+    virtual std::string getSettingsString() const = 0;
 };
 
 
