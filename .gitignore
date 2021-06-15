@@ -391,7 +391,6 @@ PythonClient/docs/_build
 # Unity Assets
 Unity/UnityDemo/Assets/UMA*
 Unity/UnityDemo/UMA*
-Unity/UnityDemo/LinuxBuild/
+Unity/UnityDemo/LinuxBuild*
 Unity/UnityDemo/results/
 Unity/UnityDemo/Build*
-
