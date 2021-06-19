@@ -1,3 +1,14 @@
+# AirSim - Final Year Project 2021
+This is the code repository for my final year project titled "_Mixed Traffic Simulation for Autonomous Systems in Shared Spaces_". The project extends the existing [AirSim](https://github.com/microsoft/AirSim) simulator created by Microsoft.
+
+The project looks at extending AirSim to include mixed forms of traffic. This includes running several entities simultaneously, adding pedestrians to the simulator and making the simulator simpler to extend. A large range of APIs are also added. The simulator expands the current Unity prototype build. The changes can be found inside the [Unity directory](https://github.com/tobhil98/MastersProject-AirSim/tree/master/Unity), which contains the [Unity project](https://github.com/tobhil98/MastersProject-AirSim/tree/master/Unity/UnityDemo) and the [AirLib wrapper](https://github.com/tobhil98/MastersProject-AirSim/tree/master/Unity/AirLibWrapper), the [AirLib directory](https://github.com/tobhil98/MastersProject-AirSim/tree/master/AirLib), and the [PythonClient directory](https://github.com/tobhil98/MastersProject-AirSim/tree/master/PythonClient).
+
+The report and documentation can be found [here](https://github.com/tobhil98/FinalYearProject-TobyHillier). 
+
+
+
+
+
 # Welcome to AirSim
 
 AirSim is a simulator for drones, cars and more, built on [Unreal Engine](https://www.unrealengine.com/) (we now also have an experimental [Unity](https://unity3d.com/) release). It is open-source, cross platform, and supports software-in-the-loop simulation with popular flight controllers such as PX4 & ArduPilot and hardware-in-loop with PX4 for physically and visually realistic simulations. It is developed as an Unreal plugin that can simply be dropped into any Unreal environment. Similarly, we have an experimental release for a Unity plugin.
