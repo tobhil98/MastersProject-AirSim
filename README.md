@@ -5,6 +5,51 @@ The project looks at extending AirSim to include mixed forms of traffic. This in
 
 The report and documentation can be found [here](https://github.com/tobhil98/FinalYearProject-TobyHillier). 
 
+## Building AirSim
+Build the project as specified [here](#how-to-get-it). 
+
+After the project has built, [UMA2](https://assetstore.unity.com/packages/3d/characters/uma-2-unity-multipurpose-avatar-35611) has to be downloaded from the Asset store.
+If this was not done automatically, as if for example Unity was running, run the build script inside `Unity/build`. This will build the AirLib DLL. 
+
+## Extending AirSim
+### How to make any scene an AirSim environment
+For a scene to be an AirSim environment, simply drag the AirSim prefab from the prefab directory into the scene as shown in the image below. Make sure that UMA2 is installed and that the AirLib DLL is in the plugin directory. 
+
+'ADD IMAGE HERE'
+
+As can be seen, the AirSim prefab consists of 5 components.
+1. AssetHandler - This is where the available vehicle models should be added. This can be extended for other entities as well. 
+2. Main Camera - This consists of the free-moving camera script and the entity tracking script.
+3. UMA_GLIB - Is the rendering prefab for UMA2
+4. AirSimGlobal - Contains global AirSim configurations as well as the game server controls.
+5. AirSimHUD - Consists of the simulator HUD.  
+
+### Adding additional vehicles
+There are two ways of doing this.
+1. Method one is to use the existing AirSim car controller script to control the vehicle and the car script for the logic and interaction with the vehicle companion. Simply attaching these two scripts will link the entity to the vehicle API. The final step is to add the asset to the asset handler. This method still allows for different vehicle physics as seen below. 
+
+'ADD IMAGE HERE'
+
+2. This is slightly more complicated but allows for almost full freedom. To have different vehicle controls or if something else wants updating, overload the vehicles class. This will still connect to the vehicle API. If a completely new set of APIs are required, look at [Adding additional entities](#adding-additional-entities)
+
+
+### Adding additional entities
+To add additional entities with a new set of APIs, the simplest way is to base it off the pedestrian. The code for the pedestrian can be found [here](https://github.com/tobhil98/MastersProject-AirSim/tree/master/Unity/UnityDemo/Assets/AirSimAssets/Scripts/Pedestrian), where the PedestrianCompanion is a static class that keeps track of all the pedestrians in the scene, and which can communicate with the APIs. The pedestrian script is the behaviour script attached to the pedestrian. 
+
+### Video feed
+To be able to capture video feed from the entity, add a gameobject called CaptureCameras. Then attach cameras to this object. The cameras consists of two scripts, the data capture script and the camera filters script. Look at the existing vehicles to see how this is done. 
+
+
+### Dividing the Server
+A key update to this project was to divide the existing server into three components. As a part of extending the server for any type of entity, simply replicating the process used to create the pedestrians. This would allow for the possibility to simply extend the project in the future. 
+
+'ADD IMAGE HERE'
+
+For a more detailed description of how this was done, the report can be found [here](https://github.com/tobhil98/FinalYearProject-TobyHillier/blob/main/FinalReport/FinalYearProject2021-TobyHillier.pdf).
+
+## Testing and Demos scripts
+A large variety of demoes can be found in the [PythonClient directory](https://github.com/tobhil98/MastersProject-AirSim/tree/master/PythonClient). The main ones worked on for this project can be found in [car folder](https://github.com/tobhil98/MastersProject-AirSim/tree/master/PythonClient/car).
+
 
 
 
