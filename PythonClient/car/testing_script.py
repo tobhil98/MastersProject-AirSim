@@ -16,6 +16,11 @@ server.simPrintTest("This is the important test")
 response = server.simGetVehicleTypes()
 print(response)
 
+sleep(1)
+pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))
+server.simAddVehicle("name", response[0], pose)
+
+
 pedestrians = server.simGetAllPedestriansList()
 print(pedestrians)
 print(pedClient.simGetCameras(pedestrians[0]))
