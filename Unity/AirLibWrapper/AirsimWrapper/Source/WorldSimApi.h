@@ -78,8 +78,9 @@ public:
     virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) override;
     virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) override;
  
-    virtual std::string getSettingsString() const override;
-
+    virtual void enableVehicleCamera(bool status) override;
+    virtual void enableVehicleRay(bool status) override;
+    virtual std::vector<int> getRays(const std::string& vehicle_name) override;
 private:
 	SimModeBase * simmode_;
 	std::string vehicle_name_;

@@ -255,10 +255,6 @@ void WorldSimApi::storeImage(const std::string& vehicle_name, const std::string&
         CarMap[vehicle_name].ResponseMap[camera_name] = img;
 }
 
-std::string WorldSimApi::getSettingsString() const
-{
-    return msr::airlib::AirSimSettings::singleton().settings_text_;
-}
 
 
 msr::airlib::StringArray WorldSimApi::getCameras(const std::string& vehicle_name)
@@ -268,6 +264,21 @@ msr::airlib::StringArray WorldSimApi::getCameras(const std::string& vehicle_name
     UnityUtilities::Convert_to_AirSimStringArray(rawTypes, out);
     return out;
 }
+
+void WorldSimApi::enableVehicleCamera(bool status)
+{
+    UnityEnableVehicleCamera(status);
+}
+void WorldSimApi::enableVehicleRay(bool status)
+{
+    UnityEnableVehicleRay(status);
+}
+
+std::vector<int> WorldSimApi::getRays(const std::string& vehicle_name)
+{
+    GetRays(vehicle_name);
+}
+
 
 
 void WorldSimApi::fixedUpdate()

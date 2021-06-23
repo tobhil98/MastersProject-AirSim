@@ -90,7 +90,12 @@ public:
     virtual std::vector<msr::airlib::ImageCaptureBase::ImageResponse> getImages(const std::vector<msr::airlib::ImageCaptureBase::ImageRequest>& requests, const std::string& vehicle_name) = 0;
     virtual void storeImage(const std::string& vehicle_name, const std::string& camera_name, msr::airlib::ImageCaptureBase::ImageResponse img) = 0;
     virtual msr::airlib::StringArray getCameras(const std::string& vehicle_name) = 0;
-    virtual std::string getSettingsString() const = 0;
+    
+    virtual void enableVehicleCamera(bool status) = 0;
+    virtual void enableVehicleRay(bool status) = 0;
+
+    virtual std::vector<int> getRays(const std::string& vehicle_name) = 0;
+
 };
 
 

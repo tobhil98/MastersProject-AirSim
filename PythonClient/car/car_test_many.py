@@ -9,15 +9,18 @@ import car.utils as utils
 import asyncio
 
 
-NUMBER = 10
+NUMBER = 1
 
 # connect to the AirSim simulator 
-client = airsim.CarClient()
-client.confirmConnection()
+
+
+server = airsim.CarClient(port=41450)
+client = airsim.CarClient(port=41451)
+#server.confirmConnection()
 
 pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0))
 for i in range(NUMBER):
-    client.simAddVehicle("Test"+str(i), "PhysXCar", pose)
+    server.simAddVehicle("Test"+str(i), "BasicCar", pose)
 
 time.sleep(3)
 print("API attempt")
@@ -29,14 +32,12 @@ car_controls = airsim.CarControls()
 #client.reset()
 
 client.simPrintLogMessage("Hello", "645", 2)
-client.simPrintTest("This is the important test")
+server.simPrintTest("This is the important test")
 print("Ready to try")
 # go forward
 car_controls.throttle = 0.5
-car_controls.steering = 0
-client.setCarControls(car_controls, "PhysXCar", "Test1")
-client.setCarControls(car_controls, "PhysXCar", "Test8")
-client.setCarControls(car_controls, "PhysXCar", "Test2")
+car_controls.steering = 0.3
+client.setCarControls(car_controls, "BasicCar", "Test0")
 print("Done")
 
 
@@ -76,11 +77,14 @@ print("Done")
 
 while True:
     startTime = time.time_ns()
-    lst = [("FC", "Test"+str(i)) for i in range(NUMBER)]
+    lst = [("FR", "Test0"),("FL", "Test0")]
+    #lst = [("FC", "Test"+str(i)) for i in range(NUMBER)]
+
     imgDict = utils.actually_get(client, lst)
 
-    img1 = imgDict[("FC", "Test8")]
-    img2 = imgDict[("FC", "Test2")]
+    # imgDict = get_all_images(lst)
+    img1 = imgDict[("FL", "Test0")]
+    img2 = imgDict[("FR", "Test0")]
     
     # for i in range(NUMBER):
     #     img = get_image("FC", "Test"+str(i))

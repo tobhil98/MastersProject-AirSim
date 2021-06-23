@@ -21,6 +21,7 @@ namespace AirSimUnity
         static PedestrianCompanion()
         {
             InitDelegators();
+            Debug.LogError("Init pedestrian companion");
         }
 
         public static void DestroyPedestrian(string name)

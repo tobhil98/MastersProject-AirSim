@@ -37,7 +37,6 @@ namespace AirSimUnity
             pedestrian_name = transform.GetComponentInParent<PedestrianOverhead>().name;
 
             InitialisePedestrian();
-            Debug.LogError("Got here");
             pedestrianInterface = PedestrianCompanion.GetPedestrianCompanion(this, pedestrian_name);
             isServerStarted = pedestrianInterface.StartPedestrianServer(AirSimSettings.GetSettings().GetPort(AirSimSettings.AgentType.Pedestrian));
 

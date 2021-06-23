@@ -50,7 +50,7 @@ extern "C" EXPORT void StopMainServer()
 
 extern "C" EXPORT bool StartServer(char* vehicle_name, char* sim_mode_name, int port_number)
 {
-	LOGGER->WriteLog("Starting vehicle server for : " + std::string(sim_mode_name));
+	LOGGER->WriteLog("Starting vehicle server for : " + std::string(vehicle_name));
 	std::thread server_thread(StartServerThread, vehicle_name, sim_mode_name, port_number);
 	server_thread.detach();
 	int waitCounter = 25; // waiting for maximum 5 seconds to start a server.

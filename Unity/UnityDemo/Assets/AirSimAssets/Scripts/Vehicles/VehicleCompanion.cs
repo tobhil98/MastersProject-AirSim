@@ -31,6 +31,7 @@ namespace AirSimUnity {
 
         static VehicleCompanion() {
             InitDelegators();
+            Debug.LogError("INIT DELEGATORS");
         }
 
         public static void DestroyVehicle(string name)
@@ -49,7 +50,6 @@ namespace AirSimUnity {
         public static VehicleCompanion GetVehicleCompanion(IVehicleInterface vehicleInterface, string vehicleName) {
             var companion = new VehicleCompanion(vehicleInterface);
 
-
             if (AirSimSettings.GetSettings().SimMode == "Car")
             {
                 companion.vehicleType = "PhysXCar";
@@ -61,15 +61,16 @@ namespace AirSimUnity {
 
 
             Vehicles.Add(companion);
-            Debug.LogWarning("Number of cars: " + Vehicles.Count.ToString() + ". Added - " + companion.vehicleName);
+            Debug.LogWarning("Number of cars: " + Vehicles.Count.ToString() + "Sim mode - " + AirSimSettings.GetSettings().SimMode + ". Added - " + companion.vehicleName);
 
             return companion;
         }
 
         public bool StartVehicleServer(string hostIP) {
             if (serverStarted == false){
+                Debug.LogWarning("Starting server for " + vehicleType + AirSimSettings.GetSettings().SimMode);
                 serverStarted = PInvokeWrapper.StartServer(vehicleType, AirSimSettings.GetSettings().SimMode, basePortId);
-                Debug.LogWarning("Server started: " + serverStarted);
+                Debug.LogWarning("Server started: " + serverStarted + " - " + basePortId);
                 return serverStarted;
             }
             return true;
@@ -90,7 +91,7 @@ namespace AirSimUnity {
 
         public void InvokeTickInAirSim(float deltaSecond)
         {
-            PInvokeWrapper.CallTick(deltaSecond);
+            //PInvokeWrapper.CallTick(deltaSecond);
         }
 
         public void InvokeCollisionDetectionInAirSim(CollisionInfo collisionInfo)
@@ -113,7 +114,7 @@ namespace AirSimUnity {
         }
 
         //Register the delegate functions to AirLib, based on IVehicleInterface
-        private static void InitDelegators() {
+        public static void InitDelegators() {
             PInvokeWrapper.InitVehicleManager(
                 Marshal.GetFunctionPointerForDelegate(new Func<AirSimPose, bool, string, bool>(SetPose)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimPose>(GetPose)),
@@ -137,7 +138,9 @@ namespace AirSimUnity {
                 Marshal.GetFunctionPointerForDelegate(new Func<string, AirSimVector>(GetVelocity)),
                 Marshal.GetFunctionPointerForDelegate(new Func<AirSimVector, AirSimVector, string, RayCastHitResult>(GetRayCastHit)),
                 Marshal.GetFunctionPointerForDelegate(new Func<string, float, bool>(Pause)),
-                Marshal.GetFunctionPointerForDelegate(new Func<string, ServerUtils.StringArray>(GetVehicleCameras))
+                Marshal.GetFunctionPointerForDelegate(new Func<string, ServerUtils.StringArray>(GetVehicleCameras)),
+                Marshal.GetFunctionPointerForDelegate(new Func<bool, bool>(EnableVehicleCamera)),
+                Marshal.GetFunctionPointerForDelegate(new Func<bool, bool>(EnableVehicleRay))
             );
         }
 
@@ -313,6 +316,18 @@ namespace AirSimUnity {
             }
             DataManager.ConvertToStringArray(lst, ref array);
             return array;
+        }
+
+        private static bool EnableVehicleCamera(bool status)
+        {
+            //var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
+            return true;
+        }
+
+        private static bool EnableVehicleRay(bool status)
+        {
+            //var vehicle = Vehicles.Find(element => element.vehicleType == vehicleName);
+            return true;
         }
     }
 }

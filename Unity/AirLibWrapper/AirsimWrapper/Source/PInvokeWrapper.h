@@ -40,6 +40,9 @@ extern AirSimVector(*GetVelocity)(const char* vehicleName);
 extern RayCastHitResult(*GetRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName);
 extern bool(*Pause)(const char* vehicleName, float timeScale);
 extern UnityStringArray(*GetVehicleCameras)(const char* vehicleName);
+extern bool(*UnityEnableVehicleCamera)(bool status);
+extern bool(*UnityEnableVehicleRay)(bool status);
+
 
 extern bool(*PrintTest) (const char* message);
 extern bool(*AddVehicle)(const char* vehicleName, const char* vehicleType);
@@ -57,6 +60,7 @@ extern bool(*PedestrianReset)(const char* pedestrianName);
 extern bool(*PedestrianSetEnableApi)(bool enableApi, const char* pedestrianName);
 extern bool(*SetPedestrianApiControls)(AirSimUnity::PedestrianControls controls, const char* pedestrianName);
 extern UnityStringArray(*GetPedestrianCameras)(const char* pedestrianName);
+
 
 // PInvoke call to initialize the function pointers. This function is called from Unity.
 
@@ -83,7 +87,9 @@ extern "C" EXPORT void InitVehicleManager(
 	AirSimVector(*getVelocity)(const char* vehicleName),
 	RayCastHitResult(*getRayCastHit)(AirSimVector startVec, AirSimVector endVec, const char* vehicleName),
 	bool(*pause)(const char* vehicleName, float timeScale),
-	UnityStringArray(*getVehicleCameras)(const char* vehicleName)
+	UnityStringArray(*getVehicleCameras)(const char* vehicleName),
+	bool(*unityEnableVehicleCamera)(bool status),
+	bool(*unityEnableVehicleRay)(bool status)
 );
 
 

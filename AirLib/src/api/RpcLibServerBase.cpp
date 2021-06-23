@@ -402,9 +402,19 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
     });
 
 
-    pimpl_->server.bind("getSettingsString", [&]() -> std::string {
-        return getWorldSimApi()->getSettingsString();
-    });
+    pimpl_->server.bind("enableVehicleCamera", [&](bool status) -> void {
+        getWorldSimApi()->enableVehicleCamera(status);
+        });
+
+    pimpl_->server.bind("enableVehicleRay", [&](bool status) -> void {
+        getWorldSimApi()->enableVehicleRay(status);
+        });
+
+    pimpl_->server.bind("getRays", [&](const std::string& vehicle_name) -> std::vector<float> {
+        return getWorldSimApi()->getRays(vehicle_name);
+        });
+
+
 
     //if we don't suppress then server will bomb out for exceptions raised by any method
     pimpl_->server.suppress_exceptions(true);

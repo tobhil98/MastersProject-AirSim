@@ -27,6 +27,7 @@ namespace AirSimUnity
             pedestrianList = new List<Transform>();
 
             comp = new ServerCompanion();
+            VehicleCompanion.InitDelegators();
             var settings = AirSimSettings.GetSettings();
                         
             if (IP == "")
